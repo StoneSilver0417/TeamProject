@@ -16,15 +16,34 @@
 <script src="js/script.js"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+	function categoryForm(){
+	}
+
 	$(document).ready(function(){
 		$.ajax({
 			url:'test/categoryList',
 			type:'post',
 			success:function(data){
-				//alert(data)
+				var categoryList = $('#categoryList');
+				
+				for(var d of data){
+					$.ajax({
+						url:'test/list',
+						type:'post',
+						data:{
+							categoryNo:d.categoryNo
+						},
+						success:function(data){
+							$(categoryList).append(data);
+						},
+						error:function(){
+							alert('시험 목록 불러오기 실패');
+						}
+					})
+				}
 			},
 			error:function(){
-				alert('실패')
+				alert('카테고리 목록 불러오기 실패');
 			}
 		})
 	});	
@@ -34,7 +53,7 @@
 	<!-- <div th:text="${@util.encode('1234')}"></div> 
 	<div th:if="${session.user?.role}">123</div> -->
 	<!-- header -->
-	<div th:replace="layout/header2 :: header"></div>
+	<div th:replace="layout/header2 :: main"></div>
 	<script>
 		function profileOnclick() {
 			document.getElementById('profileDropdown').classList.toggle('show');

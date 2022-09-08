@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<body>
+	<li class="category" tab-index="0">
+		<p th:text="${category.categoryName}">카테고리</p>
+		<ul class="sub-category">
+			<li th:each="test:${testList}">
+				<a th:href="'/test/' + ${test.testNo}" th:text="*{testName}">시험 이름</a>
+			</li>
+			<!-- <li><a href="/list">국가기술자격시험</a></li>
+			<li><a href="/list">Su국가기술자 격시험</a></li>
+			<li><a href="/list">Su국가기술자격시 험m 4</a></li>
+			<li><a href="/list">Sub I국가기술자격시 험tem 5</a></li>
+			<li><a href="/list">국가기술자격시험 ㄴㄴb Item 6</a></li> -->
+		</ul>
+	</li>
+</body>
+</html>
