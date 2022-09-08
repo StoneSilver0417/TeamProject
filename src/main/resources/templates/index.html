@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>index</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/header.css" />
+<style type="text/css">
+	.category{
+		float: left;
+		margin: 1%;
+	}
+</style>
+<script src="js/script.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:'test/categoryList',
+			type:'post',
+			success:function(data){
+				//alert(data)
+			},
+			error:function(){
+				alert('실패')
+			}
+		})
+	});	
+</script>
+</head>
+<body>
+	<!-- <div th:text="${@util.encode('1234')}"></div> 
+	<div th:if="${session.user?.role}">123</div> -->
+	<!-- header -->
+	<div th:replace="layout/header2 :: header"></div>
+	<script>
+		function profileOnclick() {
+			document.getElementById('profileDropdown').classList.toggle('show');
+			window.onclick = function(event) {
+				if (!event.target.matches('#profileDropdown')) {
+					if (openDropdown.classList.contains('show')) {
+						document.getElementById('profileDropdown').classList
+								.remove('show');
+					}
+				};
+				
+				var dropdowns = document
+						.getElementsByClassName('profile-dropdown');
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+					}
+				}
+			}
+		}
+	</script>
+	<form action="/authority">
+		<button>authority</button>
+	</form>
+	<!-- section: slider -->
+
+	<!-- section: -->
+
+	<!-- footer -->
+	<!-- <div th:replace="layout/footer :: footer"></div> -->
+</body>
+</html>

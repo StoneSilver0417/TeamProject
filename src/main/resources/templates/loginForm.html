@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">	
+	<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
+	<style type="text/css">
+		ul{
+			list-style: none;
+			padding-left: 0;
+		}
+		
+		.container{
+			margin: 5% auto;
+			text-align: center;
+		}
+		
+		.logo_area{
+			margin: 0 auto;
+			text-align: center;
+		}
+		
+		.loginForm{
+		 	margin: 5% auto;
+		 	width: 80%;
+		}
+		
+		#find_wrap{
+			margin: 0 auto;
+		}
+		
+		.btn{
+			width: 100%;
+		}
+	</style>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">	
+	var go;
+	
+	$(document).ready(function(){
+		$('button').click(function(data){
+			var id = $('#id').val();
+			var pwd = $('#pwd').val();
+			var name = $('#name').val();
+			
+			go = true;
+			
+			if(id == "")
+				label('#idmsg','아이디를 입력해주세요.');	
+			
+			if(pwd == "")
+				label('#pwdmsg','비밀번호를 입력해주세요.');
+			
+			return go;
+		});
+	});
+	function label(object, text, color){
+		$(object).text(text).css('color', color ? color : 'red');
+		go = color != null;
+	}
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="logo_area">
+			<h1 class="logo_default">
+				<a href="/" class="logo" data-clk="top.logo">
+					<span>
+						게시판
+					</span>
+				</a>
+			</h1>
+		</div>
+		<form action="/login" method="post" class="loginForm">
+			<div class="form-group" >
+				<input type="text" class="form-control" id="id" placeholder="아이디" name="id">
+				<label id="idmsg"> </label>
+			</div>			
+			<div class="form-group">
+				<input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password">
+				<label id="pwdmsg"> </label>
+			</div>
+			
+			<div th:if="${loginError}" th:text="'로그인 실패'" style="color: red;"/>
+			<br>
+			<button type="submit" class="btn btn-primary">
+				로그인
+			</button>
+		</form>
+		<ul class="find_wrap" id="find_wrap">
+            <!-- <li><a target="_blank" href="https://nid.naver.com/user2/api/route?m=routePwInquiry&amp;lang=ko_KR" class="find_text">비밀번호 찾기</a></li>
+            <li><a target="_blank" href="https://nid.naver.com/user2/api/route?m=routeIdInquiry&amp;lang=ko_KR" class="find_text">아이디 찾기</a></li> -->
+            <li style="width: 100%;">
+            	<a href="/register?m=agree&amp;lang=ko_KR" class="find_text" style="width: 100%; margin: 0 auto;">회원가입</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
