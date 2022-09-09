@@ -5,20 +5,36 @@
 <mapper namespace="dip.clever.mapper.TestMapper">
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="selectCategoryList" resultMap="category">
-		SELECT		CATEGORY_NO,
-					CATEGORY_NAME
-		FROM		TB_CATEGORY			
+		SELECT		*
+		FROM		TB_CATEGORY
 	</select>
 	
+	<select id="selectCategory" parameterType="int" resultMap="category">
+		SELECT		*
+		FROM		TB_CATEGORY
+		WHERE		CATEGORY_NO = #{categoryNo}
+	</select>
+	
+	<select id="selectTestList" parameterType="int" resultMap="test">
+		SELECT	*
+		FROM	TB_TEST
+		WHERE	CATEGORY_NO = #{categoryNo}
+		AND		USE_F = 'Y'
+	</select>
+	
+	<!-- 카테고리 매핑-->
 	<resultMap type="dip.clever.model.Category" id="category" >
 		<result property="categoryNo" 	column="CATEGORY_NO"/>
 		<result property="categoryName" column="CATEGORY_NAME"/>
-		
-		<result property="creDate" column="CRE_DATE"/>
-		<result property="modDate" column="MOD_DATE"/>
-		<result property="readCnt"	column="READ_CNT"/>
 	</resultMap>
 	
+	<!-- 시험 매핑 -->
+	<resultMap type="dip.clever.model.Test" id="test" >
+		<result property="testNo" 	column="TEST_NO"/>
+		<result property="categoryNo" column="CATEGORY_NO"/>		
+		<result property="managerId" column="MANAGER_ID"/>		
+		<result property="testName" column="TEST_NAME"/>
+	</resultMap>
 	
 	<!-- 밑에 부분은 사용하지 않음 -->
 	<insert id="insertArticle" parameterType="map">

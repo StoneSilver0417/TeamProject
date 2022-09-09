@@ -4,25 +4,41 @@
 <div th:fragment="main">
 	<div id="header__top">
 		<a href="/">
-			<h1 id="header__logo" style="text-align: center;">clever</h1>
+			<h1 id="header__logo">clever</h1>
 		</a>		
 		<div id="header__actions">
-			<!-- 검색 영역 -->
 			<div th:replace="layout/searchArea :: search"></div>
-			
 			<!-- 자동완성레이어 -->
 			<div id="autoFrame" class="reatcmp" style="display: none;"></div>
-			
 			<!-- 유저 상태에 따름 -->
-			<div id="header__actions-user">			
-				<!-- 로그인 한 경우 -->
-				<div th:if="${session.user != null}">
-					<div th:replace="layout/userInfo :: login"></div>
-				</div>
-				
-				<!-- 로그인 안된 경우-->
+			<div id="header__actions-user">
+				<!-- 로그인 안된 경우 버튼 -->
 				<div th:if="${session?.user == null}">
-					<div th:replace="layout/userInfo :: notLogin"></div>					
+					<a href="/login" id="login">로그인</a>/
+					<a href="/join" id="join">회원가입</a>
+				</div> 
+				<!-- 로그인 한 경우 버튼 -->
+				<div th:if="${session?.user != null}" id="user-profile">
+					<!-- 레벨 -->
+					<div id="profile__badge">
+						<img src="imgs/badge/level 3(master).png" alt="badge" />
+					</div>
+					<!-- 프로필 -->
+					<div id="profile">
+						<div onclick="profileOnclick()" class="profileBtn"
+							id="profile__info">
+							<img id="profile__img" src="imgs/profile/illustration-12.png" />
+							<p id="profile__name">오다원</p>
+						</div>
+						<div id="profileDropdown" class="profile-dropdown">
+							<ul>
+								<li><a href="/mypage">프로필</a></li>
+								<li><a href="/mypage-setting">설정</a></li>
+								<li><div class="divider"></div></li>
+								<li><a href="/logout">로그아웃</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -31,7 +47,7 @@
 	<nav id="header__nav">
 		<ul id="categoryList">
 			<li class="category" tab-index="0"><a href="/list">전체</a></li>
-			<!-- <li class="category" tab-index="0">
+			<li class="category" tab-index="0">
 				<p>국가기술자격시험</p>
 				<ul class="sub-category">
 					<li><a href="/list">가나아러 지</a></li>
@@ -86,7 +102,7 @@
 					<li><a href="/list">Sub Item 5</a></li>
 					<li><a href="/list">Sub Item 6</a></li>
 				</ul>
-			</li> -->
+			</li>
 		</ul>
 	</nav>
 </div>
