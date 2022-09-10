@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dip.clever.mapper.UserMapper">
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="dip.clever.model.User">		
+		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
+		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
+	</insert>
+
+	
+	<select id="selectUserList" resultType="dip.clever.model.User">
+		SELECT	USER_ID, USER_NICKNAME, USER_NICKNAME, USE_F
+		FROM	TB_USER
+		WHERE	USE_F = 'Y'
+	</select>
+	
+	<!-- 아이디 확인 -->
+	<select id="findUserId" parameterType="string" resultType="string">
+		SELECT	USER_ID
+		FROM	TB_USER
+		WHERE	USER_ID = #{userId}
+	</select>
+	
+	
+	<!-- 유저 확인 -->
+	<select id="findUserNickname" parameterType="string" resultType="string">
+		SELECT	USER_NICKNAME
+		FROM	TB_USER
+		WHERE	USER_NICKNAME = #{userNickname}
+	</select>
+	
+</mapper>
