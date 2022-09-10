@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dip.clever.model.User;
 import dip.clever.service.UserService;
 
+import dip.clever.model.User;
+
 // 폼 이동 컨트롤러
 @Controller
 @RequestMapping("")
@@ -46,11 +48,13 @@ public class FormController {
 		return "joinForm";
 	}
 	
+	//리스트 폼으로 이동
 	@GetMapping("list")
 	public String list() {
 		return "list";
 	}
 	
+
 	// 회원가입 메소드
 	@PostMapping("/join")
 	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
@@ -85,6 +89,13 @@ public class FormController {
 			httpSession.invalidate();
 		
 		return "redirect:";
+
+	@RequestMapping("category")
+	public String categoryForm(HttpServletRequest httpServletRequest) {		
+		User user = (User)httpServletRequest.getSession().getAttribute("user");
+		
+		return null;
+
 	}
 //	
 //	//회원 가입 진행
