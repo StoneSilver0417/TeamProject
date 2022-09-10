@@ -1,24 +1,17 @@
 package dip.clever.controller;
 
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import dip.clever.model.User;
+import dip.clever.service.UserService;
 
 import dip.clever.model.User;
 
@@ -26,6 +19,11 @@ import dip.clever.model.User;
 @Controller
 @RequestMapping("")
 public class FormController {
+	
+	@Autowired
+	private UserService userService;
+
+	
 	// 메인 페이지로 이동
 	@RequestMapping("")
 	public String home() {
@@ -56,11 +54,48 @@ public class FormController {
 		return "list";
 	}
 	
+
+	// 회원가입 메소드
+	@PostMapping("/join")
+	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
+		
+		userService.insertUser(user);
+		
+		return loginCheck(httpServletRequest, model, user);
+	}
+	
+	//로그인 진행
+	@PostMapping("login")
+	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
+		user = userService.selectUserList(user);
+		
+		if (user == null) {
+			model.addAttribute("loginError", true);
+
+			return "loginForm";
+		}
+				
+		httpServletRequest.getSession().setAttribute("user", user);		
+
+		return "redirect:";
+	}
+		
+	//로그아웃
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest httpServletRequest) {
+		HttpSession httpSession = httpServletRequest.getSession(false);
+		
+		if(httpSession != null)
+			httpSession.invalidate();
+		
+		return "redirect:";
+
 	@RequestMapping("category")
 	public String categoryForm(HttpServletRequest httpServletRequest) {		
 		User user = (User)httpServletRequest.getSession().getAttribute("user");
 		
 		return null;
+
 	}
 //	
 //	//회원 가입 진행
