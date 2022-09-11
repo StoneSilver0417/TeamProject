@@ -47,6 +47,14 @@ public class CategoryController {
 		return "testList";
 	}
 	
+	//카테고리 관리 폼
+	@PostMapping("/manage")
+	public String manage(Model model) {
+		model.addAttribute("categoryList", selectCategoryList());
+
+		return "categoryForm";
+	}
+	
 	//카테고리 정보
 	private Category selectCategory(Category category) {
 		return categoryService.selectCategory(category);

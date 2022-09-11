@@ -38,5 +38,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	
+	@Override
+	public boolean findUserEmail(String userEmail) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

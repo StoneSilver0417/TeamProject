@@ -24,9 +24,9 @@
 		</div>
 	</div>
 	<!-- 최고 관리자에게만 보임 -->
-	<div th:if="${session.user?.Role == 'ADMIN'}" id="admin">
-		<input type="button" href="/category" value="카테고리 관리">
-	</div>
+	<form th:if="${session.user?.userRole == 'ADMIN'}" action="/category/manage" id="admin" method="post">				
+		<input type="submit" value="카테고리 관리">
+	</form>
 </div>
 <div th:fragment="notLogin">	
 	<a href="/login" id="login">로그인</a>

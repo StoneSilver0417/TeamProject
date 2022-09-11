@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dip.clever.model.User;
 import dip.clever.service.UserService;
 
-
 // 폼 이동 컨트롤러
 @Controller
 @RequestMapping("")
@@ -57,7 +56,6 @@ public class FormController {
 	// 회원가입 메소드
 	@PostMapping("/join")
 	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
-		
 		userService.insertUser(user);
 		
 		return loginCheck(httpServletRequest, model, user);
