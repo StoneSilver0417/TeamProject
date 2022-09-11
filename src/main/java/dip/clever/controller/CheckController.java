@@ -17,14 +17,14 @@ public class CheckController {
 	
 	// 아이디 중복 체크
 	@PostMapping("checkId")
-	public boolean checkId(String id) {
-		return !userService.findUserId(id);
+	public boolean checkId(String userId) {
+		return !userService.findUserId(userId);
 	}
 
 	// 닉네임 중복 체크
 	@PostMapping("checkNickname")
-	public boolean checkName(String name) {
-		return !userService.findUserNickname(name);
+	public boolean checkName(String userNickname) {
+		return !userService.findUserNickname(userNickname);
 	}
 
 	// 패스워드 체크
@@ -35,8 +35,8 @@ public class CheckController {
 	
 	// 이메일 체크
 	@PostMapping("checkEmail")
-	public boolean checkEmail(String email) {
-		return !userService.findUserEmail(email);
+	public boolean checkEmail(String userEmail) {
+		return !userService.findUserEmail(userEmail);
 	}
 	
 }
