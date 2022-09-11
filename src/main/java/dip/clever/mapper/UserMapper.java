@@ -15,11 +15,11 @@ public interface UserMapper {
 	public User selectUser(User user);
 	
 	//아이디로 유저 찾기
-	public boolean findUserId(String userId);
+	public String findUserId(String userId);
 	
 	//이름으로 유저 찾기
-	public boolean findUserNickname(String userNickname);
+	public String findUserNickname(String userNickname);
 	
 	//메일로 유저 찾기
-	public boolean findUserEmail(String userEmail);
+	public String findUserEmail(String userEmail);
 }

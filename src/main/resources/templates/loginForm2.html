@@ -37,6 +37,7 @@
 					Remember me
 				</label>
 			</div>
+			<div th:if="${loginError}" th:text="'로그인 실패'" style="color: red;"/>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 		<br> <a href="/join">Register</a>
