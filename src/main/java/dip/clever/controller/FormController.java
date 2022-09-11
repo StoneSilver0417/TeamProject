@@ -84,19 +84,22 @@ public class FormController {
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest httpServletRequest) {
 		HttpSession httpSession = httpServletRequest.getSession(false);
-		
-		if(httpSession != null)
+
+		if (httpSession != null)
 			httpSession.invalidate();
-		
+
 		return "redirect:";
-
-	@RequestMapping("category")
-	public String categoryForm(HttpServletRequest httpServletRequest) {		
-		User user = (User)httpServletRequest.getSession().getAttribute("user");
-		
-		return null;
-
 	}
+
+}
+
+//	@RequestMapping("category")
+//	public String categoryForm(HttpServletRequest httpServletRequest) {
+//		User user = (User)httpServletRequest.getSession().getAttribute("user");
+//
+//		return null;
+//
+//	}
 //	
 //	//회원 가입 진행
 //	@PostMapping("register")
@@ -251,4 +254,4 @@ public class FormController {
 //		
 //		return "articleList";
 //	}
-}
+//}
