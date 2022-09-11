@@ -30,7 +30,7 @@ public class CheckController {
 	// 패스워드 체크
 	@PostMapping("checkPassword")
 	public boolean checkPassword(User user) {
-		return userService.selectUserList(user) != null;
+		return userService.selectUser(user) != null;
 	}
 	
 	// 이메일 체크

@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	
+	// 회원조회
 	@Override
 	public void insertUser(User user) {
 		userMapper.insertUser(user);
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User selectUserList(User user) {
-		return userMapper.selectUserList(user);
+	public User selectUser(User user) {
+		return userMapper.selectUser(user);
 	}
 
 	//아이디 중복 체크
@@ -40,7 +40,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean findUserEmail(String userEmail) {
-		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	
 }

@@ -37,13 +37,13 @@ public class FormController {
 	//로그인 폼으로 이동
 	@GetMapping("login")
 	public String loginForm() {
-		return "loginForm";
+		return "loginForm2";
 	}
 
 	//회원 가입 폼으로 이동
 	@GetMapping("join")
 	public String registerForm() {		
-		return "joinForm2";
+		return "joinForm";
 	}
 	
 	//리스트 폼으로 이동
@@ -54,7 +54,7 @@ public class FormController {
 	
 
 	// 회원가입 메소드
-	@PostMapping("/join")
+	@PostMapping("join")
 	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
 		userService.insertUser(user);
 		
@@ -64,8 +64,7 @@ public class FormController {
 	//로그인 진행
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
-		user = userService.selectUserList(user);
-		
+		user = userService.selectUser(user);
 		if (user == null) {
 			model.addAttribute("loginError", true);
 
