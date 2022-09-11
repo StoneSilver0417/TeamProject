@@ -3,15 +3,20 @@ package dip.clever.serviceImp.quest;
 import dip.clever.dto.QuestInfoDto;
 import dip.clever.dto.RoundInfoDto;
 import dip.clever.dto.TestInfoDto;
+import dip.clever.mapper.quest.ManageQuestMapper;
+import dip.clever.model.TestRound;
 import dip.clever.service.quest.MangeQuest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ManageQuestImpl implements MangeQuest {
 
+    ManageQuestMapper manageQuestMapper;
+
     @Override
     public void addRound(RoundInfoDto roundInfoDto) {
-
+        TestRound testRound = roundInfoDto.convertTestRound();
+        manageQuestMapper.addRound(testRound);
     }
 
     @Override
