@@ -8,33 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dip.clever.model.Category;
 import dip.clever.model.SearchCondition;
-import dip.clever.model.Test;
 import dip.clever.service.TestService;
+import dip.clever.web.H2;
+import dip.clever.web.Li;
+import dip.clever.web.Option;
+import dip.clever.web.Tag;
 
 @Controller
-@RequestMapping("test")
-public class TestController {
+@RequestMapping("search")
+public class SearchController {
 	@Autowired
 	private TestService testService;
 	
-	//시험 목록 반환
-	@PostMapping("/list")
-	public String testList(Model model, Category category) {
-		List<Test> testList = testService.selectTestList(category);		
-
-		model.addAttribute("testList", testList);
-		
-		return "testList";
-	}
-	
 	//검색 결과 반환
-	@PostMapping("/search")
+	@PostMapping("")
 	public ResponseEntity<Map<SearchCondition, List>> searchResult(SearchCondition where, String query){
 		Map<SearchCondition, List> resultMap = new HashMap<>();		
 		SearchCondition[] searchConditions;
@@ -43,7 +34,7 @@ public class TestController {
 			searchConditions = SearchCondition.values();
 			for(int a = 1; a < searchConditions.length; a++) {
 				resultMap.put(searchConditions[a], testService.getResultList(searchConditions[a], query));
-			}			
+			}
 		}
 		else {
 			resultMap.put(where, testService.getResultList(where, query));
@@ -52,7 +43,39 @@ public class TestController {
 		return new ResponseEntity<Map<SearchCondition,List>> (resultMap, HttpStatus.OK);
 	}
 	
-	public List<Test> testList(Category category) {
-		return testService.selectTestList(category);
+	//검색 조건 목록 설정
+	@PostMapping("/conditionList")
+	public ResponseEntity<String[]> searchConditions(){		
+		return new ResponseEntity<String[]>(getSearchConditionOption() ,HttpStatus.OK);
+	}
+	
+	@PostMapping("/condition")
+	public ResponseEntity<String> searchCondition(SearchCondition where, int count){
+		Li li = new Li();
+		H2 h2 = new H2();
+		
+		h2.append(where.name + " 검색 결과(" + count + ")");
+		li.append(h2);
+		
+		System.out.println(li.toString());
+		
+		return new ResponseEntity<String> (li.toString() + Tag.BR, HttpStatus.OK);
+	}
+	
+	//검색 조건 목록 반환
+	private String[] getSearchConditionOption() {
+		final int C = SearchCondition.values().length;
+		SearchCondition[] searchConditions = SearchCondition.values();
+		Option option;
+		String[] str = new String[C];
+		
+		for(int a = 0; a < C; a++) {
+			option = new Option();
+			option.head.value = searchConditions[a].toString();
+			option.body = searchConditions[a].name;
+			
+			str[a] = option.toString();
+		}		
+		return str;
 	}
 }
