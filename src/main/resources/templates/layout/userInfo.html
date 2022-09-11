@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<!-- 최고 관리자에게만 보임 -->
-	<div th:if="${session.user?.Role == 'ADMIN'}" id="admin">
+	<div th:if="${session.user?.userRole == 'ADMIN'}" id="admin">
 		<input type="button" href="/category" value="카테고리 관리">
 	</div>
 </div>
