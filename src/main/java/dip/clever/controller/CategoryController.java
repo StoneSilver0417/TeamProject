@@ -50,9 +50,19 @@ public class CategoryController {
 	//카테고리 관리 폼
 	@PostMapping("/manage")
 	public String manage(Model model) {
-		model.addAttribute("categoryList", selectCategoryList());
-
+		model.addAttribute("categoryList", categoryService.selectCategoryList());
+		
 		return "categoryForm";
+	}
+	
+	//카테고리 추가
+	@PostMapping("/insert")
+	public ResponseEntity<String> insertCategory() {
+		System.out.println("123");
+		//System.out.println(category);
+		//categoryService.insertCategory(category);
+		
+		return new ResponseEntity<String> ("", HttpStatus.OK);
 	}
 	
 	//카테고리 정보

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<div th:fragment="white">
+<style>
+	.white{
+		position: absolute;
+		width: 100%;
+		height: 90%;
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+	
+	.window{
+		position: absolute;
+		width: 50%;
+		height: 50%;
+		background-color: white;
+		transform : translate(-50%, -60%);
+		top: 40%;
+    	left: 50%;
+    	border: 1px solid black;
+    	text-align: center;
+	}
+	
+	.input{
+		margin:10%;
+		width: 50%;
+		font-size: 120%;
+	}
+	
+	.buttonArea{
+		margin: 10% 20%;
+	}
+	
+	.button{
+		margin: 0% 5%;
+	}
+</style>
+	<div class="white" hidden="true">
+		<div class="window">
+			<input type="text" id="newCategory" class="input" placeholder="카테고리 이름">
+			<div class="buttonArea">
+				<button class="button" onclick="save();">추가</button>
+				<button class="button" onclick="cancel();">취소</button>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

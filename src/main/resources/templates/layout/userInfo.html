@@ -10,7 +10,7 @@
 		<div id="profile">
 			<div onclick="profileOnclick()" class="profileBtn"
 				id="profile__info">
-				<img id="profile__img" src="imgs/profile/illustration-12.png" />
+				<!-- <img id="profile__img" src="imgs/profile/illustration-12.png" /> -->
 				<p id="profile__name" th:text="${session.user?.userNickname}">닉네임</p>
 			</div>
 			<div id="profileDropdown" class="profile-dropdown">
@@ -24,9 +24,9 @@
 		</div>
 	</div>
 	<!-- 최고 관리자에게만 보임 -->
-	<div th:if="${session.user?.userRole == 'ADMIN'}" id="admin">
-		<input type="button" href="/category" value="카테고리 관리">
-	</div>
+	<form th:if="${session.user?.userRole.toString() == 'ADMIN'}" action="category/manage"  method="post" id="admin">
+		<input type="submit" value="카테고리 관리">
+	</form>
 </div>
 <div th:fragment="notLogin">	
 	<a href="/login" id="login">로그인</a>

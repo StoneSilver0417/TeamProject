@@ -11,4 +11,6 @@ public interface CategoryMapper {
 	public List<Category> selectCategoryList();
 	
 	public Category selectCategory(int categoryNo);
+	
+	public void insertCategory(String categoryName);
 }

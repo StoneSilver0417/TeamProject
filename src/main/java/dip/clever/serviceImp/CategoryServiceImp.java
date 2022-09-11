@@ -24,4 +24,9 @@ public class CategoryServiceImp implements CategoryService{
 	public Category selectCategory(Category category) {
 		return categoryMapper.selectCategory(category.getCategoryNo());
 	}
+
+	@Override
+	public void insertCategory(Category category) {
+		categoryMapper.insertCategory(category.getCategoryName());
+	}
 }

@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>123</title>
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	function add(){
+		$('.white').attr('hidden',false);
+	}
+	
+	function cancel(){
+		$('#newCategory').val('');
+		$('.white').attr('hidden', true);
+	}
+	
+	function save(){
+		var categoryName = $('#newCategory').val();
+		
+		alert(categoryName)
+		$.ajax({
+			url:'category/insert',
+			type:'post',
+			data :{categoryName:categoryName},
+			success:function(){
+				alert('성공');
+			},
+			error:function(){
+				alert('실패');
+			}
+		})
+	}
+</script>
+<style type="text/css">
+	h1,.container{
+		margin: 10%;
+	}
+	
+	.container>div{
+		width: 49%;
+		float: left;		
+		text-align: center;
+		border: 1px solid black;
+	}
+	
+	li{
+		list-style: none;
+	}
+</style>
 </head>
 <body>
-	123
+	<div th:replace="layout/popup :: white"></div>
+	<h1 style="text-align: center;">카테고리 관리</h1>
+	<div class="container">
+		<div id="categoryList">
+			<li th:each="category:${categoryList}">
+				<input type="hidden" th:value="${category.categoryNo}"/>
+				<div th:text="${category.categoryName}"></div>
+			</li>
+		</div>
+		<div>
+			<ul>
+				<li>
+					<button onclick="add();">카테고리 추가</button>
+				</li>
+				<li>
+					<button></button>
+				</li>
+			</ul>
+		</div>
+	</div>		
 </body>
 </html>

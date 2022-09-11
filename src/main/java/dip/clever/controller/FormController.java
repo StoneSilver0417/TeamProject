@@ -3,6 +3,7 @@ package dip.clever.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,12 +66,13 @@ public class FormController {
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
 		user = userService.selectUser(user);
+		System.out.println(user);
 		if (user == null) {
 			model.addAttribute("loginError", true);
 
 			return "loginForm2";
 		}
-				
+		
 		httpServletRequest.getSession().setAttribute("user", user);		
 
 		return "redirect:";
@@ -86,35 +88,7 @@ public class FormController {
 
 		return "redirect:";
 	}
-
-
-	@RequestMapping("category")
-	public String categoryForm(HttpServletRequest httpServletRequest) {
-		User user = (User)httpServletRequest.getSession().getAttribute("user");
-
-		return null;
-
-	}
-//	
-//	//회원 가입 진행
-//	@PostMapping("register")
-//	public String register(HttpServletRequest httpServletRequest, Model model, User user) {		
-//		Log log;
-//		
-//		log = new Log(user.getId(), Command.REGISTER, null);
-//		
-//		userRepository.insertUser(user);
-//		logRepository.insertLog(log);
-//		
-//		return loginCheck(httpServletRequest, model, user);
-//	}
-//	
-//	//로그인 폼으로 이동
-//	@GetMapping("login")
-//	public String loginForm() {
-//		return "loginForm";
-//	}
-//	
+	
 //	@GetMapping("authority")
 //	public String authorityForm() {
 //		return "authority";
