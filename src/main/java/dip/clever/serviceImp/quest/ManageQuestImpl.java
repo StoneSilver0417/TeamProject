@@ -4,8 +4,11 @@ import dip.clever.dto.QuestInfoDto;
 import dip.clever.dto.RoundInfoDto;
 import dip.clever.dto.TestInfoDto;
 import dip.clever.service.quest.MangeQuest;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ManageQuestImpl implements MangeQuest {
+
     @Override
     public void addRound(RoundInfoDto roundInfoDto) {
 
