@@ -26,6 +26,9 @@ public class MariaDBConnectionConfig {
 	@Lazy
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
+
+
+
 		final HikariConfig hikariConfig = new HikariConfig();		
 		
 		System.out.println("=======>" + password); 
