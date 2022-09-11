@@ -6,8 +6,8 @@
 	
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="dip.clever.model.User">		
-		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
-		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
+		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USER_ROLE, USE_F)
+		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'USER', 'Y')
 	</insert>
 
 	
@@ -30,6 +30,13 @@
 		SELECT	USER_NICKNAME
 		FROM	TB_USER
 		WHERE	USER_NICKNAME = #{userNickname}
+	</select>
+	
+	<!-- 메일 확인 -->
+	<select id="findUserEmail" parameterType="string" resultType="string">
+		SELECT	USER_EMAIL
+		FROM	TB_USER
+		WHERE	USER_EMAIL = #{userEmail}
 	</select>
 	
 </mapper>

@@ -18,4 +18,6 @@ public interface UserService {
 	//이름으로 유저 찾기
 	public boolean findUserNickname(String userNickname);
 	
+	//메일로 유저 찾기
+	public boolean findUserEmail(String userEmail);
 }
