@@ -11,7 +11,7 @@
 			<div onclick="profileOnclick()" class="profileBtn"
 				id="profile__info">
 				<img id="profile__img" src="imgs/profile/illustration-12.png" />
-				<p id="profile__name" th:text="${session.user?.userName}">오다원</p>
+				<p id="profile__name" th:text="${session.user?.userNickname}">닉네임</p>
 			</div>
 			<div id="profileDropdown" class="profile-dropdown">
 				<ul>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 <div th:fragment="notLogin">	
-	<a href="/login" id="login">로그인</a>/
+	<a href="/login" id="login">로그인</a>
 	<a href="/join" id="join">회원가입</a>
 </div>
 </html>
