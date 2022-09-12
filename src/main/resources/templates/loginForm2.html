@@ -15,11 +15,7 @@
 	function login(){
 		var pwd = $('#userPwd').val();
 
-		$('#encodePwd').val(sha256(pwd))		
-		
-		console.log($('#encodePwd').val());
-		
-		return false;
+		$('#encodePwd').val(sha256(pwd))
 	}
 </script>
 </head>
