@@ -23,9 +23,11 @@ public class UserController {
 		return "mypage/mypage";
 	}
 
-	// 개인정보 수정
+	// mypage - 개인정보 수정
 	@PostMapping("/mypage-setting")
-	public String mypageSetting() {
+	public String mypageSetting(Model model, Principal principal) {
+		model.addAttribute("userInfo", userService.findUserById(principal.getName()));
+		System.out.println(userService.findUserById(principal.getName()));
 		return "mypage-setting";
 	}
 
