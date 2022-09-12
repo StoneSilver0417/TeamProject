@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -92,55 +92,45 @@
     </style>
     <script defer>
       // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
-      var originalEmailHtml = $('#replace-editEmail').html();
-      var originalPwdHtml = $('#replace-editPwd').html();
+      var originalEmailHtml = $('#replace-edit-email').html();
+      var originalPwdHtml = $('#replace-edit-pwd').html();
 
-      function changeEmailBtn() {
+      function changeInfoBtn(info) {
         $.ajax({
-          url: 'http://127.0.0.1:5500/edit-forms/edit-email.html',
-          type: 'GET',
+          url: '/settings-account/' + info,
+          type: 'POST',
           success: function (data) {
-            $('#replace-editEmail').html(data);
+            $('#replace-edit-' + info).html(data);
           },
         });
-      }
-
-      function changePwdBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/edit-forms/edit-password.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-editPwd').html(data);
-          },
-        });
-      }
+      } 
 
       // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
       function cancelEmailBtn() {
-        $('#replace-editEmail').html(originalEmailHtml);
+        $('#replace-edit-email').html(originalEmailHtml);
       }
 
       function cancelPwdBtn() {
-        $('#replace-editPwd').html(originalPwdHtml);
+        $('#replace-edit-pwd').html(originalPwdHtml);
       }
     </script>
   </head>
   <body>
-    <section id="settings__userInfo">
+    <section th:with="info = ${session.user}" id="settings__userInfo">
       <ul>
-        <li id="replace-editEmail">
+        <li id="replace-edit-email">
           <div class="edit__info">
             <h3>이메일</h3>
-            <p th:text="{info.userEmail}"></p>
+            <p th:text="${info.userEmail}"></p>
           </div>
-          <button onclick="changeEmailBtn()" class="settingsBtn btn">
+          <button onclick="changeInfoBtn('email')" class="settingsBtn btn">
             변경
           </button>
         </li>
         <li><div id="divider"></div></li>
-        <li id="replace-editPwd">
+        <li id="replace-edit-pwd">
           <h3 class="edit__info">비밀번호</h3>
-          <button onclick="changePwdBtn()" class="settingsBtn btn">변경</button>
+          <button onclick="changeInfoBtn('pwd')" class="settingsBtn btn">변경</button>
         </li>
         <li><div id="divider"></div></li>
         <li>
