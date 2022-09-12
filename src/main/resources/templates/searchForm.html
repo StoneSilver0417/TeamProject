@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/header.css" />
+<!-- <link rel="stylesheet" href="css/header.css" /> -->
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	var where = new URL(location.href).searchParams.get('where');
@@ -20,14 +20,14 @@
 		if(len == 0) return null;
 		oldkeys = Object.keys(data[0]);
 		
-		for(var i in oldkeys)
-			newkeys[i] = toJsonName(oldkeys[i]);
+		for(var a in oldkeys)
+			newkeys[a] = toJsonName(oldkeys[a]);
 				
 		for(var dat of data){			
 			json += "{";
-			for(var i in newkeys){
-				json += newkeys[i] + ":" + JSON.stringify(dat[oldkeys[i]]);
-				if(i < newkeys.length - 1)
+			for(var a in newkeys){
+				json += newkeys[a] + ":" + JSON.stringify(dat[oldkeys[a]]);
+				if(a < newkeys.length - 1)
 					json +=",";
 			}
 			json += "}";
@@ -42,8 +42,8 @@
 		const len = name.length;
 		var n = name[0].toUpperCase();
 		
-		for(var i = 1; i < len; i++){
-			n += name[i];
+		for(var a = 1; a < len; a++){
+			n += name[a];
 		}
 		return n;
 	}
@@ -53,10 +53,9 @@
 		var names = name.toLowerCase().split('_');
 		var camelName = names[0];
 				
-		for(var i = 1; i < names.length; i++){			
-			camelName += toUpperfirst(names[i])
+		for(var a = 1; a < names.length; a++){			
+			camelName += toUpperfirst(names[a])
 		}		
-		
 		return '"' + camelName + '"';
 	}
 	
@@ -71,14 +70,15 @@
 			success:function(data){
 				var result = $('#result');				
 				var keys = Object.keys(data);			//키를 가져옵니다. 이때, keys 는 반복가능한 객체가 됩니다.
-				
-				for(var i = 0; i < keys.length; i++){
+
+				for(let i = 0; i < keys.length; i++){
 					var key = keys[i];
 					var json = toJson(data[key]);
 					
 					$.ajax({
 						url:'/search/condition',
 						type:'post',
+						async: false,			// 동기 처리
 						data:{
 							where:key,
 							count:json != null ? json.length : 0
@@ -87,10 +87,12 @@
 							result.append(data);
 							
 							if (json == null)	return;
+							
 							for(var js of json){
 								$.ajax({
 									url:'/' + key.toLowerCase(),
 									type:'post',
+									async: false,			// 동기 처리
 									data: js,
 									success:function(data){								
 										result.append(data);

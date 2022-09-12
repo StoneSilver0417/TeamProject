@@ -45,7 +45,7 @@ public class SearchController {
 	
 	//검색 조건 목록 설정
 	@PostMapping("/conditionList")
-	public ResponseEntity<String[]> searchConditions(){		
+	public ResponseEntity<String[]> searchConditions(){
 		return new ResponseEntity<String[]>(getSearchConditionOption() ,HttpStatus.OK);
 	}
 	
@@ -56,8 +56,6 @@ public class SearchController {
 		
 		h2.append(where.name + " 검색 결과(" + count + ")");
 		li.append(h2);
-		
-		System.out.println(li.toString());
 		
 		return new ResponseEntity<String> (li.toString() + Tag.BR, HttpStatus.OK);
 	}

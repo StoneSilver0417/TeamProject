@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+</head>
 <body>
 	<li th:each="test:${testList}">
-		<a th:href="'/test/' + *{testNo}" th:text="*{testName}">시험 이름</a>
+		<a th:href="'/test/' + ${test.testNo}" th:text="${test.testName}">시험 이름</a>
 	</li>
 </body>
 </html>
