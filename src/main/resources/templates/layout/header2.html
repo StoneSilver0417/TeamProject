@@ -2,9 +2,6 @@
 <!--header-->
 <div th:fragment="main">
 	<div id="header__top">
-		<a href="/">
-			<h1 id="header__logo" style="text-align: center;">clever</h1>
-		</a>		
 		<div id="header__actions">
 			<!-- 검색 영역 -->
 			<div th:replace="layout/searchArea :: search"></div>
@@ -26,5 +23,10 @@
 			</div>
 		</div>
 	</div>	
+</div>
+<div th:fragment="logo">
+	<a href="/">
+		<h1 id="header_logo" style="text-align: center;">clever</h1>
+	</a>
 </div>
 </html>
