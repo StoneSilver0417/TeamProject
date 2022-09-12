@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>settings profile</title>
+    <style>
+      #settings__userInfo > ul > li:nth-child(3) {
+        padding-bottom: 26px;
+      }
+
+      #settings__userInfo > ul > li:last-child .settingsBtn:hover {
+        background-color: var(--color-light-grey);
+      }
+
+      #settings__userInfo > ul > li > h3 {
+        font-size: 16px;
+        font-weight: 600;
+
+        color: var(--color-black);
+      }
+
+      #settings__userInfo > ul > li:nth-child(3) h3 {
+        padding-bottom: 0;
+
+        font-size: 16px;
+        font-weight: 600;
+
+        color: var(--color-black);
+      }
+
+      #settings__userInfo > ul > li:nth-child(3) > .edit__info p {
+        margin: 18px 0 12px 0;
+
+        font-size: var(--font-medium);
+        font-weight: 400;
+      }
+
+      #settings__userInfo > ul > li:nth-child(3) > .edit__info p:nth-child(5) {
+        margin-top: 30px;
+      }
+
+      #settings__userInfo > ul > li:nth-child(3) > .edit__info input {
+        font-size: var(--font-small);
+        font-weight: 400;
+      }
+
+      #settings__userInfo
+        > ul
+        > li:nth-child(3)
+        > .edit__info
+        input:nth-child(6) {
+        margin-bottom: 12px;
+      }
+
+      #settings__userInfo > ul > li:nth-child(3) > .edit__info > .pwd__helper {
+        display: inline-flex;
+
+        width: 100%;
+
+        margin: 12px 0 0 0;
+
+        word-break: keep-all;
+      }
+
+      #settings__userInfo
+        > ul
+        > li:nth-child(3)
+        > .edit__info
+        > .pwd__helper
+        p {
+        margin: 0 3px 0 0;
+
+        font-size: var(--font-small);
+        font-weight: 400;
+        color: var(--color-dark-grey);
+      }
+
+      #settings__userInfo
+        > ul
+        > li:nth-child(3)
+        > .edit__info
+        > .pwd__helper
+        a {
+        font-size: var(--font-small);
+        font-weight: 400;
+        color: var(--color-blue);
+
+        text-decoration-line: underline;
+      }
+    </style>
+    <script defer>
+      // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
+      var originalEmailHtml = $('#replace-editEmail').html();
+      var originalPwdHtml = $('#replace-editPwd').html();
+
+      function changeEmailBtn() {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/edit-forms/edit-email.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-editEmail').html(data);
+          },
+        });
+      }
+
+      function changePwdBtn() {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/edit-forms/edit-password.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-editPwd').html(data);
+          },
+        });
+      }
+
+      // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
+      function cancelEmailBtn() {
+        $('#replace-editEmail').html(originalEmailHtml);
+      }
+
+      function cancelPwdBtn() {
+        $('#replace-editPwd').html(originalPwdHtml);
+      }
+    </script>
+  </head>
+  <body>
+    <section id="settings__userInfo">
+      <ul>
+        <li id="replace-editEmail">
+          <div class="edit__info">
+            <h3>이메일</h3>
+            <p>adhnoow@gmail.com</p>
+          </div>
+          <button onclick="changeEmailBtn()" class="settingsBtn btn">
+            변경
+          </button>
+        </li>
+        <li><div id="divider"></div></li>
+        <li id="replace-editPwd">
+          <h3 class="edit__info">비밀번호</h3>
+          <button onclick="changePwdBtn()" class="settingsBtn btn">변경</button>
+        </li>
+        <li><div id="divider"></div></li>
+        <li>
+          <div class="edit__info">
+            <h3>회원탈퇴</h3>
+          </div>
+          <form action="http://127.0.0.1:5500/leave.html">
+            <button class="settingsBtn btn">탈퇴</button>
+          </form>
+        </li>
+      </ul>
+      <hr />
+    </section>
+  </body>
+</html>
