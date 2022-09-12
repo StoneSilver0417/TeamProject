@@ -53,6 +53,11 @@ public class FormController {
 		return "list";
 	}
 	
+	// 회차등록 폼으로 이동
+	@GetMapping("insertRound")
+	public String roundForm() {
+		return "roundForm";
+	}
 
 	// 회원가입 메소드
 	@PostMapping("join")
