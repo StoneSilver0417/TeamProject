@@ -43,6 +43,15 @@ public class UserServiceImpl implements UserService {
 		return userMapper.findUserEmail(userEmail) != null;
 	}
 
+	
+	// ** mypage **
+
+	// 아이디로 유저 찾기
+	@Override
+	public User findUserById(String id) {
+		return userMapper.findUserById(id);
+	}
+
 
 	
 }

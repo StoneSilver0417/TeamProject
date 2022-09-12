@@ -19,27 +19,37 @@
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script defer>
-		function profileOnclick() {
-			document.getElementById('profileDropdown').classList.toggle('show');
-			window.onclick = function(event) {
-				if (!event.target.matches('#profileDropdown')) {
-					if (openDropdown.classList.contains('show')) {
-						document.getElementById('profileDropdown').classList
-								.remove('show');
-					}
-				};
-				
-				var dropdowns = document
-						.getElementsByClassName('profile-dropdown');
-				var i;
-				for (i = 0; i < dropdowns.length; i++) {
-					var openDropdown = dropdowns[i];
-					if (openDropdown.classList.contains('show')) {
-					}
-				}
-			}
-		}
+<script defer> 
+function profileOnclick() {
+    document.getElementById('profileDropdown').classList.toggle('show');
+    window.onclick = function (event) {
+      if (!event.target.matches('#profileDropdown')) {
+        if (openDropdown.classList.contains('show')) {
+          document
+            .getElementById('profileDropdown')
+            .classList.remove('show');
+        }
+      }
+
+      var dropdowns = document.getElementsByClassName('profile-dropdown');
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+        }
+      }
+    };
+  }
+  
+  function profileBtn() {
+	  $.ajax({
+          url: '/mypage',
+          type: 'POST',
+          success: function () {
+        	  window.location.href = "/mypage";
+          },
+        });
+  }
 </script>
 </head>
 <body>

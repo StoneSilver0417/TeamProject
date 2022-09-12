@@ -21,7 +21,7 @@
 				<div id="user-profile" th:if="${session?.user != null}">
 					<!-- 레벨 -->
 					<div id="profile__badge">
-						<a href="http://127.0.0.1:5500/mypage.html"> <img
+						<a href="/mypage"> <img
 							src="imgs/badge/master.svg" /></a>
 					</div>
 					<!-- 프로필 -->
@@ -34,8 +34,8 @@
 						</div>
 						<div id="profileDropdown" class="profile-dropdown">
 							<ul>
-								<li><a href="http://127.0.0.1:5500/mypage.html">프로필</a></li>
-								<li><a href="http://127.0.0.1:5500/mypage-setting.html">설정</a></li>
+								<li><a onclick="profileBtn()">프로필</a></li>
+								<li><a onclick="settingsBtn()" >설정</a></li>
 								<li><div class="divider"></div></li>
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>
