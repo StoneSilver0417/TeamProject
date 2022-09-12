@@ -1,4 +1,4 @@
-<div class="edit__info">
+<div th:with="info = ${session.user}" class="edit__info">
   <h3>이메일</h3>
   <input
     type="text"
@@ -7,7 +7,7 @@
     autocomplete="off"
     autocapitalize="off"
     class="input__userInfo"
-    value="adhnoow@gmail.com"
+    th:value="${info.userEmail}"
   />
   <button class="submitButton">인증메일 전송</button>
 </div>

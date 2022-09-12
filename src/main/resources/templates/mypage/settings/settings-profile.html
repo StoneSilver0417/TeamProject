@@ -129,43 +129,33 @@
     </style>
     <script defer>
       // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
-      var originalImgHtml = $('#replace-editImg').html();
-      var originalNameHtml = $('#replace-editName').html();
-
-      function changeImgBtn() {
+      var originalImgHtml = $('#replace-edit-img').html();
+      var originalNameHtml = $('#replace-edit-name').html();
+ 
+      function changeInfoBtn(info) {
         $.ajax({
-          url: 'http://127.0.0.1:5500/edit-forms/edit-img.html',
-          type: 'GET',
+          url: '/settings-profile/' + info,
+          type: 'POST',
           success: function (data) {
-            $('#replace-editImg').html(data);
+            $('#replace-edit-' + info).html(data);
           },
         });
-      }
-
-      function changeNameBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/edit-forms/edit-name.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-editName').html(data);
-          },
-        });
-      }
+      } 
 
       // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
       function cancelImgBtn() {
-        $('#replace-editImg').html(originalImgHtml);
+        $('#replace-edit-img').html(originalImgHtml);
       }
 
       function cancelNameBtn() {
-        $('#replace-editName').html(originalNameHtml);
+        $('#replace-edit-name').html(originalNameHtml);
       }
     </script>
   </head>
   <body>
-    <section id="settings__userInfo">
+    <section th:with="info = ${session.user}" id="settings__userInfo">
       <ul>
-        <li id="replace-editImg">
+        <li id="replace-edit-img">
           <div class="edit__info">
             <div class="profile__description">
               <h3>프로필 사진</h3>
@@ -173,15 +163,15 @@
             </div>
             <img src="imgs/profile-img.png" id="profile__img" />
           </div>
-          <button onclick="changeImgBtn()" class="settingsBtn btn">변경</button>
+          <button onclick="changeInfoBtn('img')" class="settingsBtn btn">변경</button>
         </li>
         <li><div id="divider"></div></li>
-        <li th:with="info = ${session.user}" id="replace-editName">
+        <li th:with="info = ${session.user}" id="replace-edit-name">
           <div class="edit__info">
             <h3>이름</h3>
             <p th:text="${info.userNickname}"></p>
           </div>
-          <button onclick="changeNameBtn()" class="settingsBtn btn">
+          <button onclick="changeInfoBtn('name')" class="settingsBtn btn">
             변경
           </button>
         </li>
