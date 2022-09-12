@@ -19,55 +19,6 @@
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script defer> 
-function profileOnclick() {
-    document.getElementById('profileDropdown').classList.toggle('show');
-    window.onclick = function (event) {
-      if (!event.target.matches('#profileDropdown')) {
-        if (openDropdown.classList.contains('show')) {
-          document
-            .getElementById('profileDropdown')
-            .classList.remove('show');
-        }
-      }
-
-      var dropdowns = document.getElementsByClassName('profile-dropdown');
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-        }
-      }
-    };
-  }
-  
-  function profileBtn(e) {  
-	  $.ajax({
-          url: '/mypage',
-          type: 'POST',
-          success: function(){
-        	  location.href="/mypage";
-          }
-        });
-	  
-  }
-  
-  $('document').ready(function() {
-	  function settingsBtn(e) {
-			e.preventDefault();
-			return false;
-		  $.ajax({
-	          url: '/mypage-setting',
-	          type: 'POST',
-	          success: function(){
-	        	  location.href="/mypage-setting";
-	          }
-	        });
-		  
-	  }
-  })
-  
-</script>
 </head>
 <body>
 	<!-- <div th:text="${@util.encode('1234')}"></div> 

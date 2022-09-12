@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mypage</title>
+<title>Clever</title>
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/main/header.css" />
 <link rel="stylesheet" href="css/mypage/mypage.css" />
@@ -12,10 +12,7 @@
 <script src="js/script.js"></script>
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-	integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
     // default: 내 문제 - 내가 푼 문제
     $(document).ready(function () {
@@ -80,7 +77,7 @@
 					<!-- user name -->
 					<h1 th:text="${info.userNickname}"></h1>
 					<!-- setting icon -->
-					<a onclick="settingsBtn()" href="" > <img
+					<a href="/mypage-setting" > <img
 						src="imgs/mypage/settings.png" />
 					</a>
 				</div>

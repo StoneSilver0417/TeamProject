@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -176,10 +176,10 @@
           <button onclick="changeImgBtn()" class="settingsBtn btn">변경</button>
         </li>
         <li><div id="divider"></div></li>
-        <li id="replace-editName">
+        <li th:with="info = ${session.user}" id="replace-editName">
           <div class="edit__info">
             <h3>이름</h3>
-            <p>오다원</p>
+            <p th:text="${info.userNickname}"></p>
           </div>
           <button onclick="changeNameBtn()" class="settingsBtn btn">
             변경
