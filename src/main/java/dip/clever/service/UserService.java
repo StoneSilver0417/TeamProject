@@ -1,7 +1,5 @@
 package dip.clever.service;
 
-import java.util.List;
-
 import dip.clever.model.User;
 
 public interface UserService {

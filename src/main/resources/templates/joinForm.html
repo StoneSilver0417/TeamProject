@@ -45,7 +45,7 @@
 					return;
 				$.ajax({
 					url:'/user/checkId',
-					data:{id:id},
+					data:{userId:id},
 					type:'post',
 					success:function(data){
 						if(data){
@@ -69,7 +69,7 @@
 					return;
 				$.ajax({
 					url:'/user/checkNickname',
-					data:{name:name},
+					data:{userNickname:name},
 					type:'post',	
 					success:function(data){
 						if(data){
@@ -93,7 +93,7 @@
 					return;
 				$.ajax({
 					url:'/user/checkEmail',
-					data:{email:email},
+					data:{userEmail:email},
 					type:'post',	
 					success:function(data){
 						if(data){
@@ -124,7 +124,7 @@
 			<h1 class="logo_default">
 				<a href="/" class="logo" data-clk="top.logo"><!-- 클릭시 메인화면으로 이동 -->
 					<span>
-						게시판
+						회원가입
 					</span>
 				</a>
 			</h1>
