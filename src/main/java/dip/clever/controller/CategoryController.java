@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,15 +28,18 @@ public class CategoryController {
 
 		return "category";
 	}
-	
-//	//카테고리 정보 반환
-//	@PostMapping("/info")
-//	public String testList(Model model, Category category) {
-//		model.addAttribute("category", categoryService.selectCategory(category));
-//		model.addAttribute("testList", new TestController().testList(category));
-//		
-//		return "testList";
-//	}
+
+	@GetMapping("/{no}")
+	public String category(Model model, @PathVariable int no) {
+		Category category = new Category();
+		
+		category.setCategoryNo(no);
+		category = categoryService.selectCategory(category);
+		
+		model.addAttribute("category",category);
+		
+		return "test";
+	}
 	
 	//카테고리 관리 폼
 	@PostMapping("/manage")

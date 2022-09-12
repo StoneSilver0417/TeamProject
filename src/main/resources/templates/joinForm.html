@@ -12,7 +12,7 @@
 	$(document).ready(function(){
 			$('#regbut').click(function(data){
 				var id = $('#userId').val();
-				var pwd = $('#userPwd').val();				
+				var pwd = $('#userPwd').val();
 				var name = $('#userNickname').val();
 				var email = $('#userEmail').val();
 				
@@ -37,16 +37,12 @@
 					label('#mailmsg', '이메일을 입력해주세요.');
 				else if(email != $('#email2').val())
 					label('#mailmsg','이메일 확인이 필요합니다');
-
 				
 				if(go){
-					$('#userPwd').val(sha256(pwd))
-					alert($('#userPwd').val())
+					$('#encodePwd').val(sha256(pwd))
 				}
-				$('#userPwd').val(sha256(pwd))
-				alert($('#userPwd').val())
 				
-				return false;
+				return go;
 			});
 			
 			$('#idchkbut').click(function(data){
@@ -174,7 +170,8 @@
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
-				<input type="password" class="form-control" id="userPwd" placeholder="비밀번호" name="userPwd">
+				<input type="hidden" id="encodePwd" name="userPwd">
+				<input type="password" class="form-control" id="userPwd" placeholder="비밀번호">
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control" id="pwd2" placeholder="비밀번호 확인">
