@@ -41,10 +41,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean findUserEmail(String userEmail) {
 		return userMapper.findUserEmail(userEmail) != null;
-	}
-
-	
-	// ** mypage **
 
 	// 아이디로 유저 찾기
 	@Override

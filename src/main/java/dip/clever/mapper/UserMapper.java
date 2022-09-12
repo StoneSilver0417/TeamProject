@@ -22,8 +22,6 @@ public interface UserMapper {
 	// 메일로 유저 찾기
 	public String findUserEmail(String userEmail);
 
-	// ** mypage **
-
 	// 아이디로 유저 찾기
 	public User findUserById(String id);
 }
