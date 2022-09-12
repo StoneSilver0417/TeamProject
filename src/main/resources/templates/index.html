@@ -44,10 +44,14 @@ function profileOnclick() {
   function profileBtn() {
 	  $.ajax({
           url: '/mypage',
-          type: 'POST',
-          success: function () {
-        	  window.location.href = "/mypage";
-          },
+          type: 'POST'
+        });
+  }
+  
+  function settingsBtn() {
+	  $.ajax({
+          url: '/mypage-setting',
+          type: 'POST'
         });
   }
 </script>
