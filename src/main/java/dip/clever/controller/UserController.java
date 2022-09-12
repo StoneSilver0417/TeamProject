@@ -26,21 +26,40 @@ public class UserController {
 		return "mypage/settings/mypage-setting";
 	}
 
-	// mypage - 프로필 개인정보 수정
+	// mypage - 프로필/계정 정보 수정
 	@PostMapping("/settings-{category}")
 	public String settingsProfile(@PathVariable String category) {
-		System.out.println(category);
-		if (category == "profile") {
+		if (category.equals("profile")) {
 			return "mypage/settings/settings-profile";
 		} else {
 			return "mypage/settings/settings-account";
 		}
 	}
 
-	// 개인정보 수정 - 이름 수정
-	@PostMapping("/settings-account/edit-name")
-	public String settingsAccount() {
-		return "mypage/settings/settings-account";
+	// 프로필 설정 - 사진/이름
+	@PostMapping("/settings-profile/{action}")
+	public String editProfile(@PathVariable String action) {
+		if (action.equals("img")) {
+			return "edit_forms/edit-img";
+		} else {
+			return "edit_forms/edit-name";
+		}
+	}
+
+	// 계정 설정 - 사진/이름
+	@PostMapping("/settings-account/{action}")
+	public String editAccount(@PathVariable String action) {
+		if (action.equals("email")) {
+			return "edit_forms/edit-email";
+		} else {
+			return "edit_forms/edit-password";
+		}
+	}
+
+	// 계정 설정 - 회원 탈퇴
+	@PostMapping("/settings-account/leave")
+	public String leave() {
+		return "edit_forms/edit-email";
 	}
 
 }
