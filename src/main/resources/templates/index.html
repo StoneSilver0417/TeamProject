@@ -41,15 +41,32 @@ function profileOnclick() {
     };
   }
   
-  function profileBtn() {
+  function profileBtn(e) {  
 	  $.ajax({
           url: '/mypage',
           type: 'POST',
-          success: function () {
-        	  window.location.href = "/mypage";
-          },
+          success: function(){
+        	  location.href="/mypage";
+          }
         });
+	  
   }
+  
+  $('document').ready(function() {
+	  function settingsBtn(e) {
+			e.preventDefault();
+			return false;
+		  $.ajax({
+	          url: '/mypage-setting',
+	          type: 'POST',
+	          success: function(){
+	        	  location.href="/mypage-setting";
+	          }
+	        });
+		  
+	  }
+  })
+  
 </script>
 </head>
 <body>

@@ -15,27 +15,26 @@
 			<!-- 유저 상태에 따름 -->
 			<div id="header__actions-user">
 				<!-- 로그인 안된 경우 버튼 -->
-				<!-- <a href="/login" th:if="${session?.user = null}" id="loginAndRegister">로그인/회원가입</a> -->
+				<a href="/login" th:if="${session?.user == null}"
+					id="loginAndRegister">로그인/회원가입</a>
 
 				<!-- 로그인 한 경우 버튼 -->
 				<div id="user-profile" th:if="${session?.user != null}">
 					<!-- 레벨 -->
 					<div id="profile__badge">
-						<a href="/mypage"> <img
-							src="imgs/badge/master.svg" /></a>
+						<a href="/mypage"> <img src="imgs/badge/master.svg" /></a>
 					</div>
 					<!-- 프로필 -->
 					<div id="profile">
-						<div onclick="profileOnclick()" class="profileBtn"
-							id="profile__info">
-							<img id="profile__img" src="imgs/profile-img.png"
-								alt="profile img" />
-							<p id="profile__name">오다원</p>
+						<div th:with="info = ${session.user}" onclick="profileOnclick()"
+							class="profileBtn" id="profile__info">
+							<img id="profile__img" src="imgs/profile-img.png" />
+							<p th:text="${info.userNickname}" id="profile__name"></p>
 						</div>
 						<div id="profileDropdown" class="profile-dropdown">
 							<ul>
 								<li><a onclick="profileBtn()">프로필</a></li>
-								<li><a onclick="settingsBtn()" >설정</a></li>
+								<li><a onclick="settingsBtn()">설정</a></li>
 								<li><div class="divider"></div></li>
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>

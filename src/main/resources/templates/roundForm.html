@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+	
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h2 style="padding-top: 30px">회차등록 페이지</h2>
+		<form action="/insertRound" method="post">
+			
+			<div class="form-group">
+				<label for="testNo">시험 번호 :</label> <input class="form-control" name="testNo" th:text="" readonly>
+			</div>
+			
+			<div class="form-group">
+				<label for="regUser">작성자 :</label> <input class="form-control" name="regUser" th:text="" readonly>
+			</div>
+			
+			<div class="form-group">
+				<label for="roundName">시험 회차 이름 :</label> <input type="text" class="form-control" name="roundName" required>
+			</div>
+			
+			<div class="form-group">
+				<label for="testDate">시험 날짜 :</label> <input type="text" class="form-control" name="testDate">
+			</div>
+
+			<button type="submit" class="btn btn-primary">등록</button>
+		</form>
+	</div>
+</body>
+</html>

@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	public boolean findUserNickname(String userNickname) {
 		return userMapper.findUserNickname(userNickname) != null;
 	}
-
+  
 	@Override
 	public boolean findUserEmail(String userEmail) {
 		return userMapper.findUserEmail(userEmail) != null;
