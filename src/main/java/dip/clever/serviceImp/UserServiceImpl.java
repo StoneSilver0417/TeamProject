@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		return userMapper.findUserNickname(userNickname) != null;
 	}
 
-
+	//이메일 중복 체크
 	@Override
 	public boolean findUserEmail(String userEmail) {
 		return userMapper.findUserEmail(userEmail) != null;
