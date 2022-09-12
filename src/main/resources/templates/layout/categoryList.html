@@ -18,24 +18,7 @@
 							$(categoryList).append(data);
 						}
 					});
-				}		
-				
-				/* for(var d of data){
-					$.ajax({
-						url:'test/list',
-						type:'post',
-						data:{
-							categoryNo:d.categoryNo,
-							categoryName:d.categoryName
-						},
-						success:function(data){
-							$(categoryList).append(data);
-						},
-						error:function(){
-							alert('시험 목록 불러오기 실패');
-						}
-					})
-				} */
+				}
 			},
 			error:function(){
 				alert('카테고리 목록 불러오기 실패');

@@ -66,7 +66,6 @@ public class FormController {
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
 		user = userService.selectUser(user);
-		System.out.println(user);
 		if (user == null) {
 			model.addAttribute("loginError", true);
 
