@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="search">
+	<div th:replace="layout/header2 :: logo"></div>
 	<!-- 검색 기능 -->
 	<form action="/search" id="searhform" class="search_area" name="searhform" method="get">
 		<fieldset class="search-box">

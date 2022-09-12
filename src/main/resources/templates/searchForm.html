@@ -81,29 +81,30 @@
 						type:'post',
 						data:{
 							where:key,
-							count:json.length
+							count:json != null ? json.length : 0
 						},
 						success:function(data){
 							result.append(data);
+							
+							if (json == null)	return;
+							for(var js of json){
+								$.ajax({
+									url:'/' + key.toLowerCase(),
+									type:'post',
+									data: js,
+									success:function(data){								
+										result.append(data);
+									},
+									error:function(){
+										alert(key + ' 검색 실패')
+									}
+								})
+							}
 						},
 						error:function(){
 							alert('실패')
 						}
 					})
-					if (json == null)	break;
-					for(var js of json){
-						$.ajax({
-							url:'/' + key.toLowerCase(),
-							type:'post',
-							data: js,
-							success:function(data){								
-								result.append(data);
-							},
-							error:function(){
-								alert(key + ' 검색 실패')
-							}
-						})
-					}
 				}
 			},
 			error:function(){
@@ -127,7 +128,6 @@
 							<th scope="col">제목</th>
 							<th scope="col">조회수</th>
 							<th scope="col">작성일</th>
-							<th scope="col">수정일</th>
 							<th>
 								<span style="float: right;">
 									목록 개수

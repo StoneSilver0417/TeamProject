@@ -6,7 +6,7 @@
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 		$.ajax({
-			url:'test/list',
+			url:'/test/list',
 			type:'post',
 			data:{categoryNo: $('#categoryNo').val()},
 			success:function(data){
@@ -15,17 +15,11 @@
 		})
 	</script>
 </head>
-<body>
+<body><li class="category" tab-index="0">
 	<li class="category" tab-index="0">
-		<input type="hidden" id='categoryNo' th:value="${category.categoryNo}"> 
-		<p th:text="${category.categoryName}">카테고리 이름</p>
+		<input type="hidden" id='categoryNo' th:value="${category.categoryNo}">
+		<a th:text="${category.categoryName}" th:href="${'/category/' + category.categoryNo}" >카테고리 이름</a>
 		<ul class="sub-category">
-			<li><a href="/list">가나아러 지</a></li>
-			<li><a href="/list">국가기술자격시험</a></li>
-			<li><a href="/list">Su국가기술자 격시험</a></li>
-			<li><a href="/list">Su국가기술자격시 험m 4</a></li>
-			<li><a href="/list">Sub I국가기술자격시 험tem 5</a></li>
-			<li><a href="/list">국가기술자격시험 ㄴㄴb Item 6</a></li>
 		</ul>
 	</li>
 </body>
