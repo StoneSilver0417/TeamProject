@@ -8,4 +8,7 @@ public class Test {
 	private int categoryNo;
 	private String managerId;
 	private String testName;
+	private String testInfo;
+	private int questCnt;
+	private int passScore;
 }

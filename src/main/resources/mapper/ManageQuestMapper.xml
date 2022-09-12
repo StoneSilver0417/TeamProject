@@ -2,12 +2,40 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dip.clever.mapper.quest.ManageQuestMapper">
+<mapper namespace="dip.clever.mapper.ManageQuestMapper">
 	
 	<!-- 회차정보 등록 -->
-	<insert id="addRound" parameterType="dip.clever.model.TestRound">
-
+	<insert id="insertRound" parameterType="dip.clever.model.TestRound">
+		INSERT INTO TB_TEST_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
+		VALUES(#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
 	</insert>
-
-
+	
+	<!-- 회차정보 수정 -->
+	
+	
+	
+	<!-- 문제정보 등록 -->
+	
+	
+	<!-- 문제정보 수정 -->
+	
+	
+	
+	
+	
+	<resultMap type="dip.clever.model.TestRound" id="testRoundMap" >
+		<result property="roundNo" column="ROUND_NO"/>
+		<result property="testNo" column="TEST_NO"/>
+		<result property="regUser" column="REG_USER"/>
+		<result property="roundName" column="ROUND_NAME"/>
+		<result property="testDate" column="TEST_DATE"/>
+		<result property="regTime" column="REG_TIME"/>
+	</resultMap>
+	
 </mapper>
+
+
+
+
+
+
