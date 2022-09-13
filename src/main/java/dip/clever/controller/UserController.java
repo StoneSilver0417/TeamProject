@@ -13,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+//import com.example.demo.model.Role;
 
 import dip.clever.model.User;
 import dip.clever.service.UserService;
@@ -32,6 +35,7 @@ public class UserController {
 	public boolean checkId(String id) {
 		return !userService.findUserId(id);
 	}
+
 	// mypage 반환
 	@RequestMapping("/mypage")
 	public String mypage() {
@@ -60,7 +64,7 @@ public class UserController {
 
 		List<User> user = userService.findAll();
 		model.addAttribute("checkAll", user);
-		//System.out.println(user.toString());
+		// System.out.println(user.toString());
 		return "Authority";
 
 	}
@@ -73,23 +77,43 @@ public class UserController {
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
 	}
-	
+
 	// 유저 영구 삭제 method
-	
-	
 	@PostMapping("/manageUser/delete-user/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable String id) {
-		String message = "Delete the account successfully";
+		String message = "삭제완료";
 		System.out.println(id);
-		//User user = userService.findSearchResult(id);
-		//articleService.deleteAllArticleByUser(user);
-		//commentService.deleteCommentByUser(user);
-		userService.deleteUser(id); 
+		// User user = userService.findSearchResult(id);
+		// articleService.deleteAllArticleByUser(user);
+		// commentService.deleteCommentByUser(user);
+		userService.deleteUser(id);
 
-		System.out.println("delete complete");
+		System.out.println("삭제완료");
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
-	
+
+	// 매니저 권한 부여, 박탈 method
+	@PutMapping("/manageUser/{action}-manager/{id}")
+	public ResponseEntity<String> addAndRemoveManager(@PathVariable String action, @PathVariable String id) {
+		String message = "";
+		System.out.println(action);
+		System.out.println(id);
+		if (action.equals("add")) {
+			userService.updateManager(id);
+//			User user = userService.findUserById(id);
+//			user.setRole(Role.);
+//			userService.saveUser(user);
+			message = "매니저로 임명";
+		} else if (action.equals("remove")) {
+			userService.updateUser(id);
+//			User user = userService.findUserById(id);
+//			user.setRole(Role.ROLE_USER);
+//			userService.saveUser(user);
+			message = "유저로강등";
+		}
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+
 //	@ResponseBody
 //	@PostMapping("/manageUser/delete-user/{id}")
 //	public String deleteUser(@PathVariable String id) {
