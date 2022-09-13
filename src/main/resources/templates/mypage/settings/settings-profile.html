@@ -161,7 +161,7 @@
               <h3>프로필 사진</h3>
               <p>*첫 프로필 사진은 회원가입시 랜덤으로 배정됩니다.</p>
             </div>
-            <img src="imgs/profile-img.png" id="profile__img" />
+            <img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" id="profile__img" />
           </div>
           <button onclick="changeInfoBtn('img')" class="settingsBtn btn">변경</button>
         </li>

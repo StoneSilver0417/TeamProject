@@ -14,6 +14,8 @@
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script th:inline="javascript">
+	const day = 1000 * 60 * 60 * 24;
+	
 	var user = [[${session.user}]];
 	
 	if(user == null){
@@ -23,7 +25,6 @@
 
     // default: 내 문제 - 내가 푼 문제
     $(document).ready(function () {
-    	const day = 1000 * 60 * 60 * 24;    	
     	var date = new Date(user.regTime);
     	var now = new Date();
     	var diff = parseInt((now.getTime() - date.getTime()) / day)
