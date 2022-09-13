@@ -22,6 +22,10 @@ public interface UserMapper {
 
 	public void deleteUser(String id);
 	
+	public void updateManager(String id);
+	
+	public void updateUser(String id);
+	
 
 	// 회원조회
 	public User selectUser(User user);
