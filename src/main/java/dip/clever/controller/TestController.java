@@ -25,6 +25,14 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 	
+	@PostMapping("")
+	public String categoryInfo(Model model, Category category){
+		model.addAttribute("category",category);
+		model.addAttribute("testList", testService.selectTestList(category));
+		
+		return "categoryInfo";
+	}
+	
 	//시험 목록 반환
 	@PostMapping("/list")
 	public String testList(Model model, Category category) {
@@ -45,28 +53,5 @@ public class TestController {
 		model.addAttribute("test", test);
 		
 		return "test";
-	}
-	
-	//검색 결과 반환
-	@PostMapping("/search")
-	public ResponseEntity<Map<SearchCondition, List>> searchResult(SearchCondition where, String query){
-		Map<SearchCondition, List> resultMap = new HashMap<>();		
-		SearchCondition[] searchConditions;
-		
-		if (where == SearchCondition.ALL) {
-			searchConditions = SearchCondition.values();
-			for(int a = 1; a < searchConditions.length; a++) {
-				resultMap.put(searchConditions[a], testService.getResultList(searchConditions[a], query));
-			}			
-		}
-		else {
-			resultMap.put(where, testService.getResultList(where, query));
-		}
-		
-		return new ResponseEntity<Map<SearchCondition,List>> (resultMap, HttpStatus.OK);
-	}
-	
-	public List<Test> testList(Category category) {
-		return testService.selectTestList(category);
 	}
 }

@@ -3,27 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-	<script type="text/javascript">
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
 			url:'/test/list',
 			type:'post',
-			data:{categoryNo: $('#categoryNo').val()},
+			data:{categoryNo:$('#categoryNo').val()},
 			success:function(data){
-				$('.sub-category').html(data);
+				$('#testList').html(data);
 			}
 		})
 	})	
-	</script>
+</script>
 </head>
 <body>	
 	<div th:replace="layout/searchArea :: search"></div>
-	<li class="category" tab-index="0">
-		<input type="hidden" id='categoryNo' th:value="${category.categoryNo}">
-		<a th:text="${category.categoryName}" th:href="${'/category/' + category.categoryNo}" >카테고리 이름</a>
-		<ul class="sub-category">
-		</ul>
-	</li>
+	<input type="hidden" id="categoryNo" th:value="${category.categoryNo}">
+	<div id="testList">
+	</div>
 </body>
 </html>

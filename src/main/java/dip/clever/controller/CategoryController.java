@@ -23,10 +23,8 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping("")
-	public String category(Model model, Category category) {
-		model.addAttribute("category",category);
-
-		return "category2";
+	public ResponseEntity<List<Category>> category() {		
+		return new ResponseEntity<List<Category>> (categoryService.selectCategoryList(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{no}")

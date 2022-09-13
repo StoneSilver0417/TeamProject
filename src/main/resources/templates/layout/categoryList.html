@@ -3,19 +3,21 @@
 <div th:fragment="list">	
 <script type="text/javascript">
 	$(document).ready(function(){
+		var categoryList = $('#categoryList');
+		
 		$.ajax({
-			url:'category/list',
+			url:'/category',
 			type:'post',
 			success:function(data){
-				var categoryList = $('#categoryList');
-				
-				for(let d of data){
+				for(let dat of data){					
 					$.ajax({
-						url:'test/list', 
+						url:'/test',
 						type:'post',
-						data:d,
+						data:dat,
 						success:function(data){
 							$(categoryList).append(data);
+						},
+						error:function(data){
 						}
 					});
 				}

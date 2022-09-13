@@ -23,14 +23,16 @@
 		for(var a in oldkeys)
 			newkeys[a] = toJsonName(oldkeys[a]);
 				
-		for(var dat of data){			
+		for(var i in data){			
 			json += "{";
 			for(var a in newkeys){
-				json += newkeys[a] + ":" + JSON.stringify(dat[oldkeys[a]]);
+				json += newkeys[a] + ":" + JSON.stringify(data[i][oldkeys[a]]);
 				if(a < newkeys.length - 1)
 					json +=",";
 			}
 			json += "}";
+			if(i < data.length - 1)
+				json +=",";
 		}
 		json += "]";
 		
