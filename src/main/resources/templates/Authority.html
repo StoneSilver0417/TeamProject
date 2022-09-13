@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/base.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+	$(document).ready(function() {
+		$('form').submit(function(e) {
+			e.preventDefault();
+			var keyword = $('#keyword').val();
+			alert(keyword);
+			$.ajax({
+				url : "/user/manageUser/search-user/" + keyword,
+				type : "POST",
+				success : function(data) {
+					$('table').html(data);
+				},
+				error : function() {
+					alert('Full search...')
+
+				}
+			});
+		});
+	});
+
+
+	
+	// manager, user 권한 부여
+	function addAndRemoveManagerBtn(action, id, name) {
+		if (action == "add") {
+			var check = confirm('Grant manager privileges to "' + name + '"?');
+		} else if (action == "remove") {
+			var check = confirm("Revoke " + name + "'s manager privileges?");
+		}
+
+		if (check == true) {
+			$.ajax({
+				url : "/manageUser/" + action + "-manager/" + id,
+				type : "PUT",
+				dataType : 'text', // String 값을 return하기 때문
+				success : function(message) {
+					alert(message + '"' + name + '" successfully.');
+					location.replace('/manageUser');
+				},
+				error : function() {
+					location.replace('/manageUser');
+				}
+			})
+		}
+	};
+	
+	// user 영구 삭제 
+	function deleteUserBtn(id, name) {
+		//alert('deleteUserBtn') 
+		var check1 = confirm('( ⚠WARNING )\nThis action cannot be undo.\nAre you sure to delete this user?');
+		if (check1 == true) {
+			var check2 = confirm("( ⚠WARNING )\nJust to double check.\nYou permanently delete "
+					+ name + "'s account?");
+		}
+
+		if (check2 == true) {
+			$.ajax({
+				url : "/user/manageUser/delete-user/"+ id,
+				type : "POST",
+				dataType : 'text', // String 값을 return하기 때문
+				success : function(message) {
+					alert(message);
+					//location.replace('/manageUser');
+				
+				},
+				error : function() {
+					alert('Fail to delete user');
+					//location.replace('/manageUser');
+				}
+			})
+		}
+	}; 
+</script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>권한</h1>
+		</div>
+
+		<div id="for__absolute">
+			<form class="searchUser">
+				<!-- title bar for search user -->
+				<div class="searchUser__header">
+					<img class="header__toolbar"> <img class="header__icon">
+				</div>
+				<!-- search user content -->
+				<div class="searchUserInput">
+					<input placeholder="name or id" id="keyword" maxlength="255" />
+					<button type="submit" id="userSearchBtn" class="btn">Search!</button>
+				</div>
+			</form>
+		</div>
+
+
+		</fieldset>
+		<br /> <br /> <br />
+		<div id="mainHide">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">사용자명</th>
+						<th scope="col">닉네임</th>
+						<th scope="col">역할</th>
+						<th scope="col">레벨</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="list:${checkAll}">
+						<td th:text="${list.userId}"></td>
+						<td th:text="${list.userNickname}"></td>
+						<td th:text="${list.userRole}"></td>
+						<td th:text="${list.userExp}"></td>
+						<td>
+						<button th:if="${#strings.equals(list.userRole, 'USER')}"
+							th:onclick="addAndRemoveManagerBtn('add', [[${user_Id}]], [[${user_Nickname}]])"
+							class="addManagerBtn btn">+ Add</button>
+
+						<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+							th:onclick="addAndRemoveManagerBtn('remove', [[${user_Id}]], [[${user_Nickname}]])"
+							class="removeManagerBtn btn">Manager ✕</button>
+						</td>
+						<td><button
+								th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
+								class="deleteUserBtn btn">delete user</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br />
+
+
+
+	</div>
+
+</body>
+
+</html>

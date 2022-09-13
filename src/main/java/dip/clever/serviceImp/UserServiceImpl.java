@@ -1,5 +1,7 @@
 package dip.clever.serviceImp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 
+  // ** 로그인/회원가입 ** 
 	// 회원가입
 	@Override
 	public void insertUser(User user) {
@@ -42,10 +45,37 @@ public class UserServiceImpl implements UserService {
 		return userMapper.findUserEmail(userEmail) != null;
 	}
 
+  // ** 유저 관리 ** 
+  //
+	@Override
+	public List<User> findAll() {
+		return userMapper.findAll();
+	}
+	
+  //
+	@Override
+	public List<User> findSearchResult(String keyword) {
+ 		return userMapper.findSearchResult(keyword);
+	}
+
+  //
+	@Override
+	public void deleteUser(String id) {
+		userMapper.deleteUser(id);
+		
+	}
+	
+  // ** 마이페이지 ** 
 	// 아이디로 유저 찾기
 	@Override
 	public User findUserById(String userId) {
 		return userMapper.findUserById(userId);
+	}
+
+  // 이름 수정
+	@Override
+	public void editUserName(User user) {
+		userMapper.editUserName(user);
 	}
 
 	// 이메일 수정
@@ -54,8 +84,5 @@ public class UserServiceImpl implements UserService {
 		userMapper.editUserEmail(email);
 	}
 
-	@Override
-	public void editUserName(User user) {
-		userMapper.editUserName(user);
-	}
+
 }

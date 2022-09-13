@@ -3,6 +3,28 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.UserMapper">
+	
+	<resultMap type="dip.clever.model.User" id="userMap" >
+		<result property="userId" column="user_Id"/>
+		<result property="userNickname" column="user_Nickname"/>
+		<result property="userRole" column="user_Role"/>
+		<result property="userExp" column="user_Exp"/>
+		
+	</resultMap>
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="dip.clever.model.User">
+		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
+		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
+	</insert>
+
+
+	<select id="selectUserList" resultType="dip.clever.model.User">
+		SELECT USER_ID,
+		USER_NICKNAME, USER_NICKNAME, USE_F
+		FROM TB_USER
+		WHERE USE_F = 'Y'
+	</select>
 	<resultMap type="dip.clever.model.User" id="userMap">
 		<result property="userId" column="USER_ID" />
 		<result property="userNickname" column="USER_NICKNAME" />
@@ -52,6 +74,26 @@
 		#{userNickname}
 	</select>
 
+	<!-- 유저 리스트출력 -->
+	<select id="findAll" resultMap="userMap">
+		SELECT *
+		FROM TB_USER
+	</select>
+	
+	<!-- 유저 서치 리스트출력 -->
+	<select id="findSearchResult" resultMap="userMap">
+		SELECT *
+		FROM TB_USER
+		WHERE USER_ID =
+		#{keyword}
+	</select>
+	<!-- 유저 삭제 -->
+	<update id="deleteUser" parameterType="String">
+		UPDATE	TB_USER
+		SET		USE_F = 'N'
+		WHERE	user_Id = #{id}
+	</update>
+	
 	<!-- 메일 확인 -->
 	<select id="findUserEmail" parameterType="string"
 		resultType="string">

@@ -1,5 +1,7 @@
 package dip.clever.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.User;
@@ -9,6 +11,17 @@ public interface UserMapper {
 
 	// 회원가입
 	public void insertUser(User user);
+	
+	// 회원전체리스트 조회
+	public User selectUserList(User user);
+	
+	
+	public List<User> findAll();
+	
+	public List<User> findSearchResult(String keyword);
+
+	public void deleteUser(String id);
+	
 
 	// 회원조회
 	public User selectUser(User user);
