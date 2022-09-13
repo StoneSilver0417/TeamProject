@@ -4,10 +4,13 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Clever</title>
+<title>Clever</title><link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/main/header.css" />
+<link rel="stylesheet" href="css/mypage/mypage.css" />
+<link rel="stylesheet" href="css/main/footer.css" />
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/main/header.css" />
-<link rel="stylesheet" href="css/mypage/leave.css.css" />
+<link rel="stylesheet" href="css/mypage/leave.css" />
 <link rel="stylesheet" href="css/main/footer.css" />
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
@@ -27,7 +30,7 @@
 				<h2>
 					탈퇴 전, 유의사항을<br /> 확인해주시기 바랍니다.
 				</h2>
-				<img src="imgs/bye.svg">
+				<img src="imgs/etc/bye.svg">
 			</div>
 			<div class="warning__description">
 				<h3>계정 및 기록</h3>
@@ -45,7 +48,7 @@
 				</div>
 				<div id="navbar__divider"></div>
 				<div class="leave">
-					<form action="http://127.0.0.1:5500/leave-success.html">
+					<form action="/deleteAccount" method="post">
 						<label for="password-check">비밀번호</label> <input type="password"
 							name="password-check" />
 						<button type="submit">회원탈퇴</button>

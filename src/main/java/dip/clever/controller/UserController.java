@@ -2,13 +2,15 @@ package dip.clever.controller;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest; 
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +21,17 @@ import dip.clever.model.User;
 import dip.clever.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
+	// 아이디 중복 체크
+	@PostMapping("checkId")
+	public boolean checkId(String id) {
+		return !userService.findUserId(id);
+	}
 	// mypage 반환
 	@RequestMapping("/mypage")
 	public String mypage() {
@@ -46,6 +54,53 @@ public class UserController {
 		}
 	}
 
+	// 유저 리스트출력
+	@GetMapping("/authority")
+	public String checkAll(Model model) {
+
+		List<User> user = userService.findAll();
+		model.addAttribute("checkAll", user);
+		//System.out.println(user.toString());
+		return "Authority";
+
+	}
+
+	// 관리자- 유저 검색 method
+	@PostMapping("/manageUser/search-user/{keyword}")
+	public String searchUser(@PathVariable String keyword, Model model) {
+		System.out.println(keyword);
+		System.out.println(userService.findSearchResult(keyword));
+		model.addAttribute("userList", userService.findSearchResult(keyword));
+		return "AuthoritySearchResult";
+	}
+	
+	// 유저 영구 삭제 method
+	
+	
+	@PostMapping("/manageUser/delete-user/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable String id) {
+		String message = "Delete the account successfully";
+		System.out.println(id);
+		//User user = userService.findSearchResult(id);
+		//articleService.deleteAllArticleByUser(user);
+		//commentService.deleteCommentByUser(user);
+		userService.deleteUser(id); 
+
+		System.out.println("delete complete");
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+	
+//	@ResponseBody
+//	@PostMapping("/manageUser/delete-user/{id}")
+//	public String deleteUser(@PathVariable String id) {
+//		String data = "";
+//		if(id != null) {
+//			userService.deleteUser(id);
+//			data = "ok";
+//		}
+//		System.out.println(id);
+//		return data;
+//	}
 	// 프로필 설정 - 사진/이름
 	@PostMapping("/settings-profile/{action}")
 	public String editProfile(@PathVariable String action) {
@@ -66,9 +121,15 @@ public class UserController {
 		}
 	}
 
-	// 계정 설정 - 회원 탈퇴
+	// 계정 설정 - 회원 탈퇴 (view 리턴)
 	@PostMapping("/settings-account/leave")
 	public String leave() {
+		return "mypage/settings/leave";
+	}
+
+	// 계정 설정 - 회원 탈퇴
+	@PostMapping("/deleteAccount")
+	public String deleteAccount() {
 		return "edit_forms/edit-email";
 	}
 	
@@ -124,5 +185,22 @@ public class UserController {
 			throw new RuntimeException("file Save Error");
 		}
 		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+    
+	// 개인정보 수정
+	// 이름 수정
+	@PostMapping("/update-name")
+	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
+		httpServletRequest.getSession().setAttribute("user", user);
+		userService.editUserName(user);
+		String message = "이름이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+
+	// 이메일 수정
+	@PostMapping("/edit-email")
+	public ResponseEntity<String> editEmail(String email) {
+		userService.editUserEmail(email);
+		String message = "이메일이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }
