@@ -1,6 +1,8 @@
 package dip.clever.mapper;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.User;
@@ -19,4 +21,11 @@ public interface UserMapper {
 	
 	//이름으로 유저 찾기
 	public boolean findUserNickname(String userNickname);
+	
+	public List<User> findAll();
+	
+	public List<User> findSearchResult(String keyword);
+
+	public void deleteUser(String id);
+	
 }

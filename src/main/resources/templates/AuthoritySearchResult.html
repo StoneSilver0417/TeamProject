@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="mainHide">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">사용자명</th>
+					<th scope="col">닉네임</th>
+					<th scope="col">역할</th>
+					<th scope="col">레벨</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="list:${userList}">
+					<td th:text="${list.userId}"></td>
+						<td th:text="${list.userNickname}"></td>
+						<td th:text="${list.userRole}"></td>
+						<td th:text="${list.userExp}"></td>
+					<td>
+					<button th:if="${#strings.equals(list.userRole, 'USER')}"
+						th:onclick="addAndRemoveManagerBtn('add', [[${user_Id}]], [[${user_Nickname}]])"
+						class="addManagerBtn btn">+ Add</button>
+
+					<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+						th:onclick="addAndRemoveManagerBtn('remove', [[${user_Id}]], [[${user_Nickname}]])"
+						class="removeManagerBtn btn">Manager ✕</button>
+					</td>
+					<td><button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+							th:onclick="deleteUserBtn([[${user_Id}]], [[${user_Nickname}]])"
+							class="deleteUserBtn btn">delete user</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<br />
+
+
+
+	</div>
+</body>
+</html>

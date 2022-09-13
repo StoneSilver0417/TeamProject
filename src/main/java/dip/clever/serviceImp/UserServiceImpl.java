@@ -1,5 +1,7 @@
 package dip.clever.serviceImp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,21 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public List<User> findAll() {
+		return userMapper.findAll();
+	}
+	
+	@Override
+	public List<User> findSearchResult(String keyword) {
+ 		return userMapper.findSearchResult(keyword);
+	}
 
+
+	@Override
+	public void deleteUser(String id) {
+		userMapper.deleteUser(id);
+		
+	}
 	
 }

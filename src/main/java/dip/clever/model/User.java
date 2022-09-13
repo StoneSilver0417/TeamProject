@@ -15,4 +15,6 @@ public class User{
 	private Role userRole;
 	private int userExp;
 	private Date regTime;
+	
+
 }
