@@ -1,6 +1,9 @@
 package dip.clever.controller;
 
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest; 
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 //import com.example.demo.model.Role;
 
@@ -140,10 +145,86 @@ public class UserController {
 		}
 	}
 
-	// 계정 설정 - 회원 탈퇴
+	// 계정 설정 - 회원 탈퇴 (view 리턴)
 	@PostMapping("/settings-account/leave")
 	public String leave() {
-		return "edit_forms/edit-email";
+		return "mypage/settings/leave";
 	}
 
+	// 계정 설정 - 회원 탈퇴
+	@PostMapping("/deleteAccount")
+	public String deleteAccount() {
+		return "edit_forms/edit-email";
+	}
+	
+	@PostMapping("/user/uploadTemp")
+	public ResponseEntity<Boolean> uploadTemp(HttpServletRequest httpServletRequest, @RequestParam("profileImage") MultipartFile file){
+		User user = (User) httpServletRequest.getSession().getAttribute("user");		
+		String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\temp\\";	
+		
+		if (user == null || file.getSize() == 0)
+			return new ResponseEntity<Boolean> (false, HttpStatus.OK);
+
+		System.out.println("파일 이름 : " + file.getOriginalFilename());
+		System.out.println("파일 크기 : " + file.getSize());
+
+		path += user.getUserId() + ".png";
+		System.out.println(path);
+		try (	FileOutputStream fos = new FileOutputStream(path); 
+				InputStream is = file.getInputStream();) {
+			int readCount = 0;
+			byte[] buffer = new byte[1024];
+			while ((readCount = is.read(buffer)) != -1) {
+				fos.write(buffer, 0, readCount);
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			throw new RuntimeException("file Save Error");
+		}
+		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+	}
+	
+	@PostMapping("/user/uploadProfile")
+	public ResponseEntity<Boolean> uploadProfile(HttpServletRequest httpServletRequest, @RequestParam("profileImage") MultipartFile file){
+		User user = (User) httpServletRequest.getSession().getAttribute("user");		
+		String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\user\\";	
+		
+		if (user == null || file.getSize() == 0)
+			return new ResponseEntity<Boolean> (false, HttpStatus.OK);
+
+		System.out.println("파일 이름 : " + file.getOriginalFilename());
+		System.out.println("파일 크기 : " + file.getSize());
+
+		path += user.getUserId() + ".png";
+		System.out.println(path);
+		try (	FileOutputStream fos = new FileOutputStream(path); 
+				InputStream is = file.getInputStream();) {
+			int readCount = 0;
+			byte[] buffer = new byte[1024];
+			while ((readCount = is.read(buffer)) != -1) {
+				fos.write(buffer, 0, readCount);
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			throw new RuntimeException("file Save Error");
+		}
+		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+    
+	// 개인정보 수정
+	// 이름 수정
+	@PostMapping("/update-name")
+	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
+		httpServletRequest.getSession().setAttribute("user", user);
+		userService.editUserName(user);
+		String message = "이름이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+
+	// 이메일 수정
+	@PostMapping("/edit-email")
+	public ResponseEntity<String> editEmail(String email) {
+		userService.editUserEmail(email);
+		String message = "이메일이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
 }

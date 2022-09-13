@@ -114,12 +114,26 @@
 	</select>
 
 	<!-- ** mypage ** -->
-	<!-- user -->
+	<!-- 아이디로 유저 찾기 -->
 	<select id="findUserById" parameterType="dip.clever.model.User">
-		SELECT *
-		FROM TB_USER
-		WHERE USER_ID = #{userId}
+		SELECT	*
+		FROM	TB_USER
+		WHERE	USER_ID = #{userId}
 	</select>
-
+	
+	<!-- 개인정보 수정 -->
+	<!-- 이름 변경 -->
+	<update id="editUserName" parameterType="dip.clever.model.User">
+		UPDATE	TB_USER
+		SET		USER_NICKNAME = #{userNickname}
+		WHERE	USER_ID = #{userId}
+	</update>
+	
+	<!-- 이메일 변경 -->
+	<update id="editUserEmail" parameterType="dip.clever.model.User">
+		UPDATE	TB_USER
+		SET		USER USER_EMAIL = #{userEmail}
+		WHERE	USER_ID = #{userId}
+	</update>
 
 </mapper>
