@@ -194,6 +194,7 @@ li {
 hr {
   border: 0;
   height: 0;
+ 
   box-shadow: 0 0 1px 1px var(--color-light-grey);
 }
 

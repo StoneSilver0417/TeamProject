@@ -1,0 +1,278 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+} 
+
+#navbar__divider {
+  width: 100%;
+  height: 0.01rem;
+
+  margin-top: 8px;
+  margin-bottom: 100px;
+
+  background-color: #e5e5e5;
+  background-color: red;
+}
+
+
+#checkingBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  min-width: 110px;
+
+  white-space: nowrap;
+
+  padding: 2px 16px 0 16px;
+  margin-top: 24px;
+
+  border: 0px;
+  border-radius: 1px;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+#checkingBtn:hover {
+  font-weight: 500;
+}
+
+#checkingBtn:active {
+  background-color: #e36448;
+} 
+
+#testDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 1160px;
+
+  padding: 18px 0 10px 0;
+
+  color: var(--color-black);
+}
+#testDetails > .details__title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#testDetails > .details__title h2 {
+  margin-right: 12px;
+}
+
+#testDetails > .details__title p {
+  margin-top: 8px;
+}
+
+#testDetails > .details__title p:nth-child(2) {
+  padding-right: 3px;
+}
+
+#testDetails > .details__title p:nth-child(3) {
+  margin-top: 11px;
+}
+
+#testDetails > .details__title h1 {
+  font-size: var(--font-great);
+  font-weight: 500;
+}
+
+#testDetails > .details__title h2 {
+  font-size: var(--font-big);
+  font-weight: 500;
+  color: #b7b7b7;
+}
+
+#testDetails p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#questList {
+  width: 100%;
+  max-width: 1160px;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  flex-wrap: wrap;
+
+  padding: 20px 0;
+  margin-bottom: 300px;
+
+  background: none;
+
+  word-break: break-all;
+}
+
+#questList > .quest {
+  width: 500px;
+  max-width: 580px;
+  height: auto;
+
+  margin-bottom: 120px;
+
+  background: none;
+}
+
+#questList > .quest > .questNumAndQuestContent {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-bottom: 12px;
+}
+
+#questList > .quest > .questNumAndQuestContent > .questInfo > .questNum {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -1px;
+
+  color: var(--color-red);
+}
+
+#questList > .quest > .questNumAndQuestContent > .questInfo > .questContent {
+  padding-left: 2px;
+
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#questList > div:nth-child(3) {
+  height: 100px;
+}
+
+#questList > .quest > .questChoices ol {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
+
+  list-style: none;
+  counter-reset: item;
+
+  counter-reset: circle 0;
+}
+
+#questList > .quest > .questChoices > ol li {
+  position: relative;
+}
+
+#questList > .quest > .questChoices > ol li::before {
+  position: absolute;
+  top: 50%;
+  left: 0.4em;
+  transform: translateY(-50%);
+  counter-increment: circle 1;
+  content: counter(circle);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+#questList > .quest > .questChoices > ol li::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: inline-block;
+  border: 1px solid var(--color-black);
+  border-radius: 100%;
+  width: 1em;
+  height: 1em;
+}
+
+#questList > .quest > .questChoices > ol > li label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding-left: 8px;
+
+  font-weight: 400;
+  font-size: 17px;
+
+  cursor: pointer;
+}
+
+#questList > .quest > .questChoices > ol > li label:hover {
+  font-weight: 500;
+}
+
+#questList > .quest > .questChoices > ol > li > label .choice {
+  display: block;
+
+  content: counter(item);
+
+  width: 17px;
+  height: 17px;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  margin: 0.01rem 10px 0 -0.5rem;
+
+  border-color: var(--color-black);
+  border-radius: 100%;
+
+  appearance: none;
+  background: none;
+}
+
+#questList > .quest > .questChoices > ol > li > label .choice:focus {
+  outline: none;
+}
+
+#questList > .quest > .questChoices > ol > li > label .choice:checked {
+  background-color: #d3d3d3;
+}
+
+.checking {
+  display: inline-flex;
+  justify-content: flex-end;
+
+  width: 100%;
+  max-width: 1160px;
+
+  margin-bottom: 100px; 
+
+  font-size: var(--font-big);
+  font-weight: 500;
+}
+
+
+.checking > hr {
+  height: 0;
+
+  border: 0;
+
+  box-shadow: 0 0 1px 1px var(--color-light-grey);
+}
+
+/* Responsible Web */
+@media screen and (max-width: 1270px) {
+  #questList {
+    padding: 0 50px;
+  }
+
+  #testDetails {
+    padding: 18px 50px 10px 50px;
+  }
+}
