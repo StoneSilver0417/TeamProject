@@ -40,6 +40,46 @@ body {
   background-color: #e36448;
 } 
 
+
+.short-answer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  min-width: 100px;
+  height: 100%;
+  max-height: 44px;
+
+  padding: 11px 12px;
+  margin: 0px;
+
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 1px;
+
+  font-size: var(--font-medium);
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+
+  color: rgb(13, 13, 13);
+  background: rgb(255, 255, 255);
+}
+
+.short-answer::placeholder {
+  font-weight: normal;
+  font-size: var(--font-medium);
+  color: rgb(164, 164, 164);
+}
+
+.short-answer:focus {
+  border: 1px solid var(--color-black);
+}
+
+.short-answer::selection {
+  background-color: var(--color-light-grey);
+} 
+
 #testDetails {
   display: flex;
   flex-direction: column;
