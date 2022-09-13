@@ -1,6 +1,8 @@
 package dip.clever.controller;
 
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest; 
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -116,10 +118,33 @@ public class UserController {
 		}
 	}
 
-	// 계정 설정 - 회원 탈퇴
+	// 계정 설정 - 회원 탈퇴 (view 리턴)
 	@PostMapping("/settings-account/leave")
 	public String leave() {
+		return "mypage/settings/leave";
+	}
+
+	// 계정 설정 - 회원 탈퇴
+	@PostMapping("/deleteAccount")
+	public String deleteAccount() {
 		return "edit_forms/edit-email";
 	}
 
+	// 개인정보 수정
+	// 이름 수정
+	@PostMapping("/update-name")
+	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
+		httpServletRequest.getSession().setAttribute("user", user);
+		userService.editUserName(user);
+		String message = "이름이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+
+	// 이메일 수정
+	@PostMapping("/edit-email")
+	public ResponseEntity<String> editEmail(String email) {
+		userService.editUserEmail(email);
+		String message = "이메일이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
 }
