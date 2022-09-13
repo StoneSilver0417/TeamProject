@@ -210,7 +210,6 @@ public class UserController {
 		}
 		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
 	}
-    
 	// 개인정보 수정
 	// 이름 수정
 	@PostMapping("/update-name")
