@@ -7,20 +7,19 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.ajax({
-			url:'/round/list',
+			url:'/quest/list',
 			type:'post',
-			data:{testNo:$('#testNo').val()},
+			data:{roundNo:$('#roundNo').val()},
 			success:function(data){
-				$('#roundList').html(data);
+				$('#questList').html(data);
 			}
 		})
 	})	
 </script>
 </head>
 <body>	
-	<div th:replace="layout/searchArea :: search"></div>
-	<input type="hidden" id="testNo" th:value="${test.testNo}">
-	<div id="roundList">
+	<input type="hidden" id="roundNo" th:value="${round.roundNo}">
+	<div id="questList">
 	</div>
 </body>
 </html>

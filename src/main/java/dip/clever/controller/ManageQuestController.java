@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dip.clever.model.TestRound;
+import dip.clever.model.Round;
 import dip.clever.model.User;
 import dip.clever.service.MangeQuestService;
 import dip.clever.service.UserService;
@@ -27,7 +27,7 @@ public class ManageQuestController {
 	
 	// 회차등록
 	@PostMapping("insertRound")
-	public String insertRound(TestRound testRound, Model model, User user) {
+	public String insertRound(Round testRound, Model model, User user) {
 		model.addAttribute("get", user);
 		mangeQuestService.insertRound(testRound);
 		return "redirect:/insertRound";

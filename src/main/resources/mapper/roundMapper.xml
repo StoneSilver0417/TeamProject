@@ -2,42 +2,29 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dip.clever.mapper.TestMapper">
+<mapper namespace="dip.clever.mapper.RoundMapper">
 	<!-- 카테고리 목록 불러오기 -->
-	<select id="selectCategoryList" resultMap="category">
+	<select id="selectRoundList" parameterType="int" resultMap="round">
 		SELECT		*
-		FROM		TB_CATEGORY
-	</select>
-	
-	<select id="selectTestList" parameterType="int" resultMap="test">
-		SELECT	*
-		FROM	TB_TEST
-		WHERE	CATEGORY_NO = #{categoryNo}
-		AND		USE_F = 'Y'
-	</select>
-	
-	<select id="selectTest" parameterType="int" resultMap="test">
-		SELECT		*
-		FROM		TB_TEST
+		FROM		TB_TEST_ROUND
 		WHERE		TEST_NO = #{testNo}
 		AND			USE_F = 'Y'
 	</select>
 	
-	<!-- 밑에는 사용 X -->
+	<select id="selectRound" parameterType="int" resultMap="round">
+		SELECT		*
+		FROM		TB_TEST_ROUND
+		WHERE		ROUND_NO = #{roundNo}
+		AND			USE_F = 'Y'
+	</select>
 	
-	<!-- 카테고리 매핑-->
-	<resultMap type="dip.clever.model.Category" id="category" >
-		<result property="categoryNo" 	column="CATEGORY_NO"/>
-		<result property="categoryName" column="CATEGORY_NAME"/>
-	</resultMap>
-	
-	<!-- 시험 매핑 -->
-	<resultMap type="dip.clever.model.Test" id="test" >
-		<result property="testNo" 	column="TEST_NO"/>
-		<result property="categoryNo" column="CATEGORY_NO"/>		
-		<result property="managerId" column="MANAGER_ID"/>		
-		<result property="testName" column="TEST_NAME"/>
-	</resultMap>
+	<!-- 회차 매핑 -->
+	<resultMap type="dip.clever.model.Round" id="round" >
+		<result property="roundNo" 	column="ROUND_NO"/>
+		<result property="testNo" column="TEST_NO"/>		
+		<result property="regUser" column="REG_USER"/>
+		<result property="roundName" column="ROUND_NAME"/>
+	</resultMap>	
 	
 	<!-- 밑에 부분은 사용하지 않음 -->
 	<insert id="insertArticle" parameterType="map">

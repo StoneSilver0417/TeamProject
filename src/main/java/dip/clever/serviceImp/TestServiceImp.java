@@ -34,4 +34,9 @@ public class TestServiceImp implements TestService{
 		
 		return testMapper.getResultList(searchConditionMap);
 	}
+
+	@Override
+	public Test selectTest(Test test) {
+		return testMapper.selectTest(test.getTestNo());		
+	}
 }

@@ -26,7 +26,7 @@ public class CategoryController {
 	public String category(Model model, Category category) {
 		model.addAttribute("category",category);
 
-		return "category";
+		return "category2";
 	}
 
 	@GetMapping("/{no}")
@@ -38,7 +38,7 @@ public class CategoryController {
 		
 		model.addAttribute("category",category);
 		
-		return "test";
+		return "category";
 	}
 	
 	//카테고리 관리 폼
