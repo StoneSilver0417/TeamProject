@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clever</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/main/header.css" />
+<link rel="stylesheet" href="css/mypage/mypage-setting.css">
+<link rel="stylesheet" href="css/main/footer.css" />
+<script src="js/script.js"></script>
+<script src="https://kit.fontawesome.com/267f657aa0.js"
+	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    // default: 프로필
+    $(document).ready(function () {
+        $.ajax({
+          url: '/settings-profile',
+          type: 'POST',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        }); 
+    });
+
+    function settingCategoryBtn(category) {
+        $.ajax({
+          url: '/settings-' + category,
+          type: 'POST',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        });
+      }
+    </script>
+</head>
+<body>
+	<!-- header -->
+	<div th:replace="layout/header :: header"></div>
+	<hr>
+
+	<!-- mypage settings -->
+	<section id="settings">
+		<h1 id="settings__title">설정</h1>
+		<!-- settings list -->
+		<nav class="settings__list">
+			<!-- tab navigation -->
+			<p onclick="settingCategoryBtn('profile')" class="active">프로필</p>
+			<p onclick="settingCategoryBtn('account')">계정</p>
+			<div class="marker" target="_blank"></div>
+		</nav>
+		<div id="navbar__divider"></div>
+		<div id="replace-content"></div>
+
+	</section>
+	<script>
+                const marker = document.querySelector(".marker");
+                const item = document.querySelectorAll(".settings__list p");
+        
+                function indicator(e) {
+                marker.style.left = e.offsetLeft + "px";
+                marker.style.width = e.offsetWidth + "px";
+
+                //   e.classList.remove('active');   
+                }
+
+                item.forEach((event) => { 
+                    // event.currentTarget.classList.remove('active');   
+
+                    event.addEventListener("click", (e) => {
+                    indicator(e.target);
+                    e.target.classList.add('active');
+
+                    console.log(e.target);
+                });
+                });
+    </script>
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>

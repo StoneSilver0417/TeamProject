@@ -12,23 +12,30 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script type="text/javascript">
-	
+	function login() {
+		var pwd = $('#userPwd').val();
+
+		$('#encodePwd').val(sha256(pwd))
+	}
 </script>
 </head>
 <body>
 	<div class="container">
+		<div th:replace="layout/header2 :: logo"></div>
 		<h2 style="padding-top: 30px">Login Page</h2>
 		<form action="/login" method="post">
 			<div class="form-group">
-				<label for="username">Id :</label> <input type="text"
-					class="form-control" placeholder="Enter Id" name="username"
-					required>
+				<label for="userId">Id :</label> <input type="text"
+					class="form-control" placeholder="Enter Id" name="userId" required>
 			</div>
 			<div class="form-group">
-				<label for="pwd">Password :</label> <input type="password"
-					class="form-control" placeholder="Enter password" name="password"
+				<input type="hidden" id="encodePwd" name="userPwd"> <label
+					for="userPwd">Password :</label> <input type="password"
+					id="userPwd" class="form-control" placeholder="Enter password"
 					required>
 			</div>
 			<div class="form-group form-check">
@@ -37,9 +44,10 @@
 					Remember me
 				</label>
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<div th:if="${loginError}" th:text="'로그인 실패'" style="color: red;" />
+			<button type="submit" onclick="login();" class="btn btn-primary">Submit</button>
 		</form>
-		<br> <a href="/joinForm">Register</a>
+		<br> <a href="/join">Register</a>
 	</div>
 </body>
 </html>

@@ -1,137 +1,190 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<link rel="icon" th:href="@{/imgs/favicon.ico}">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script th:src="@{/js/jquery.min.js}"></script>
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						/* 틀린 정보 입력으로 폼이 새로고침 되면, 주소창에 파라미터가 뜨므로 보안상 좋지 않다고 판단함 */
-						//history.replaceState({}, null, location.pathname);
-						/* 비밀번호 재확인 일치 여부 판단 */
-						var submitBtn = $('#submitBtn');
-						var passwordBox = $('#userPwd');
-						var confirmBox = $('#confirm_password');
-						var errorMsg = $('<span id="error_msg">Passwords do not match.</span>');
 
-						/* 비밀번호가 일치하지 않을 경우 에러메시지를 띄우고 submit 버튼을 비활성화 시킴 */
-						function checkMatchingPasswords() {
-							/* 비밀번호 값과 비밀번호 확인 값을 입력할때 */
-							if (confirmBox.val() != '' && passwordBox.val != '') {
-								/* 비밀번호 값과 비밀번호 확인 값이 일치하지 않으면 */
-								if (confirmBox.val() != passwordBox.val()) {
-									/* 버튼을 비활성화 시키고 에러 메시지를 띄움 */
-									submitBtn.attr('disabled', 'disabled');
-									errorMsg.insertAfter(confirmBox);
-								}
-							}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/form.css" />
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>		
+	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+	<script th:inline="javascript">
+	$(document).ready(function(){
+			$('#regbut').click(function(data){
+				var id = $('#userId').val();
+				var pwd = $('#userPwd').val();
+				var name = $('#userNickname').val();
+				var email = $('#userEmail').val();
+				
+				go = true;
+								
+				if(id == "")
+					label('#idmsg','아이디를 입력해주세요.');	
+				else if(id != $('#id2').val())
+					label('#idmsg','아이디 확인이 필요합니다');					
+				
+				if(name == "")
+					label('#namemsg','닉네임을 입력해주세요');					
+				else if(name != $('#name2').val())
+					label('#namemsg','닉네임 확인이 필요합니다');
+				
+				if(pwd == "")
+					label('#pwdmsg','비밀번호를 입력해주세요.');
+				else if(pwd != $('#pwd2').val())
+					label('#pwdmsg','비밀번호가 일치하지 않습니다');
+				
+				if(email == "")
+					label('#mailmsg', '이메일을 입력해주세요.');
+				else if(email != $('#email2').val())
+					label('#mailmsg','이메일 확인이 필요합니다');
+				
+				if(go){
+					$('#encodePwd').val(sha256(pwd))
+				}
+				
+				return go;
+			});
+			
+			$('#idchkbut').click(function(data){
+				var id = $('#userId').val();
+
+				if(id == "")
+					return;
+				$.ajax({
+					url:'/user/checkId',
+					data:{userId:id},
+					type:'post',
+					success:function(data){
+						if(data){
+							$('#id2').val(id);
+							label('#idmsg','사용 가능한 아이디','green');
 						}
-
-						/* 비밀번호가 일치할 경우 에러 메시지를 지우고 submit 버튼도 활성화 시킴 */
-						function resetPasswordError() {
-							submitBtn.removeAttr('disabled');
-							var errorCont = $('#error_msg');
-							if (errorCont.length > 0) {
-								errorCont.remove();
-							}
+						else{
+							label('#idmsg','사용 불가능한 아이디');							
 						}
+					},
+					fail:function(){
+						alert('실패');
+					}
+				})
+			});
+			
+			$('#namechkbut').click(function(data){
+				var name = $('#userNickname').val();
 
-						$('#confirm_password, #userPwd').on('keydown',
-								function(e) {
-									if (e.keyCode == 13 || e.keyCode == 9) {
-										checkMatchingPasswords();
-									}
-								}).on('blur', function() {
-							checkMatchingPasswords();
-						}).on('focus', function() {
-							resetPasswordError();
-						});
+				if(name == "")
+					return;
+				$.ajax({
+					url:'/user/checkNickname',
+					data:{userNickname:name},
+					type:'post',	
+					success:function(data){
+						if(data){
+							$('#name2').val(name);
+							label('#namemsg','사용 가능한 닉네임','green');
+						}
+						else{
+							label('#namemsg','사용 불가능한 닉네임');							
+						}
+					},
+					fail:function(){
+						alert('실패');
+					}
+				})
+			});
+			
+			$('#emailchkbut').click(function(data){
+				var email = $('#userEmail').val();
 
-						// submit후, nickname, username, email 유효성 검사 후 결과 리턴
-						$('form').submit(function(e) {
-							e.preventDefault();
-							//alert( $('#nickname').val())
-							//alert($('#username').val())
-							//alert($('#email').val())
-							//alert($('#password').val())
-							$.ajax({
-								url : '/join',
-								type : 'POST',
-								contentType : 'application/json', // application/json ==> {key: value} 형태
-								dataType : 'text', // String 값을 return하기 때문
-								data : JSON.stringify({
-									nickname : $('#userNickname').val(),
-									username : $('#userId').val(),
-									email : $('#userEmail').val(),
-									password : $('#userPwd').val(),
-								}),
-								success : function(data) {
-									//alert('please')
-									var message = "Welcome, you just joined!"
-									//alert(data);
-									if (data == message) {
-										alert(message);
-										location.href = '/loginForm';
-									} else {
-										alert(data);
-										location.replace('/joinForm');
-									}
-								},
-								error : function() {
-									alert('error');
-								}
-							});
-						});
-					});
-</script>
+				if(email == "")
+					return;
+				$.ajax({
+					url:'/user/checkEmail',
+					data:{userEmail:email},
+					type:'post',	
+					success:function(data){
+						if(data){
+							$('#email2').val(email);
+							label('#mailmsg','사용 가능한 이메일','green');
+						}
+						else{
+							label('#mailmsg','사용 불가능한 이메일');							
+						}
+					},
+					fail:function(){
+						alert('실패');
+					}
+				})
+			});
+		});
+		
+	function label(object, text, color){
+		$(object).text(text).css('color', color ? color : 'red');
+		go = color != null;
+	}
+	</script>
 </head>
-
 <body>
+	<!-- 회원가입 폼 -->
 	<div class="container">
-		<h2 style="padding-top: 30px">Join Page</h2>
-		<form id="joinForm">
+		<div th:replace="layout/header2 :: logo"></div>
+		<div class="logo_area">
+			<h1 class="logo_default">
+				<a href="/" class="logo" data-clk="top.logo"><!-- 클릭시 메인화면으로 이동 -->
+					<span>
+						회원가입
+					</span>
+				</a>
+			</h1>
+		</div>
+		<!-- 회원 정보 입력 -->
+		<form action="/join" method="post" class="loginForm">
+			<!-- 아이디는 중복 불가, 확인 필요 -->
 			<div class="form-group">
-				<label for=userNickname>Nickname :</label> <input type="text"
-					id="userNickname" class="form-control" placeholder="Enter Nickname"
-					name="userNickname" required>
+				<input type="text" class="form-control" id="userId" placeholder="아이디" name="userId" style="width:85%; float: left;">
+				<button type="button" id="idchkbut" class="btn btn-primary" style="width:15%; white-space: nowrap;">
+					아이디 확인
+				</button>
+				<input type="hidden" id="id2" value="">
+				<!-- 아이디 메세지 출력 -->
+				<label id="idmsg"> </label>
+			</div>
+			<!-- 닉네임 중복 불가, 확인 필요 -->				
+			<div class="form-group">
+				<input type="text" class="form-control" id="userNickname" placeholder="닉네임" name="userNickname" style="width:85%; float: left;">
+				<button type="button" id="namechkbut" class="btn btn-primary" style="width:15%; white-space: nowrap;">
+					닉네임 확인
+				</button>
+				<input type="hidden" id="name2" value="">
+				<!-- 닉네임 메세지 출력 -->
+				<label id="namemsg"> </label>
+			</div>
+			<!-- 이메일 중복 불가, 확인 필요 -->				
+			<div class="form-group">
+				<input type="email" class="form-control" id="userEmail" placeholder="이메일" name="userEmail" style="width:85%; float: left;">
+				<button type="button" id="emailchkbut" class="btn btn-primary" style="width:15%; white-space: nowrap;">
+					이메일 확인
+				</button>
+				<input type="hidden" id="email2" value="">
+				<!-- 닉네임 메세지 출력 -->
+				<label id="mailmsg"> </label>
+			</div>
+			<!-- 비밀번호 -->
+			<div class="form-group">
+				<input type="hidden" id="encodePwd" name="userPwd">
+				<input type="password" class="form-control" id="userPwd" placeholder="비밀번호">
 			</div>
 			<div class="form-group">
-				<label for="userEmail">Email :</label> <input type="email" id="userEmail"
-					class="form-control" placeholder="Enter email" name="userEmail"
-					required>
+				<input type="password" class="form-control" id="pwd2" placeholder="비밀번호 확인">
+				<!-- 비밀번호 메세지 출력 -->
+				<label id="pwdmsg"> </label>
 			</div>
-			<div class="form-group">
-				<label for="userId">Id :</label> <input type="text" id="userId"
-					class="form-control" placeholder="Enter Id" name="userId"
-					required>
-			</div>
-			<div class="form-group">
-				<label for="userPwd">Password :</label> <input type="password"
-					id="userPwd" class="form-control" placeholder="Enter password"
-					name="userPwd" required>
-			</div>
-			<div class="form-group">
-				<label for="userPwd">Confirm Password :</label> <input type="password"
-					id="confirm_password" class="form-control"
-					placeholder="Enter confirm password" required> 
-					<span id="message"></span>
-			</div>
-			<input type="submit" value="Submit" id="submitBtn"
-				class="btn btn-primary" />
+			
+			<br>
+			<button id="regbut" type="submit" class="btn btn-primary">
+				회원 가입
+			</button>
 		</form>
 	</div>
 </body>
-
 </html>

@@ -3,8 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css" />
+<!-- <link rel="stylesheet" href="css/header.css" /> -->
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	var where = new URL(location.href).searchParams.get('where');
+	var query = new URL(location.href).searchParams.get('query');
+	
+	// 자바객체와 연동되는 JSON객체 생성
+	function toJson(data){
+		const len = data.length;
+		var oldkeys;
+		var newkeys = []
+		var json = "[";
+		
+		if(len == 0) return null;
+		oldkeys = Object.keys(data[0]);
+		
+		for(var a in oldkeys)
+			newkeys[a] = toJsonName(oldkeys[a]);
+				
+		for(var dat of data){			
+			json += "{";
+			for(var a in newkeys){
+				json += newkeys[a] + ":" + JSON.stringify(dat[oldkeys[a]]);
+				if(a < newkeys.length - 1)
+					json +=",";
+			}
+			json += "}";
+		}
+		json += "]";
+		
+		return JSON.parse(json);
+	}
+	
+	//첫 번째 글자는 대문자로 변경
+	function toUpperfirst(name){
+		const len = name.length;
+		var n = name[0].toUpperCase();
+		
+		for(var a = 1; a < len; a++){
+			n += name[a];
+		}
+		return n;
+	}
+	
+	// JSON에서 사용가능한 key이름으로 변경
+	function toJsonName(name){
+		var names = name.toLowerCase().split('_');
+		var camelName = names[0];
+				
+		for(var a = 1; a < names.length; a++){			
+			camelName += toUpperfirst(names[a])
+		}		
+		return '"' + camelName + '"';
+	}
+	
+	$(document).ready(function(){
+		$.ajax({
+			url:'/search',
+			type: 'post',
+			data:{
+				where:where,
+				query:query
+			},
+			success:function(data){
+				var result = $('#result');				
+				var keys = Object.keys(data);			//키를 가져옵니다. 이때, keys 는 반복가능한 객체가 됩니다.
+
+				for(let i = 0; i < keys.length; i++){
+					var key = keys[i];
+					var json = toJson(data[key]);
+					
+					$.ajax({
+						url:'/search/condition',
+						type:'post',
+						async: false,			// 동기 처리
+						data:{
+							where:key,
+							count:json != null ? json.length : 0
+						},
+						success:function(data){
+							result.append(data);
+							
+							if (json == null)	return;
+							
+							for(var js of json){
+								$.ajax({
+									url:'/' + key.toLowerCase(),
+									type:'post',
+									async: false,			// 동기 처리
+									data: js,
+									success:function(data){								
+										result.append(data);
+									},
+									error:function(){
+										alert(key + ' 검색 실패')
+									}
+								})
+							}
+						},
+						error:function(){
+							alert('실패')
+						}
+					})
+				}
+			},
+			error:function(){
+				alert('검색 실패');
+			}
+		});
+	})
+</script>
 </head>
 <body>
-	searchForm
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<div th:replace="layout/searchArea::search"/>
+	<form action="/form" method="post">
+		<div class="container">			
+			<ul id="result">
+				<table class="table table-hover">
+					<thread>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">작성자</th>			
+							<th scope="col">제목</th>
+							<th scope="col">조회수</th>
+							<th scope="col">작성일</th>
+							<th>
+								<span style="float: right;">
+									목록 개수
+									<select  onchange="//change(this);">
+										<option value="2" th:selected="${size == 2}">
+											2
+										</option>
+										<option value="3" th:selected="${size == 3}">
+											3
+										</option>
+										<option value="5" th:selected="${size == 5}">
+											5
+										</option>
+										<option value="10" th:selected="${size == 10}">
+											10
+										</option>
+										<option value="15" th:selected="${size == 15}">
+											15
+										</option>
+										<option value="20" th:selected="${size == 20}">
+											20
+										</option>
+										<option value="30" th:selected="${size == 30}">
+											30
+										</option>
+									</select>
+								</span>				
+							</th>
+						</tr>
+					</thread>
+				</table>				
+			</ul>
+			
+			<input type="submit" class="pull-right btn btn-primary btn-block" style="width: 100px; margin: 10px 0;" value="글쓰기"/>
+			<br/>
+			<br/>
+			<div id="mainHide">
+			</div>
+			<br />
+			<!-- 페이지 네비게이션 -->
+			<nav id="navi" aria-label="Page navigation" style="text-align: center;">			
+			</nav>
+		</div>
+	</form>
 </body>
 </html>

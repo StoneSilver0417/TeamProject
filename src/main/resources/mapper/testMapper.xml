@@ -22,6 +22,13 @@
 		AND		USE_F = 'Y'
 	</select>
 	
+	<select id="getResultList" parameterType="map" resultType="java.util.HashMap">
+		SELECT		${searchCondition}_NO, ${searchCondition}_NAME
+		FROM		TB_${searchCondition}
+		WHERE		${searchCondition}_NAME LIKE '%${query}%'
+		AND			USE_F = 'Y'
+	</select>
+	
 	<!-- 카테고리 매핑-->
 	<resultMap type="dip.clever.model.Category" id="category" >
 		<result property="categoryNo" 	column="CATEGORY_NO"/>

@@ -3,6 +3,7 @@ package dip.clever.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dip.clever.model.User;
 import dip.clever.service.UserService;
-
-import dip.clever.model.User;
 
 // 폼 이동 컨트롤러
 @Controller
@@ -39,7 +38,7 @@ public class FormController {
 	//로그인 폼으로 이동
 	@GetMapping("login")
 	public String loginForm() {
-		return "loginForm";
+		return "loginForm2";
 	}
 
 	//회원 가입 폼으로 이동
@@ -54,11 +53,15 @@ public class FormController {
 		return "list";
 	}
 	
+	// 회차등록 폼으로 이동
+	@GetMapping("insertRound")
+	public String roundForm() {
+		return "roundForm";
+	}
 
 	// 회원가입 메소드
-	@PostMapping("/join")
+	@PostMapping("join")
 	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
-		
 		userService.insertUser(user);
 		
 		return loginCheck(httpServletRequest, model, user);
@@ -67,19 +70,18 @@ public class FormController {
 	//로그인 진행
 	@PostMapping("login")
 	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
-		user = userService.selectUserList(user);
-		
+		user = userService.selectUser(user);
 		if (user == null) {
 			model.addAttribute("loginError", true);
 
-			return "loginForm";
+			return "loginForm2";
 		}
-				
+		
 		httpServletRequest.getSession().setAttribute("user", user);		
 
 		return "redirect:";
 	}
-		
+	
 	//로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest httpServletRequest) {
@@ -90,36 +92,7 @@ public class FormController {
 
 		return "redirect:";
 	}
-
-}
-
-//	@RequestMapping("category")
-//	public String categoryForm(HttpServletRequest httpServletRequest) {
-//		User user = (User)httpServletRequest.getSession().getAttribute("user");
-//
-//		return null;
-//
-//	}
-//	
-//	//회원 가입 진행
-//	@PostMapping("register")
-//	public String register(HttpServletRequest httpServletRequest, Model model, User user) {		
-//		Log log;
-//		
-//		log = new Log(user.getId(), Command.REGISTER, null);
-//		
-//		userRepository.insertUser(user);
-//		logRepository.insertLog(log);
-//		
-//		return loginCheck(httpServletRequest, model, user);
-//	}
-//	
-//	//로그인 폼으로 이동
-//	@GetMapping("login")
-//	public String loginForm() {
-//		return "loginForm";
-//	}
-//	
+	
 //	@GetMapping("authority")
 //	public String authorityForm() {
 //		return "authority";
@@ -254,4 +227,4 @@ public class FormController {
 //		
 //		return "articleList";
 //	}
-//}
+}

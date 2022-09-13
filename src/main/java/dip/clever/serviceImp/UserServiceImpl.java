@@ -15,28 +15,33 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	
+	// 회원가입
 	@Override
 	public void insertUser(User user) {
 		userMapper.insertUser(user);
 	}
 
-
+	// 회원조회
 	@Override
-	public User selectUserList(User user) {
-		return userMapper.selectUserList(user);
+	public User selectUser(User user) {
+		return userMapper.selectUser(user);
 	}
 
 	//아이디 중복 체크
 	@Override
 	public boolean findUserId(String userId) {
-		return false;
+		return userMapper.findUserId(userId) != null;
 	}
 
 	//닉네임 중복 체크
 	@Override
 	public boolean findUserNickname(String userNickname) {
-		return false;
+		return userMapper.findUserNickname(userNickname) != null;
+	}
+  
+	@Override
+	public boolean findUserEmail(String userEmail) {
+		return userMapper.findUserEmail(userEmail) != null;
 	}
 
 	@Override
@@ -56,4 +61,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	// 아이디로 유저 찾기
+	@Override
+	public User findUserById(String id) {
+		return userMapper.findUserById(id);
+	}	
 }

@@ -6,15 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import dip.clever.model.User;
 import dip.clever.service.UserService;
@@ -31,17 +27,26 @@ public class UserController {
 	public boolean checkId(String id) {
 		return !userService.findUserId(id);
 	}
-
-	// 닉네임 중복 체크
-	@PostMapping("checkNickname")
-	public boolean checkName(String name) {
-		return !userService.findUserNickname(name);
+	// mypage 반환
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
 	}
 
-	// 패스워드 체크
-	@PostMapping("checkPassword")
-	public boolean checkPassword(User user) {
-		return userService.selectUserList(user) != null;
+	// mypage - 개인정보 수정
+	@RequestMapping("/mypage-setting")
+	public String mypageSetting() {
+		return "mypage/settings/mypage-setting";
+	}
+
+	// mypage - 프로필/계정 정보 수정
+	@PostMapping("/settings-{category}")
+	public String settingsProfile(@PathVariable String category) {
+		if (category.equals("profile")) {
+			return "mypage/settings/settings-profile";
+		} else {
+			return "mypage/settings/settings-account";
+		}
 	}
 
 	// 유저 리스트출력
@@ -91,5 +96,30 @@ public class UserController {
 //		System.out.println(id);
 //		return data;
 //	}
+	// 프로필 설정 - 사진/이름
+	@PostMapping("/settings-profile/{action}")
+	public String editProfile(@PathVariable String action) {
+		if (action.equals("img")) {
+			return "edit_forms/edit-img";
+		} else {
+			return "edit_forms/edit-name";
+		}
+	}
+
+	// 계정 설정 - 사진/이름
+	@PostMapping("/settings-account/{action}")
+	public String editAccount(@PathVariable String action) {
+		if (action.equals("email")) {
+			return "edit_forms/edit-email";
+		} else {
+			return "edit_forms/edit-password";
+		}
+	}
+
+	// 계정 설정 - 회원 탈퇴
+	@PostMapping("/settings-account/leave")
+	public String leave() {
+		return "edit_forms/edit-email";
+	}
 
 }

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clever</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/main/header.css" />
+<link rel="stylesheet" href="css/mypage/mypage.css" />
+<link rel="stylesheet" href="css/main/footer.css" />
+<script src="js/script.js"></script>
+<script src="https://kit.fontawesome.com/267f657aa0.js"
+	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    // default: 내 문제 - 내가 푼 문제
+    $(document).ready(function () {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/mypage-quest.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        }); 
+    });
+    
+    function settingsBtn() {
+    	
+    }
+
+      function myQuestBtn() {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/mypage-quest.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        });
+      }
+
+      function myActiveBtn() {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/mypage-activity.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        });
+      }
+
+      function myLevelBtn() {
+        $.ajax({
+          url: 'http://127.0.0.1:5500/mypage-level.html',
+          type: 'GET',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        });
+      } 
+    </script>
+</head>
+<body>
+	<!-- header -->
+	<div th:replace="layout/header :: header"></div>
+	<hr>
+
+	<!-- mypage -->
+	<section id="mypage">
+		<!-- user profile -->
+		<div class="mypage__profile">
+			<!-- user profile image -->
+			<img src="imgs/profile-img.png" />
+			<div th:with="info = ${session.user}" class="mypage__profile-info">
+
+				<div class="usernameAndsetting__wrapper">
+					<!-- user name -->
+					<h1 th:text="${info.userNickname}"></h1>
+					<!-- setting icon -->
+					<a href="/mypage-setting" > <img
+						src="imgs/mypage/settings.png" />
+					</a>
+				</div>
+				<!-- user regdate -->
+				<!-- <p th:text="${#calendars.format(#calendars.createNow()}"></p> -->
+				<p th:text="${info.regTime}">3일 전 가입</p>
+				<!-- user badge -->
+				<div th:if="${info.userExp} >= 300" class="badge"> 
+					<img src="imgs/badge/master.svg" />
+					<p th:text="${info.userExp}"></p>
+				</div>
+				<div th:if="${info.userExp} >= 100" class="badge"> 
+					<img src="imgs/badge/level2.svg" />
+					<p th:text="${info.userExp}"></p>
+				</div>
+				<div th:if="${info.userExp} >= 50" class="badge"> 
+					<img src="imgs/badge/level1.svg" />
+					<p th:text="${info.userExp}"></p>
+				</div>
+				<div th:if="${info.userExp} >= 0" class="badge"> 
+					<img src="imgs/badge/new.svg" imgwidth="40px"/>
+					<p th:text="${info.userExp}"></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- user activity -->
+		<nav class="mypage__list">
+			<!-- tab navigation -->
+			<p onclick="myQuestBtn()" class="active">내 문제</p>
+			<p onclick="myActiveBtn()">내 활동</p>
+			<p onclick="myLevelBtn()">등급</p>
+			<div class="marker" target="_blank"></div>
+		</nav>
+		<div id="navbar__divider"></div>
+		<div id="replace-content"></div>
+		<!-- !!!!!!!! board 색깔 수정 필요 !!!!!!!!!! -->
+	</section>
+	<hr>
+	<script>
+        const marker = document.querySelector(".marker");
+        const item = document.querySelectorAll(".mypage__list p");
+ 
+        function indicator(e) {
+        marker.style.left = e.offsetLeft + "px";
+        marker.style.width = e.offsetWidth + "px";
+
+        //   e.classList.remove('active');   
+        }
+
+        item.forEach((event) => { 
+            // event.currentTarget.classList.remove('active');   
+
+            event.addEventListener("click", (e) => {
+            indicator(e.target);
+            e.target.classList.add('active');
+
+            console.log(e.target);
+        });
+        });
+    </script>
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>
