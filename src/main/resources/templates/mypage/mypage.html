@@ -13,16 +13,32 @@
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
+<script th:inline="javascript">
+	const day = 1000 * 60 * 60 * 24;
+	
+	var user = [[${session.user}]];
+	
+	if(user == null){
+		alert('세션 없음');
+		location.href="/";
+	}
+
     // default: 내 문제 - 내가 푼 문제
     $(document).ready(function () {
+    	var date = new Date(user.regTime);
+    	var now = new Date();
+    	var diff = parseInt((now.getTime() - date.getTime()) / day)
+    	
+    	$('#joinDay').html(diff + "일 전 가입");
+    	
         $.ajax({
           url: 'http://127.0.0.1:5500/mypage-quest.html',
           type: 'GET',
           success: function (data) {
             $('#replace-content').html(data);
           },
-        }); 
+        });
+        
     });
     
     function settingsBtn() {
@@ -83,7 +99,7 @@
 				</div>
 				<!-- user regdate -->
 				<!-- <p th:text="${#calendars.format(#calendars.createNow()}"></p> -->
-				<p th:text="${info.regTime}">3일 전 가입</p>
+				<p id="joinDay">3일 전 가입</p>
 				<!-- user badge -->
 				<div th:if="${info.userExp} >= 300" class="badge"> 
 					<img src="imgs/badge/master.svg" />

@@ -30,3 +30,25 @@
 	</a>
 </div>
 </html>
+
+<script>
+	function profileOnclick() {
+		document.getElementById('profileDropdown').classList.toggle('show');
+		window.onclick = function(event) {
+			if (!event.target.matches('#profileDropdown')) {
+				if (openDropdown.classList.contains('show')) {
+					document.getElementById('profileDropdown').classList
+							.remove('show');
+				}
+			}
+			;
+			var dropdowns = document.getElementsByClassName('profile-dropdown');
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+				var openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains('show')) {
+				}
+			}
+		}
+	}
+</script>
