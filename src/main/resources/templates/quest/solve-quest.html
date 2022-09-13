@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clever</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/main/header.css" />
+<link rel="stylesheet" href="css/main/index.css" />
+<link rel="stylesheet" href="css/quest/solve-quest.css" />
+<link rel="stylesheet" href="css/main/footer.css" />
+<script src="js/script.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script defer>
+	$(document).on('click', "input[type='radio']", function() {
+		thisRadio = $(this);
+		if (thisRadio.hasClass('imChecked')) {
+			thisRadio.removeClass('imChecked');
+			thisRadio.prop('checked', false);
+		} else {
+			thisRadio.prop('checked', true);
+			thisRadio.addClass('imChecked');
+		}
+	});
+</script>
+</head>
+<body>
+	<!-- header -->
+	<div th:replace="layout/header :: header"></div>
+	<hr>
+
+	<div id="testDetails">
+		<h1>산업안전기사</h1>
+		<div class="details__title">
+			<h2>2022년 2회</h2>
+			<p>총</p>
+			<p>100</p>
+			<p>문제</p>
+		</div>
+	</div>
+
+	<div id="navbar__divider"></div>
+
+	<div id="questList">
+		<div class="quest">
+			<div class="questNumAndQuestContent">
+				<p class="questInfo">
+					<span class="questNum">30</span><span class="questNum">.</span> <span
+						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
+						변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
+				</p>
+			</div>
+			<div class="questChoices">
+				<ol>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) fff척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척ds도 주관적(subjective) 척ds도
+							주관적(subjective) 척ds도 주관적(subjective) 척ds도 주관적(subjective) 척ds도</label></li>
+				</ol>
+			</div>
+		</div>
+		<div class="quest">
+			<div class="questNumAndQuestContent">
+				<p class="questInfo">
+					<span class="questNum">30</span><span class="questNum">.</span> <span
+						class="questContent"> 정신작업 부하를 측정하는 척도 보처리에 중추신경계 활동이 관여하고
+						그 활동이나 징후를 측정하는 것은?</span>
+				</p>
+			</div>
+			<div class="questChoices">
+				<ol>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) fff척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척ds도</label></li>
+				</ol>
+			</div>
+		</div>
+		<div class="quest">
+			<div class="questNumAndQuestContent">
+				<p class="questInfo">
+					<span class="questNum">30</span><span class="questNum">.</span> <span
+						class="questContent"> 정신작업 부하를 측정하는 척도 보처리에 중추신경계 활동이 관여하고
+						그 활동이나 징후를 측정하는 것은?</span>
+				</p>
+			</div>
+			<div class="questChoices">
+				<ol>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) fff척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척ds도</label></li>
+				</ol>
+			</div>
+		</div>
+		<div class="quest">
+			<div class="questNumAndQuestContent">
+				<p class="questInfo">
+					<span class="questNum">30</span><span class="questNum">.</span> <span
+						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
+						변동, 뇌 전위, , 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것동공 반응 등
+						정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
+				</p>
+			</div>
+			<div class="questChoices">
+				<ol>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjec 주관적(subjective) 척ds도tive) fff척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척ds도</label></li>
+				</ol>
+			</div>
+		</div>
+		<div class="quest">
+			<div class="questNumAndQuestContent">
+				<p class="questInfo">
+					<span class="questNum">30</span><span class="questNum">.</span> <span
+						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
+						변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
+				</p>
+			</div>
+			<div class="questChoices">
+				<ol>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 11111주관적(subjective) 척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subj 주관적(subjective) 척ds도 주관적(subjective)
+							척ds도 주관적(subjective) 척ds도 주관적(subjective) 척ds도 주관적(subjective)
+							척ds도ective) asd척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) fff척도</label></li>
+					<li><label><input type="radio" name="choice"
+							class="choice" /> 주관적(subjective) 척ds도</label></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+
+	<div id="navbar__divider"></div>
+
+
+	<div class="checking">
+		<hr>
+		<button onclick="checkingBtn()" id="checkingBtn">채점하기</button>
+	</div>
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>
