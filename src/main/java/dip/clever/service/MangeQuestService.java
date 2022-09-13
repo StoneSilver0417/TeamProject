@@ -2,15 +2,15 @@ package dip.clever.service;
 
 import dip.clever.model.Quest;
 import dip.clever.model.Test;
-import dip.clever.model.TestRound;
+import dip.clever.model.Round;
 
 public interface MangeQuestService {
 	
 	// 회차정보등록
-    public void insertRound(TestRound testRound);
+    public void insertRound(Round testRound);
     
     // 회차정보수정
-    public void modifyRound(long roundNo, TestRound testRound);
+    public void modifyRound(long roundNo, Round testRound);
     
     // 회차정보삭제
     public void deleteRound(long roundNo);

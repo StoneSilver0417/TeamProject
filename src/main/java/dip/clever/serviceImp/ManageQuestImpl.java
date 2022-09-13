@@ -3,7 +3,7 @@ package dip.clever.serviceImp;
 import dip.clever.mapper.ManageQuestMapper;
 import dip.clever.model.Quest;
 import dip.clever.model.Test;
-import dip.clever.model.TestRound;
+import dip.clever.model.Round;
 import dip.clever.service.MangeQuestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,13 @@ public class ManageQuestImpl implements MangeQuestService {
 	
 	// 회차정보입력
 	@Override
-	public void insertRound(TestRound testRound) {
+	public void insertRound(Round testRound) {
 		manageQuestMapper.insertRound(testRound);
 	}
 	
 	// 회차정보수정
 	@Override
-	public void modifyRound(long roundNo, TestRound testRound) {
+	public void modifyRound(long roundNo, Round testRound) {
 		// TODO Auto-generated method stub
 		
 	}

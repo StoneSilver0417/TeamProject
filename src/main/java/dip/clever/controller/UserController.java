@@ -21,7 +21,7 @@ import dip.clever.model.User;
 import dip.clever.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 public class UserController {
 
 	@Autowired
@@ -185,6 +185,7 @@ public class UserController {
 			throw new RuntimeException("file Save Error");
 		}
 		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+	}
     
 	// 개인정보 수정
 	// 이름 수정

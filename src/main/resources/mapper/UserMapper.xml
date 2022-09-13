@@ -3,22 +3,6 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.UserMapper">
-	
-	<resultMap type="dip.clever.model.User" id="userMap" >
-		<result property="userId" column="user_Id"/>
-		<result property="userNickname" column="user_Nickname"/>
-		<result property="userRole" column="user_Role"/>
-		<result property="userExp" column="user_Exp"/>
-		
-	</resultMap>
-	
-	<!-- 회원가입 -->
-	<insert id="insertUser" parameterType="dip.clever.model.User">
-		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
-		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
-	</insert>
-
-
 	<select id="selectUserList" resultType="dip.clever.model.User">
 		SELECT USER_ID,
 		USER_NICKNAME, USER_NICKNAME, USE_F

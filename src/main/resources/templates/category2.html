@@ -18,7 +18,6 @@
 	</script>
 </head>
 <body>	
-	<div th:replace="layout/searchArea :: search"></div>
 	<li class="category" tab-index="0">
 		<input type="hidden" id='categoryNo' th:value="${category.categoryNo}">
 		<a th:text="${category.categoryName}" th:href="${'/category/' + category.categoryNo}" >카테고리 이름</a>

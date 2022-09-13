@@ -56,26 +56,26 @@
 
 	</section>
 	<script>
-                const marker = document.querySelector(".marker");
-                const item = document.querySelectorAll(".settings__list p");
-        
-                function indicator(e) {
-                marker.style.left = e.offsetLeft + "px";
-                marker.style.width = e.offsetWidth + "px";
-
-                //   e.classList.remove('active');   
-                }
-
-                item.forEach((event) => { 
-                    // event.currentTarget.classList.remove('active');   
-
-                    event.addEventListener("click", (e) => {
-                    indicator(e.target);
-                    e.target.classList.add('active');
-
-                    console.log(e.target);
-                });
-                });
+	const marker = document.querySelector(".marker");
+	const item = document.querySelectorAll(".settings__list p");
+	
+	function indicator(e) {
+	marker.style.left = e.offsetLeft + "px";
+	marker.style.width = e.offsetWidth + "px";
+	
+	//   e.classList.remove('active');   
+	}
+	
+	item.forEach((event) => { 
+	    // event.currentTarget.classList.remove('active');   
+	
+	    event.addEventListener("click", (e) => {
+	    indicator(e.target);
+	    e.target.classList.add('active');
+	
+	    console.log(e.target);
+		});
+	});
     </script>
 
 	<!-- footer -->
