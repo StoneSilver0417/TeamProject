@@ -23,10 +23,8 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping("")
-	public String category(Model model, Category category) {
-		model.addAttribute("category",category);
-
-		return "category";
+	public ResponseEntity<List<Category>> category() {		
+		return new ResponseEntity<List<Category>> (categoryService.selectCategoryList(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{no}")
@@ -38,7 +36,7 @@ public class CategoryController {
 		
 		model.addAttribute("category",category);
 		
-		return "test";
+		return "category";
 	}
 	
 	//카테고리 관리 폼

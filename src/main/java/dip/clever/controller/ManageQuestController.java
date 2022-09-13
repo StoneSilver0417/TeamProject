@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dip.clever.model.Choice;
 import dip.clever.model.Quest;
-import dip.clever.model.TestRound;
+import dip.clever.model.Round;
+import dip.clever.model.User;
 import dip.clever.service.MangeQuestService;
 import dip.clever.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,19 @@ public class ManageQuestController {
 	@Autowired
     private MangeQuestService mangeQuestService;
 	
+	
+	// 회차등록
+	@PostMapping("insertRound")
+	public String insertRound(Round testRound, Model model, User user) {
+		model.addAttribute("get", user);
+		mangeQuestService.insertRound(testRound);
+		return "redirect:/insertRound";
+	}
+	
+	// 회차수정
+	
+	
+	// 회차삭제
 	
 	// 문제등록
 	@PostMapping("insertQuest")

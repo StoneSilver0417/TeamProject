@@ -26,12 +26,17 @@ public class TestServiceImp implements TestService{
 	}
 
 	@Override
+	public Test selectTest(Test test) {
+		return testMapper.selectTest(test.getTestNo());		
+	}
+
+	@Override
 	public List getResultList(SearchCondition searchCondition, String query) {
 		Map<String, String> searchConditionMap = new HashMap<>();
-		
+
 		searchConditionMap.put("searchCondition", searchCondition.toString());
 		searchConditionMap.put("query", query);
-		
+
 		return testMapper.getResultList(searchConditionMap);
 	}
 }

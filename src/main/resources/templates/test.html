@@ -5,21 +5,22 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	$.ajax({
-		url:'/test/list',
-		type:'post',
-		data:{categoryNo:$('#categoryNo').val()},
-		success:function(data){
-			$('#testList').html(data);
-			alert('성공');
-		}
-	})
+	$(document).ready(function(){
+		$.ajax({
+			url:'/round/list',
+			type:'post',
+			data:{testNo:$('#testNo').val()},
+			success:function(data){
+				$('#roundList').html(data);
+			}
+		})
+	})	
 </script>
 </head>
 <body>	
 	<div th:replace="layout/searchArea :: search"></div>
-	<input type="hidden" id="categoryNo" th:value="${category.categoryNo}">
-	<div id="testList">
+	<input type="hidden" id="testNo" th:value="${test.testNo}">
+	<div id="roundList">
 	</div>
 </body>
 </html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<li th:each="round:${roundList}">
+		<a th:href="'/round/' + ${round.roundNo}" th:text="${round.roundName}">회차 이름</a>
+	</li>
+</body>
+</html>

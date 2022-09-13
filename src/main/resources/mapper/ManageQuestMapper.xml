@@ -9,6 +9,7 @@
 		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, CHOICE_NO, ANSWER, UES_F)
 		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{choiceNo}, #{answer}, 'Y')
 	</insert>
+
 	
 	<!-- 선지등록 -->
 	<insert id="insertChoice" parameterType="dip.clever.model.Choice">
@@ -46,7 +47,7 @@
 		<result property="choiceNo" column="CHOICE_NO"/>
 		<result property="answer" column="ANSWER"/>
 	</resultMap>
-	
+
 </mapper>
 
 

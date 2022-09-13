@@ -24,7 +24,7 @@ import dip.clever.model.User;
 import dip.clever.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 public class UserController {
 
 	@Autowired
