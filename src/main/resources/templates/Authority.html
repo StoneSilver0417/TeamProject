@@ -33,20 +33,20 @@
 		if (action == "add") {
 			var check = confirm('Grant manager privileges to "' + name + '"?');
 		} else if (action == "remove") {
-			var check = confirm("Revoke " + name + "'s manager privileges?");
+			var check = confirm(name + "'를 매니저로 올리겠습니까?");
 		}
 
 		if (check == true) {
 			$.ajax({
-				url : "/manageUser/" + action + "-manager/" + id,
+				url : "/user/manageUser/" + action + "-manager/" + id,
 				type : "PUT",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
 					alert(message + '"' + name + '" successfully.');
-					location.replace('/manageUser');
+					
 				},
 				error : function() {
-					location.replace('/manageUser');
+					alert('실패');
 				}
 			})
 		}
@@ -55,10 +55,10 @@
 	// user 영구 삭제 
 	function deleteUserBtn(id, name) {
 		//alert('deleteUserBtn') 
-		var check1 = confirm('( ⚠WARNING )\nThis action cannot be undo.\nAre you sure to delete this user?');
+		var check1 = confirm('삭제하시겠습니까?');
 		if (check1 == true) {
-			var check2 = confirm("( ⚠WARNING )\nJust to double check.\nYou permanently delete "
-					+ name + "'s account?");
+			var check2 = confirm("삭제시 복구가 불가합니다"
+					+ name + "삭제하시겠습니까?");
 		}
 
 		if (check2 == true) {
@@ -72,7 +72,7 @@
 				
 				},
 				error : function() {
-					alert('Fail to delete user');
+					alert('유저삭제실패');
 					//location.replace('/manageUser');
 				}
 			})
@@ -122,11 +122,11 @@
 						<td th:text="${list.userExp}"></td>
 						<td>
 						<button th:if="${#strings.equals(list.userRole, 'USER')}"
-							th:onclick="addAndRemoveManagerBtn('add', [[${user_Id}]], [[${user_Nickname}]])"
+							th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
 							class="addManagerBtn btn">+ Add</button>
 
 						<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
-							th:onclick="addAndRemoveManagerBtn('remove', [[${user_Id}]], [[${user_Nickname}]])"
+							th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
 							class="removeManagerBtn btn">Manager ✕</button>
 						</td>
 						<td><button
