@@ -18,7 +18,7 @@
 	</insert>
 	
 	<!-- 회차이름 선택 -->
-	<select id="selectRound" parameterType="dip.clever.model.TestRound" resultMap="roundMap">
+	<select id="selectRound" parameterType="dip.clever.model.Round" resultMap="roundMap">
 	 SELECT *  FROM TB_TEST_ROUND
 	 WHERE USE_F = 'Y'
 	 AND BINARY(ROUND_NO) = #{roundNo}
