@@ -3,7 +3,6 @@ package dip.clever.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dip.clever.model.Round;
 import dip.clever.model.User;
 import dip.clever.service.UserService;
 
@@ -21,7 +21,7 @@ public class FormController {
 	
 	@Autowired
 	private UserService userService;
-
+	
 	
 	// 메인 페이지로 이동
 	@RequestMapping("")
@@ -54,11 +54,14 @@ public class FormController {
 	}
 	
 	// 문제등록 폼으로 이동
-	@GetMapping("insertQuest")
-	public String questForm() {
+	@PostMapping("insertQuest")
+	public String questForm(Model model, Round round) {
+		System.out.println(round);
+		model.addAttribute("round", round);
 		return "questForm";
 	}
-
+	
+	
 	// 회원가입 메소드
 	@PostMapping("join")
 	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
