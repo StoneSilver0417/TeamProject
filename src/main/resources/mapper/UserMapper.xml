@@ -4,28 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.UserMapper">
 	
-	<resultMap type="dip.clever.model.User" id="userMap" >
-		<result property="userId" column="user_Id"/>
-		<result property="userNickname" column="user_Nickname"/>
-		<result property="userRole" column="user_Role"/>
-		<result property="userExp" column="user_Exp"/>
-		
-	</resultMap>
-	
-	<!-- 회원가입 -->
-	<insert id="insertUser" parameterType="dip.clever.model.User">
-		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
-		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
-	</insert>
 
-
-	<select id="selectUserList" resultType="dip.clever.model.User">
-		SELECT USER_ID,
-		USER_NICKNAME, USER_NICKNAME, USE_F
-		FROM TB_USER
-		WHERE USE_F = 'Y'
-	</select>
-	<resultMap type="dip.clever.model.User" id="userMap">
+		<resultMap type="dip.clever.model.User" id="userMap">
 		<result property="userId" column="USER_ID" />
 		<result property="userNickname" column="USER_NICKNAME" />
 		<result property="userPwd" column="USER_PWD" />
@@ -34,6 +14,24 @@
 		<result property="userExp" column="USER_EXP" />
 		<result property="regTime" column="REG_TIME" />
 	</resultMap>
+	
+	
+ 	<!-- 회원가입 -->
+	<!--<insert id="insertUser" parameterType="dip.clever.model.User">
+		INSERT INTO TB_USER (USER_ID, USER_NICKNAME, USER_PWD, USER_EMAIL, USE_F)
+		VALUES(#{userId}, #{userNickname}, #{userPwd}, #{userEmail}, 'Y')
+	</insert> -->
+
+
+	
+	
+	<select id="selectUserList" resultType="dip.clever.model.User">
+		SELECT USER_ID,
+		USER_NICKNAME, USER_NICKNAME, USE_F
+		FROM TB_USER
+		WHERE USE_F = 'Y'
+	</select>
+	
 
 
 	<!-- 회원가입 -->
@@ -91,6 +89,18 @@
 	<update id="deleteUser" parameterType="String">
 		UPDATE	TB_USER
 		SET		USE_F = 'N'
+		WHERE	user_Id = #{id}
+	</update>
+	
+	<update id="updateManager" parameterType="String">
+		UPDATE	TB_USER
+		SET		USER_ROLE = 'MANAGER'
+		WHERE	user_Id = #{id}
+	</update>
+	
+	<update id="updateUser" parameterType="String">
+		UPDATE	TB_USER
+		SET		USER_ROLE = 'USER'
 		WHERE	user_Id = #{id}
 	</update>
 	

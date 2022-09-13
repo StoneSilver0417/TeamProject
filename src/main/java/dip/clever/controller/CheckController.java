@@ -9,7 +9,7 @@ import dip.clever.model.User;
 import dip.clever.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/check")
 public class CheckController {
 	
 	@Autowired

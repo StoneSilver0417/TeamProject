@@ -54,10 +54,22 @@ public class UserServiceImpl implements UserService {
  		return userMapper.findSearchResult(keyword);
 	}
 
-
+	//유저삭제
 	@Override
 	public void deleteUser(String id) {
 		userMapper.deleteUser(id);
+		
+	}
+	//매니저 등급주기
+	@Override
+	public void updateManager(String id) {
+		userMapper.updateManager(id);
+		
+	}
+	//유저로 강등
+	@Override
+	public void updateUser(String id) {
+		userMapper.updateUser(id);
 		
 	}
 	

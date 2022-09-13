@@ -17,13 +17,21 @@ public interface UserService {
 
 	// 이름으로 유저 찾기
 	public boolean findUserNickname(String userNickname);
-	
+
 	// 유저리스트 반환
 	public List<User> findAll();
-	//유저서치
+
+	// 유저서치
 	List<User> findSearchResult(String keyword);
-	
+
+	// 유저삭제
 	public void deleteUser(String id);
+
+	// 유저 > 매니저로 만들기
+	public void updateManager(String id);
+
+	// 매니저 >
+	public void updateUser(String id);
 
 	// 메일로 유저 찾기
 	public boolean findUserEmail(String userEmail);
