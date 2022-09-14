@@ -210,6 +210,37 @@ body {
   margin-bottom: 480px;
 }
 
+.reply-dropdown {
+  display: none;
+
+  position: relative;
+  bottom: 20px;
+  right: 220px;
+
+  overflow: auto;
+
+  width: 200px;
+  height: auto;
+
+  /* padding: 16px; */
+
+  border: 1px solid rgb(223, 223, 223);
+  border-radius: 4px;
+
+  background-color: var(--color-white);
+
+  font-size: var(--font-medium);
+  font-weight: 400;
+
+  cursor: pointer;
+
+  z-index: 1;
+}
+
+.show {
+  display: block;
+}
+
 /* Quest */
 #testDetails {
   display: flex;
@@ -488,17 +519,7 @@ body {
   height: auto;
 
   padding: 38px 0;
-  margin-bottom: -45%;
-}
-
-#comment > #commentList > li .comment__content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  width: 100%;
-
-  padding-bottom: 32px;
+  margin-bottom: -57%;
 }
 
 #comment > #commentList > li > .comment__content > .leftWrapper {
@@ -573,7 +594,7 @@ body {
 }
 
 #comment > #commentList > li > .comment__content .comment__actions {
-  float: right;
+  width: 1px;
 
   cursor: pointer;
 }
@@ -581,6 +602,73 @@ body {
 #comment > #commentList > li > .comment__content .comment__actions i {
   font-size: var(--font-great);
   color: var(--color-red);
+}
+
+#comment > #commentList > li .comment__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 100%;
+
+  padding-bottom: 32px;
+
+  z-index: 1;
+}
+
+#comment
+  > #commentList
+  > li
+  > .comment__content
+  > .comment__actions
+  > .reply-dropdown
+  ul {
+  padding: 12px 0;
+}
+
+#comment
+  > #commentList
+  > li
+  > .comment__content
+  > .comment__actions
+  > .reply-dropdown
+  > ul
+  li {
+  margin: 0;
+}
+
+#comment
+  > #commentList
+  > li
+  > .comment__content
+  > .comment__actions
+  > .reply-dropdown
+  > ul
+  > li
+  a {
+  display: block;
+
+  width: 198.3px;
+
+  padding: 12px 0px 12px 30px;
+
+  color: var(--color-black);
+
+  text-decoration: none;
+}
+
+#comment
+  > #commentList
+  > li
+  > .comment__content
+  > .comment__actions
+  > .reply-dropdown
+  > ul
+  > li
+  a:hover {
+  background-color: var(--color-light-grey);
+
+  transition: all 0.3s ease-in-out 0s;
 }
 
 /* Responsible Web */

@@ -2,6 +2,7 @@ package dip.clever.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class QuestController {
@@ -9,10 +10,15 @@ public class QuestController {
 	public String solveQuest() {
 		return "quest/solve-quest";
 	}
-	
-	@PostMapping("/solve-quest/num")
+
+	@RequestMapping("/solve-quest/num")
 	public String solveQuestDetails() {
+ 		return "quest/quest-detail";
+	}
+
+	@PostMapping("/edit-reply")
+	public String editReply() {
 		System.out.println("asdadasd");
-		return "quest/quest-detail";
+		return "edit_forms/edit-reply";
 	}
 }
