@@ -21,11 +21,11 @@
 		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">카테고리 이름</a>
 	</li>
 	
-	<!-- <form action="/insertQuest" method="post">
-		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
-		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
+	<form action="/insertQuest" method="post">
+		<!-- <input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
+		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName"> -->
 		<button type="submit">문제등록</button>
-	</form> -->
+	</form>
 	<div id="questList">
 	</div>
 </body>
