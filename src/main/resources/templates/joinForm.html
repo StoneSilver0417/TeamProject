@@ -51,7 +51,7 @@
 				if(id == "")
 					return;
 				$.ajax({
-					url:'/user/checkId',
+					url:'/check/checkId',
 					data:{userId:id},
 					type:'post',
 					success:function(data){
@@ -75,7 +75,7 @@
 				if(name == "")
 					return;
 				$.ajax({
-					url:'/user/checkNickname',
+					url:'/check/checkNickname',
 					data:{userNickname:name},
 					type:'post',	
 					success:function(data){
@@ -99,7 +99,7 @@
 				if(email == "")
 					return;
 				$.ajax({
-					url:'/user/checkEmail',
+					url:'/check/checkEmail',
 					data:{userEmail:email},
 					type:'post',	
 					success:function(data){

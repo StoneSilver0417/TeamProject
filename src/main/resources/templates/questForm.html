@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
 		<h2 style="padding-top: 30px">문제등록 페이지</h2>
-		<form action="/insertQuest" method="post">
+		<form action="/quest/insertQuest" method="post">
 			
 			<div class="form-group">
 				<label for="roundNo"></label> <input type="hidden" name="roundNo" th:value="${round.roundNo}" >
@@ -30,23 +30,23 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="c1">1. :</label> <input type="text" class="form-control" name="c1" required>
+				<label for="c1">1.</label> <input type="text" class="form-control" name="c1" required>
 			</div>
 			
 			<div class="form-group">
-				<label for="c2">2. :</label> <input type="text" class="form-control" name="c2" required>
+				<label for="c2">2.</label> <input type="text" class="form-control" name="c2" required>
 			</div>
 			
 			<div class="form-group">
-				<label for="c3">3. :</label> <input type="text" class="form-control" name="c3" required>
+				<label for="c3">3.</label> <input type="text" class="form-control" name="c3">
 			</div>
 			
 			<div class="form-group">
-				<label for="c4">4. :</label> <input type="text" class="form-control" name="c4" required>
+				<label for="c4">4.</label> <input type="text" class="form-control" name="c4">
 			</div>
 			
 			<div class="form-group">
-				<label for="c5">5. :</label> <input type="text" class="form-control" name="c5" required>
+				<label for="c5">5.</label> <input type="text" class="form-control" name="c5">
 			</div>
 			
 			<div class="form-group">

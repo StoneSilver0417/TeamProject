@@ -15,25 +15,6 @@ public class ManageQuestImpl implements MangeQuestService {
 	
 	@Autowired
     ManageQuestMapper manageQuestMapper;
-	
-	// 회차정보입력
-	@Override
-	public void insertRound(Round testRound) {
-		manageQuestMapper.insertRound(testRound);
-	}
-	
-	// 회차정보수정
-	@Override
-	public void modifyRound(long roundNo, Round testRound) {
-		// TODO Auto-generated method stub
-		
-	}
-	// 회차정보삭제
-	@Override
-	public void deleteRound(long roundNo) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	// 문제정보입력
 	@Override
@@ -47,11 +28,18 @@ public class ManageQuestImpl implements MangeQuestService {
 		manageQuestMapper.insertChoice(choice);
 	}
 	
+	// 선지번호 선택
+	@Override
+	public Integer selectChoiceNo() {
+		return manageQuestMapper.selectChoiceNo();
+	}
+
+	
+	
 	// 회차선택
 	@Override
 	public Round selectRound(Round Round) {
-		// TODO Auto-generated method stub
-		return null;
+		return manageQuestMapper.selectRound(Round);
 	}
 	
 	
@@ -68,10 +56,5 @@ public class ManageQuestImpl implements MangeQuestService {
 		
 	}
 
-
-
-	
-
-	
 
 }
