@@ -16,39 +16,6 @@ hr {
   box-shadow: 0 0 1px 1px var(--color-light-grey);
 }
  
-#checkingBtn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 40px;
-  min-width: 110px;
-
-  white-space: nowrap;
-
-  padding: 2px 16px 0 16px;
-  margin-top: 24px;
-
-  border: 0px;
-  border-radius: 1px;
-
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
-  letter-spacing: -0.02em;
-
-  color: var(--color-white);
-  background-color: var(--color-red);
-}
-
-#checkingBtn:hover {
-  font-weight: 500;
-}
-
-#checkingBtn:active {
-  background-color: #e36448;
-} 
-
 .short-answer {
   display: flex;
   justify-content: flex-start;
@@ -88,6 +55,75 @@ hr {
   background-color: var(--color-light-grey);
 } 
 
+ 
+.questDetailsBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  float: right;
+
+  height: 40px;
+  min-width: 110px;
+
+  white-space: nowrap;
+
+  padding: 2px 16px 0 16px;
+  margin: 18px 0 24px 0;
+
+  border: 0px;
+  border-radius: 1px;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+.questDetailsBtn:hover {
+  font-weight: 500;
+}
+
+.questDetailsBtn:active {
+  background-color: #e36448;
+}
+
+#checkingBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  min-width: 110px;
+
+  white-space: nowrap;
+
+  padding: 2px 16px 0 16px;
+  margin-top: 48px;
+
+  border: 0px;
+  border-radius: 1px;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+#checkingBtn:hover {
+  font-weight: 500;
+}
+
+#checkingBtn:active {
+  background-color: #e36448;
+} 
+ 
 #testDetails {
   display: flex;
   flex-direction: column;
@@ -101,6 +137,11 @@ hr {
 
   color: var(--color-black);
 }
+
+#testDetails h1 {
+  font-size: var(--font-large);
+}
+
 #testDetails > .details__title {
   display: flex;
   justify-content: center;
@@ -153,6 +194,8 @@ hr {
   background: none;
 
   word-break: break-all;
+
+  cursor: default;
 }
 
 #questList > .quest {
