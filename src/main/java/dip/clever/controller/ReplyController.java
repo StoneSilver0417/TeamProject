@@ -33,7 +33,7 @@ public class ReplyController {
 		// System.out.println(user.toString());
 		return "reply";
 
-	}
+	} 
 
 	@PostMapping("/insertReply")
 	public ResponseEntity<String> insertReply(Reply reply) {

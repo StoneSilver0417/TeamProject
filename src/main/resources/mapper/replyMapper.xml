@@ -20,7 +20,7 @@
 		SELECT *
 		FROM TB_REPLY
 	</select>
-	
+	 
 		<!-- 회원가입 -->
 	<insert id="insertReply" parameterType="dip.clever.model.Reply">
 		INSERT INTO TB_REPLY

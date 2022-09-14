@@ -12,7 +12,7 @@
 		$('form').submit(function(e) {
 			e.preventDefault();
 			var keyword = $('#keyword').val();
-			alert(keyword);
+			alert(keyword);  
 			$.ajax({
 				url : "/manageUser/search-user/" + keyword,
 				type : "POST",
