@@ -24,6 +24,17 @@
 			thisRadio.addClass('imChecked');
 		}
 	});
+
+	function questDetailsBtn() {
+		$.ajax({
+			url : '/solve-quest/num',
+			type : 'GET',
+			success : function(data) {
+				alert('load success');
+				window.location.href = data;
+			},
+		});
+	}
 </script>
 </head>
 <body>

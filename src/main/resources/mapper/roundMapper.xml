@@ -32,6 +32,12 @@
 		VALUES	(NULL, #{boardId}, #{userId}, #{title}, SYSDATE(), SYSDATE(), #{content}, 'Y')
 	</insert>	
 	
+	<!-- 회차등록 -->
+	<insert id="insertRound">
+		INSERT INTO TB_TEST_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
+		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
+	</insert>
+	
 	<!-- <select id="findByNo" parameterType="int" resultMap="article">
 		SELECT		T2.ID	AS BOARD_ID,
 					T2.NAME	AS BOARD_NAME,

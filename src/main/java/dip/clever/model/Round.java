@@ -10,6 +10,6 @@ public class Round {
 	private int testNo;
 	private String regUser;
 	private String roundName;
-	private Date testDate;
+	private String testDate;
 	private Date regTime;
 }

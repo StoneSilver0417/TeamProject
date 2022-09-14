@@ -35,7 +35,7 @@ public interface UserMapper {
 
 	// 이름으로 유저 찾기
 	public String findUserNickname(String userNickname);
-
+ 
 	// 메일로 유저 찾기
 	public String findUserEmail(String userEmail);
 

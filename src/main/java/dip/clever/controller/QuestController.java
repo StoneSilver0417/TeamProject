@@ -16,17 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dip.clever.model.Quest;
 import dip.clever.model.Round;
-import dip.clever.model.Test;
 import dip.clever.service.QuestService;
 import dip.clever.util.Json;
 
 @Controller
-@RequestMapping("quest2")
+@RequestMapping("")
 public class QuestController {
 	@Autowired
 	private QuestService questService;
 	
-	@PostMapping("")
+	@PostMapping("/quest2")
 	public String quest(Model model, @RequestParam HashMap<String, String> param){			
 		Json json = new Json(param);
 
@@ -36,7 +35,7 @@ public class QuestController {
 	}
 	
 	//시험 목록 반환
-	@PostMapping("/select")
+	@PostMapping("/quest2/select")
 	public ResponseEntity<List<Quest>> questList(Round round) {
 		List<Quest> questList = questService.selectQuestList(round);
 		
@@ -45,7 +44,7 @@ public class QuestController {
 		return new ResponseEntity<List<Quest>> (questList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{no}")
+	@GetMapping("/quest2/{no}")
 	public String test(Model model, @PathVariable int no) {
 		Quest quest = new Quest();
 		
@@ -55,5 +54,22 @@ public class QuestController {
 		model.addAttribute("quest", quest);
 		
 		return "questInfo";
+	}
+
+	@PostMapping("/solve-quest")
+	public String solveQuest() {
+		return "quest/solve-quest";
+	}
+
+	@RequestMapping("/solve-quest/num")
+	public String solveQuestDetails() {
+ 		return "quest/quest-detail";
+	}
+
+	@PostMapping("/edit-reply")
+	public String editReply() {
+		System.out.println("asdadasd");
+		
+		return "edit_forms/edit-reply";
 	}
 }
