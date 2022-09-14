@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/main/header.css" />
 <link rel="stylesheet" href="css/style.css" />
-<!-- <link rel="stylesheet" href="css/header.css" /> -->
+<style>
+	li{
+		margin: 5%;
+		float: left;
+	}
+	
+	div{
+		clear: left;
+	}
+</style>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	var where = new URL(location.href).searchParams.get('where');
@@ -86,24 +96,26 @@
 							count:json != null ? json.length : 0
 						},
 						success:function(data){
-							result.append(data);
+							var div = document.createElement("div");
 							
-							if (json == null)	return;
+							div.innerHTML = data;
+							result.append(div);							
 							
-							for(var js of json){
-								$.ajax({
-									url:'/' + key.toLowerCase(),
-									type:'post',
-									async: false,			// 동기 처리
-									data: js,
-									success:function(data){								
-										result.append(data);
-									},
-									error:function(){
-										alert(key + ' 검색 실패')
-									}
-								})
-							}
+							if (json == null)	return;							
+							$.ajax({
+								url:'/' + key.toLowerCase(),
+								type:'post',
+								async: false,			// 동기 처리
+								data: {param:JSON.stringify(json)},
+								success:function(data){								
+									result.append(data);
+								},
+								error:function(){
+									alert(key + ' 검색 실패')
+								}
+							})
+							
+
 						},
 						error:function(){
 							alert('실패')

@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:'/round/list',
+			type:'post',
+			data:{testNo:$('#testNo').attr('value')},
+			success:function(data){
+				$.ajax({
+					url:'/round',
+					type:'post',
+					data:{param:JSON.stringify(data)},
+					success:function(data){
+						$('#roundList').html(data);
+					}
+				})
+			}
+		})
+	})
+</script>
 </head>
-<body>
-	<li th:each="round:${roundList}">
-		<a th:href="'/round/' + ${round.roundNo}" th:text="${round.roundName}">회차 이름</a>
-	</li>
+<body>	
+	<div th:replace="layout/searchArea :: search"></div>
+	<p id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></p>
+	<div id="roundList">
+	</div>	
 </body>
 </html>

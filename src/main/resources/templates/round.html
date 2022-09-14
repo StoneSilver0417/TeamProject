@@ -17,12 +17,10 @@
 	})	
 </script>
 </head>
-<body>	
-	<form action="/insertQuest" method="post">
-		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
-		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
-		<button type="submit">문제등록</button>
-	</form>
+<body>
+	<li th:each="round:${roundList}" class="round" tab-index="0">	
+		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">회차 이름</a>
+	</li>
 	<div id="questList">
 	</div>
 </body>
