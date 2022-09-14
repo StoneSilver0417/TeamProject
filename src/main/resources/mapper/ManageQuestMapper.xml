@@ -4,34 +4,59 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.ManageQuestMapper">
 	
-	<!-- 회차정보 등록 -->
-	<insert id="insertRound" parameterType="dip.clever.model.TestRound">
-		INSERT INTO TB_TEST_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
-		VALUES(#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
+	<!-- 문제정보 등록 -->
+	<insert id="insertQuest" parameterType="dip.clever.model.Quest">
+		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, CHOICE_NO, ANSWER)
+		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{choiceNo}, #{answer})
+	</insert>
+
+	
+	<!-- 선지등록 -->
+	<insert id="insertChoice" parameterType="dip.clever.model.Choice">
+		INSERT INTO TB_CHOICE (C1, C2, C3, C4, C5)
+		VALUES(#{c1}, #{c2}, #{c3}, #{c4}, #{c5})
 	</insert>
 	
-	<!-- 회차정보 수정 -->
+	<!-- 선지번호 불러옴 -->
+	<select id="selectChoiceNo" resultType="int">		
+		SELECT	CHOICE_NO
+		FROM	TB_CHOICE
+		WHERE	CHOICE_NO = LAST_INSERT_ID()
+	</select>	
 	
 	
 	
-	<!-- 문제정보 등록 -->
-	
+	<!-- 회차이름 선택 -->
+	<select id="selectRound" parameterType="dip.clever.model.Round" resultMap="roundMap">
+	 SELECT * FROM TB_TEST_ROUND
+	 WHERE USE_F = 'Y'
+	 AND ROUND_NO = #{roundNo}
+	</select>
 	
 	<!-- 문제정보 수정 -->
 	
 	
 	
 	
-	
-	<resultMap type="dip.clever.model.TestRound" id="testRoundMap" >
+	<resultMap type="dip.clever.model.Round" id="roundMap" >
+		<result property="questNo" column="QUEST_NO"/>
 		<result property="roundNo" column="ROUND_NO"/>
-		<result property="testNo" column="TEST_NO"/>
-		<result property="regUser" column="REG_USER"/>
-		<result property="roundName" column="ROUND_NAME"/>
-		<result property="testDate" column="TEST_DATE"/>
-		<result property="regTime" column="REG_TIME"/>
+		<result property="questSeq" column="QUEST_SEQ"/>
+		<result property="questContent" column="QUEST_CONTENT"/>
+		<result property="choiceNo" column="CHOICE_NO"/>
+		<result property="answer" column="ANSWER"/>
 	</resultMap>
 	
+	
+	<resultMap type="dip.clever.model.Quest" id="questMap" >
+		<result property="questNo" column="QUEST_NO"/>
+		<result property="roundNo" column="ROUND_NO"/>
+		<result property="questSeq" column="QUEST_SEQ"/>
+		<result property="questContent" column="QUEST_CONTENT"/>
+		<result property="choiceNo" column="CHOICE_NO"/>
+		<result property="answer" column="ANSWER"/>
+	</resultMap>
+
 </mapper>
 
 

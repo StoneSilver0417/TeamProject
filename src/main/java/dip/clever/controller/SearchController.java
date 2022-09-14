@@ -29,7 +29,7 @@ public class SearchController {
 	public ResponseEntity<Map<SearchCondition, List>> searchResult(SearchCondition where, String query){
 		Map<SearchCondition, List> resultMap = new HashMap<>();		
 		SearchCondition[] searchConditions;
-		
+
 		if (where == SearchCondition.ALL) {
 			searchConditions = SearchCondition.values();
 			for(int a = 1; a < searchConditions.length; a++) {
@@ -39,7 +39,7 @@ public class SearchController {
 		else {
 			resultMap.put(where, testService.getResultList(where, query));
 		}
-		
+		System.out.println(resultMap);
 		return new ResponseEntity<Map<SearchCondition,List>> (resultMap, HttpStatus.OK);
 	}
 	

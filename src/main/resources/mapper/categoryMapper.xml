@@ -16,18 +16,18 @@
 		WHERE		CATEGORY_NO = #{categoryNo}
 	</select>
 	
-	<!-- 검색 결과 반환 -->
-	<select id="getResultList" parameterType="map" resultType="java.util.HashMap">
-		SELECT		${searchCondition}_NO, ${searchCondition}_NAME
-		FROM		TB_${searchCondition}
-		WHERE		${searchCondition}_NAME LIKE '%${query}%'
-		AND			USE_F = 'Y'
-	</select>
-	
 	<insert id="insertCategory" parameterType="string">
 		INSERT INTO TB_CATEGORY
 		VALUES	(NULL, #{categoryName}, 'Y')
-	</insert>
+	</insert>	
+	
+	<update id="updateCategory" parameterType="map">
+		UPDATE	TB_ARTICLE
+		SET		TITLE = #{title},
+				CONTENT = #{content},
+				MOD_DATE = SYSDATE()
+		WHERE	NO = #{no}
+	</update>
 	
 	<!-- 카테고리 매핑-->
 	<resultMap type="dip.clever.model.Category" id="category" >
@@ -36,22 +36,6 @@
 	</resultMap>
 	
 	<!-- 밑에 부분은 사용하지 않음 -->
-	
-<!-- 	<select id="findByArticleLike" parameterType="java.util.HashMap" resultMap="articleInfo">
-		SELECT		T1.NO,
-					T1.TITLE	,
-					T2.NAME		AS USER_NAME,
-					T1.CRE_DATE	,
-					T1.MOD_DATE
-		FROM		TB_ARTICLE	AS T1
-		LEFT JOIN	TB_USER		AS T2
-			ON			T1.USER_ID = T2.ID
-		INNER JOIN	TB_BOARD	AS T3
-			ON			T1.BOARD_ID = T3.ID
-			AND			T3.USE_F = 'Y'
-		WHERE		TITLE LIKE '%${title}%'
-		AND			T1.USE_F = 'Y'
-	</select> -->
 	
 	<select id="searchCount" parameterType="String" resultType="int">
 		SELECT		COUNT(*)
@@ -70,14 +54,6 @@
 		FROM		TB_ARTICLE
 		WHERE		NO = ${no}
 	</select>
-	
-	<update id="updateArticle" parameterType="map">
-		UPDATE	TB_ARTICLE
-		SET		TITLE = #{title},
-				CONTENT = #{content},
-				MOD_DATE = SYSDATE()
-		WHERE	NO = #{no}
-	</update>
 	
 	<update id="deleteArticle" parameterType="int">
 		UPDATE	TB_ARTICLE

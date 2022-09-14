@@ -24,7 +24,7 @@ import dip.clever.model.User;
 import dip.clever.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 public class UserController {
 
 	@Autowired
@@ -101,13 +101,13 @@ public class UserController {
 		System.out.println(action);
 		System.out.println(id);
 		if (action.equals("add")) {
-			userService.updateManager(id);
+//			userService.updateManager(id);
 //			User user = userService.findUserById(id);
 //			user.setRole(Role.);
 //			userService.saveUser(user);
 			message = "매니저로 임명";
 		} else if (action.equals("remove")) {
-			userService.updateUser(id);
+//			userService.updateUser(id);
 //			User user = userService.findUserById(id);
 //			user.setRole(Role.ROLE_USER);
 //			userService.saveUser(user);
