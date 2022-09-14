@@ -73,9 +73,11 @@ public class UserController {
 	@PostMapping("/manageUser/search-user/{keyword}")
 	public String searchUser(@PathVariable String keyword, Model model) {
 		System.out.println(keyword);
+		
 		System.out.println(userService.findSearchResult(keyword));
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
+		
 	}
 
 	// 유저 영구 삭제 method
