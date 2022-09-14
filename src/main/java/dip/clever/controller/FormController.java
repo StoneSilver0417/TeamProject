@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dip.clever.model.Round;
+import dip.clever.model.Test;
 import dip.clever.model.User;
 import dip.clever.service.UserService;
 import dip.clever.util.Util;
@@ -93,11 +94,17 @@ public class FormController {
 	// 문제등록 폼으로 이동
 	@PostMapping("insertQuest")
 	public String questForm(Model model, Round round) {
-		System.out.println(round);
 		model.addAttribute("round", round);
 		return "questForm";
 	}
 	
+	// 회차등록 폼으로 이동
+	@PostMapping("insertRound")
+	public String roundForm(Model model, Test test) {
+		model.addAttribute("test", test);
+		return "roundForm";
+	}
+  
 	//로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest httpServletRequest) {

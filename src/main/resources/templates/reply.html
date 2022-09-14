@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+	/* ëŒ“ê¸€ì‚­ì œ */
+	$(document).ready(function() {
+		function deleteUserBtn(id, name) {
+			var check1 = confirm('ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?');
+			if (check1 == true) {
+				$.ajax({
+					url : "/manageUser/delete-user/" + id,
+					type : "POST",
+					dataType : 'text', // String ê°’ì„ returní•˜ê¸° ë•Œë¬¸
+					success : function(message) {
+						alert(message);
+						//location.replace('/manageUser');
+						location.href = '/authority';
+					},
+					error : function() {
+						alert('ìœ ì €ì‚­ì œì‹¤íŒ¨');
+						//location.replace('/manageUser');
+					}
+				})
+			}
+		}
+		;
+
+	});
+
+	/* ëŒ“ê¸€ì¶”ê°€ */
+	$(document).ready(function() {
+		$('#reply').click(function() {
+			alert($('#reply_content').val())
+
+			$.ajax({
+				url : "/insertReply",
+				type : "POST",
+				//dataType : "text",
+				//contentType : "application/json",
+				data : {
+					content : $('#reply_content').val()
+				},
+				success : function(message) {
+					alert(message);
+					alert('ì €ì¥ ì„±ê³µ!');
+				},
+				error : function(data) {
+					alert('ì €ì¥ ì‹¤íŒ¨!');
+
+				}
+			});
+		});
+	});
+</script>
 </head>
+
+
+
+
+<!-- ë¬¸ì œ ìƒì„¸ì¶œë ¥ -->
+
 <body>
-	<table class="table table-hover">
+	<!-- <table class="table table-hover">
 		<thead>
 			<tr>
 				<th scope="col"></th>
@@ -14,72 +72,83 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="list:${Questinfo}">
-				<td th:text="${list.QUEST_NO}"></td>
-				<td th:text="${list.QUEST_SEQ}"></td>
+			<tr th:each="Quest:${Questinfo}">
+				<td th:text="${Quest.QUEST_NO}"></td>
+				<td th:text="${Quest.QUEST_SEQ}"></td>
 				<th>
-				<td th:text="${list.QUEST_CONTENT}"></td>
+				<td th:text="${Quest.QUEST_CONTENT}"></td>
 				<th>
-			</tr>
+			</tr>asd
 		</tbody>
-	</table>
+	</table> -->
 
-	<table class="table">
-		<tr>
-			<th style="padding: 13px 0 0 15px;">´ñ±Û</th>
-			<td><input id="reply_content" type="text"
-				class="col-md-1 form-control` input-sm" th:value="${reply?.content}" /></td>
-		</tr>
-	</table>
+	<!-- ëŒ“ê¸€ ì¸ì„œíŠ¸ -->
 
-	<div class="pull-right">
-		<button th:if="${board.id}" type="button" class="btn btn-primary"
-			id="reply">ÀúÀå</button>
-	</div>
+	<h1>ëŒ“ê¸€</h1>
+	<textarea id="reply_content" type="text"></textarea>
+	<button type="button" class="btn btn-primary" id="reply">ì €ì¥</button>
 
-	<h3>´ñ±ÛÃâ·Â</h3>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">´Ğ³×ÀÓ</th>
-				<th scope="col">³»¿ë</th>
-			</tr>
-		</thead>
-		</tbody>
-		<tr th:each="reply:${Replyinfo}">
-			<span th:if="${reply.QUEST_NO} == ${QUEST.QUEST_NO}">
-				<td th:text="${reply.REG_USER}"></td> <!--DB¾È¿¡ Á¤ÀÇµÅÀÖ´Â ÀÌ¸§ÀÌ idÀÎµ¥µµ À¯Àúid¸¦ Ã£À¸·Á¸é user.usernameÀ¸·Î ÇØ¾ßÇÑ´Ù ÀÌÀ¯´Â ½ÇÁ¦ user.model¿¡ ÀÖ´Â usernameÀ» Ã£´Â°ÍÀÌ±â¶§¹®¿¡ reply.model¿¡¼­ ±× °ªÀ» ¶¯°Ü¿À·Á¸é ½ÇÁ¦ ÀÌ¸§ÀÎ userÀÌ¶ó´Â ¸ğµ¨¾È¿¡ÀÖ´Â usernameÀ» ¶¯°Ü¿Í¾ßÇÑ´Ù-->
-				<td th:text="${reply.CONTENT}"></td>
-			</span>
-		</tr>
-		</tbody>
-	</table>
 
-	<script th:if="!${qboard?.id}">
-		$('#reply').click(function() {
-			var jsonData = {
-				content : $('#reply_content').val(),
-				boardId : $('#Qboard_id').val()
-			};
+	<h3>ëŒ“ê¸€ì¶œë ¥</h3>
 
-			$.ajax({
-				url : "/Qboard/reply",
-				type : "POST",
-				data : jsonData,
-				headers : {
-					"Authorization" : "Basic " + btoa("havi" + ":" + "test")
-				},
-				dataType : "json",
-				success : function() {
-					alert('ÀúÀå ¼º°ø!');
-					location.href = '/reply';
-				},
-				error : function() {
-					alert('ÀúÀå ½ÇÆĞ!');
-				}
-			});
-		});
-	</script>
+	<tr>
+		<!-- <span th:if="${reply.REG_USER} == ${session.user?.userid}">
+						</span> -->
+		
+		
+ 
+		<!-- 	<td><button th:if="${reply.REG_USER == session.user.userId}"
+								th:onclick="deleteUserBtn" class="deleteUserBtn btn">ëŒ“ê¸€ì‚­ì œ</button></td> -->
+	</tr>
+
+
+	<!-- comment list -->
+	<ul id="commentList">
+		<li th:each="reply:${user}">
+			<!-- user info --> <!-- í”„ë¡œí•„ ì‚¬ì§„ -->
+			<div class="comment__content">
+				<div class="leftWrapper">
+					<div class="profile__img">
+						<img src="imgs/profile-img.png" />
+					</div>
+					<!-- ìœ ì € ì´ë¦„/ë“±ê¸‰ / ëŒ“ê¸€ ë‚´ìš© -->
+					<div class="userInfoAndCommentWrapper">
+						<div class="profileWrapper">
+							<div class="nameAndLevelWrapper">
+								<!-- ì´ë¦„ -->
+								<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
+								<!-- ë ˆë²¨ -->
+								<div id="profile__badge">
+									<img th:if="${reply.USER_EXP} >= 300"
+										src="imgs/badge/master.svg" /><img
+										th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
+										th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
+										th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+								</div>
+							</div>
+							<!-- ì‘ì„± ì‹œê°„ -->
+							<p th:text="${reply.REG_TIME}">í•œ ì‹œê°„ ì „</p>
+						</div>
+						<div class="commentContent">
+							<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+						</div>
+					</div>
+				</div>
+				<div onclick="replyOnclick(this)" class="comment__actions">
+					<i class="fa-solid fa-ellipsis-vertical"></i>
+					<div id="replyDropdown" class="reply-dropdown">
+						<ul>
+							<li onclick="editReply(this)"><a href="/edit-reply">ìˆ˜ì •</a></li>
+							<li onclick="deleteReply(this)"><a href="/delete-reply">ì‚­ì œ</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="navbar__divider"></div>
+		</li>
+	</ul>
 
 </body>
 </html>
+

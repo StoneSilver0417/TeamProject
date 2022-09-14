@@ -28,6 +28,11 @@
 	<form action="/solve-quest" method="post">
 		<button type="submit">(임시)문제 푸는 페이지 view</button>
 	</form>
+	
+	<form action="/solve-quest/num" method="post">
+		<button type="submit">(임시)문제 상세 페이지 view</button>
+	</form>
+	
 	<div th:replace="layout/header2 :: main"></div>
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
@@ -188,13 +193,16 @@
 		});
     </script>
 		<button>
-			<a href="/user/authority">Authority</a>
+			<a href="/authority">Authority</a>
+		</button>
+		<button>
+			<a href="/reply">reply</a>
 		</button>
 	<!-- section: board list -->
 	<section id="boardList">
 		<div class="popularBoard boardList__list">
 			<img src="imgs/boardList-icons/popularBoard.png" class="icon" />
-			<h1>인기게시판</h1>
+			<h1>인기게시판</h1> 
 			<ul>
 				<li><a href="">공무공무원<i class="fa-solid fa-chevron-right"></i></a>
 				</li>

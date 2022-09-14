@@ -26,6 +26,8 @@ import dip.clever.util.Json;
 public class RoundController {
 	@Autowired
 	private RoundService roundService;
+	@Autowired 
+	TestService testService;
 	
 	@PostMapping("")
 	public String round(Model model, @RequestParam HashMap<String, String> param){			
@@ -53,4 +55,18 @@ public class RoundController {
 		
 		return "questList";
 	}
+	
+	// 회차등록
+	@PostMapping("/insertRound")
+	public String inserRound(Model model, int testNo, Round round) {
+		Test test = new Test();
+		test.setTestNo(testNo);
+		model.addAttribute("test", testService.selectTest(test));
+		round.setTestNo(testNo);
+		System.out.println(round);
+		roundService.insertRound(round);
+
+		return "roundForm";
+	}
+	
 }

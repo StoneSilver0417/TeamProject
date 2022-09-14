@@ -33,7 +33,7 @@
 		'Y')
 	</insert>
 
-
+ 
 	<select id="selectUser" parameterType="dip.clever.model.User"
 		resultMap="userMap">
 		SELECT * FROM TB_USER
