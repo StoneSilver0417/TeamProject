@@ -1,5 +1,6 @@
 package dip.clever.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dip.clever.model.Reply;
@@ -11,4 +12,6 @@ public interface ReplyService {
 
 	// 회원가입
 	public void insertReply(Reply reply);
+	
+	public List<HashMap<String, Object>> joinUser(int bno);
 }

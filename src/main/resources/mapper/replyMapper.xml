@@ -3,9 +3,9 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.ReplyMapper">
-	
 
-		<resultMap type="dip.clever.model.Reply" id="replyMap">
+
+	<resultMap type="dip.clever.model.Reply" id="replyMap">
 		<result property="replyNo" column="REPLY_NO" />
 		<result property="QuestNo" column="QUEST_NO" />
 		<result property="regUser" column="REG_USER" />
@@ -13,20 +13,29 @@
 		<result property="regTime" column="REG_TIME" />
 
 	</resultMap>
-	
+
 
 	<!-- 댓글 리스트출력 -->
 	<select id="findAll" resultMap="replyMap">
 		SELECT *
 		FROM TB_REPLY
 	</select>
-	 
-		<!-- 회원가입 -->
+
+	<!-- 회원가입 -->
 	<insert id="insertReply" parameterType="dip.clever.model.Reply">
 		INSERT INTO TB_REPLY
 		(QUEST_NO,REG_USER,CONTENT,USE_F)
-		
+
 		VALUES(#{QuestNo},#{regUser},#{content},'Y')
-		
 	</insert>
+	
+	<select id="joinUser" parameterType="int" resultType="java.util.HashMap">
+	SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME
+	FROM tb_reply 		AS T1
+	INNER JOIN tb_user 	AS T2 
+		ON T2.USER_ID = T1.REG_USER
+	WHERE T1.use_f = 'Y'
+	AND Quest_no = #{QuestNo}
+	</select>
+	
 </mapper>

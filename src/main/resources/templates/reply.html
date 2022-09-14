@@ -23,7 +23,7 @@
 						alert('유저삭제실패');
 						//location.replace('/manageUser');
 					}
-				}) 
+				})
 			}
 		}
 		;
@@ -33,7 +33,7 @@
 	/* 댓글추가 */
 	$(document).ready(function() {
 		$('#reply').click(function() {
-			alert($('#reply_content').val()) 
+			alert($('#reply_content').val())
 
 			$.ajax({
 				url : "/insertReply",
@@ -56,6 +56,9 @@
 	});
 </script>
 </head>
+
+
+
 
 <!-- 문제 상세출력 -->
 
@@ -83,33 +86,69 @@
 
 	<h1>댓글</h1>
 	<textarea id="reply_content" type="text"></textarea>
-				 
-
-
-
 	<button type="button" class="btn btn-primary" id="reply">저장</button>
 
 
 	<h3>댓글출력</h3>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">닉네임</th>
-				<th scope="col">내용</th>
-			</tr>
-		</thead>
-		</tbody>
-		<!-- <tr th:each="reply:${Replyinfo}">
-			<span th:if="${reply.REG_USER} == ${session.user?.userid}">
-				<td th:text="${reply.REG_USER}"></td> DB안에 정의돼있는 이름이 id인데도 유저id를 찾으려면 user.username으로 해야한다 이유는 실제 user.model에 있는 username을 찾는것이기때문에 reply.model에서 그 값을 땡겨오려면 실제 이름인 user이라는 모델안에있는 username을 땡겨와야한다
-				<td th:text="${reply.CONTENT}"></td>
-			</span>
-			<td><button th:if="${#strings.equals(reply.REG_USER, 현재 세션)}"
-					th:onclick="deleteUserBtn" class="deleteUserBtn btn">댓글삭제</button></td>
-		</tr>
-		</tbody> -->
-	</table>
+	<tr>
+		<!-- <span th:if="${reply.REG_USER} == ${session.user?.userid}">
+						</span> -->
+		
+		
+ 
+		<!-- 	<td><button th:if="${reply.REG_USER == session.user.userId}"
+								th:onclick="deleteUserBtn" class="deleteUserBtn btn">댓글삭제</button></td> -->
+	</tr>
+
+
+	<!-- comment list -->
+	<ul id="commentList">
+		<li th:each="reply:${user}">
+			<!-- user info --> <!-- 프로필 사진 -->
+			<div class="comment__content">
+				<div class="leftWrapper">
+					<div class="profile__img">
+						<img src="imgs/profile-img.png" />
+					</div>
+					<!-- 유저 이름/등급 / 댓글 내용 -->
+					<div class="userInfoAndCommentWrapper">
+						<div class="profileWrapper">
+							<div class="nameAndLevelWrapper">
+								<!-- 이름 -->
+								<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
+								<!-- 레벨 -->
+								<div id="profile__badge">
+									<img th:if="${reply.USER_EXP} >= 300"
+										src="imgs/badge/master.svg" /><img
+										th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
+										th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
+										th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+								</div>
+							</div>
+							<!-- 작성 시간 -->
+							<p th:text="${reply.REG_TIME}">한 시간 전</p>
+						</div>
+						<div class="commentContent">
+							<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+						</div>
+					</div>
+				</div>
+				<div onclick="replyOnclick(this)" class="comment__actions">
+					<i class="fa-solid fa-ellipsis-vertical"></i>
+					<div id="replyDropdown" class="reply-dropdown">
+						<ul>
+							<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
+							<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="navbar__divider"></div>
+		</li>
+	</ul>
 
 </body>
 </html>
+
