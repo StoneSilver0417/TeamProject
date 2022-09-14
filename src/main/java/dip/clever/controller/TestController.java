@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dip.clever.model.Category;
 import dip.clever.model.SearchCondition;
 import dip.clever.model.Test;
 import dip.clever.service.TestService;
+import dip.clever.util.Json;
 
 @Controller
 @RequestMapping("test")
@@ -26,21 +28,20 @@ public class TestController {
 	private TestService testService;
 	
 	@PostMapping("")
-	public String categoryInfo(Model model, Category category){
-		model.addAttribute("category",category);
-		model.addAttribute("testList", testService.selectTestList(category));
-		
-		return "categoryInfo";
+	public String test(Model model, @RequestParam HashMap<String, String> param){			
+		Json json = new Json(param);
+
+		model.addAttribute("testList",json.getObject());
+
+		return "test";
 	}
 	
 	//시험 목록 반환
 	@PostMapping("/list")
-	public String testList(Model model, Category category) {
+	public ResponseEntity<List<Test>> testList(Category category) {
 		List<Test> testList = testService.selectTestList(category);		
-
-		model.addAttribute("testList", testList);
 		
-		return "testList";
+		return new ResponseEntity<List<Test>> (testList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{no}")
@@ -52,6 +53,6 @@ public class TestController {
 		
 		model.addAttribute("test", test);
 		
-		return "test";
+		return "roundList";
 	}
 }

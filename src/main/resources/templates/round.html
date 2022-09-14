@@ -3,23 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			url:'/quest/list',
-			type:'post',
-			data:{roundNo:$('#roundNo').val()},
-			success:function(data){
-				$('#questList').html(data);
-			}
-		})
-	})	
-</script>
 </head>
-<body>	
-	<input type="hidden" id="roundNo" th:value="${round.roundNo}">
-	<div id="questList">
-	</div>
+<body>
+	<li th:each="round:${roundList}" class="round" tab-index="0">	
+		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">카테고리 이름</a>
+	</li>
 </body>
 </html>
