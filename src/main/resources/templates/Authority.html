@@ -8,12 +8,13 @@
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function() {
+		
 		$('form').submit(function(e) {
 			e.preventDefault();
 			var keyword = $('#keyword').val();
 			alert(keyword);
 			$.ajax({
-				url : "/user/manageUser/search-user/" + keyword,
+				url : "/manageUser/search-user/" + keyword,
 				type : "POST",
 				success : function(data) {
 					$('table').html(data);
@@ -39,12 +40,12 @@
 
 		if (check == true) {
 			$.ajax({
-				url : "/user/manageUser/" + action + "-manager/" + id,
+				url : "/manageUser/" + action + "-manager/" + id,
 				type : "PUT",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
 					alert(message + '"' + name + '" 성공 !');
-					location.href = '/user/authority';
+					location.href = '/authority';
 				},
 				error : function() {
 					alert('실패');
@@ -64,13 +65,13 @@
 
 		if (check2 == true) {
 			$.ajax({
-				url : "/user/manageUser/delete-user/"+ id,
+				url : "/manageUser/delete-user/"+ id,
 				type : "POST",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
 					alert(message);
 					//location.replace('/manageUser');
-					location.href = '/user/authority';
+					location.href = '/authority';
 				},
 				error : function() {
 					alert('유저삭제실패');

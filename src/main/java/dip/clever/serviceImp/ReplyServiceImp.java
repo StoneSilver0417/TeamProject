@@ -22,4 +22,10 @@ public class ReplyServiceImp implements ReplyService {
 		return replyMapper.findAll();
 	}
 
+	@Override
+	public void insertReply(Reply reply) {
+		replyMapper.insertReply(reply);
+		
+	}
+
 }

@@ -6,9 +6,10 @@ import lombok.Data;
 
 @Data
 public class Reply {
-	private int replyId;
 	private int replyNo;
+	private int QuestNo;
 	private String regUser;
 	private String content;
 	private Date regTime;
+
 }

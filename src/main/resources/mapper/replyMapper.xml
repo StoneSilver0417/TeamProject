@@ -6,8 +6,8 @@
 	
 
 		<resultMap type="dip.clever.model.Reply" id="replyMap">
-		<result property="replyId" column="REPLY_ID" />
-		<result property="replyNo" column="QUEST_NO" />
+		<result property="replyNo" column="REPLY_NO" />
+		<result property="QuestNo" column="QUEST_NO" />
 		<result property="regUser" column="REG_USER" />
 		<result property="content" column="CONTENT" />
 		<result property="regTime" column="REG_TIME" />
@@ -20,4 +20,13 @@
 		SELECT *
 		FROM TB_REPLY
 	</select>
+	
+		<!-- 회원가입 -->
+	<insert id="insertReply" parameterType="dip.clever.model.Reply">
+		INSERT INTO TB_REPLY
+		(QUEST_NO,REG_USER,CONTENT,USE_F)
+		
+		VALUES(#{QuestNo},#{regUser},#{content},'Y')
+		
+	</insert>
 </mapper>
