@@ -17,8 +17,9 @@
 	})	
 </script>
 </head>
+<body>
 	<li th:each="round:${roundList}" class="round" tab-index="0">	
-		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">카테고리 이름</a>
+		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">회차 이름</a>
 	</li>
 	<div id="questList">
 	</div>
