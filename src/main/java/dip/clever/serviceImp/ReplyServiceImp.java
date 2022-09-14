@@ -1,5 +1,6 @@
 package dip.clever.serviceImp;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,17 @@ public class ReplyServiceImp implements ReplyService {
 	@Override
 	public List<Reply> findAll() {
 		return replyMapper.findAll();
+	}
+
+	@Override
+	public void insertReply(Reply reply) {
+		replyMapper.insertReply(reply);
+		
+	}
+
+	@Override
+	public List<HashMap<String, Object>> joinUser(int bno) {
+		return replyMapper.joinUser(bno);
 	}
 
 }
