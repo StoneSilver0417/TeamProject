@@ -32,4 +32,10 @@ public class RoundServiceImp implements RoundService{
 	public Round selectRound(Round round) {
 		return roundMapper.selectRound(round.getRoundNo());
 	}
+	
+	// 회차등록
+	@Override
+	public void insertRound(Round round) {
+		roundMapper.insertRound(round);
+	}
 }
