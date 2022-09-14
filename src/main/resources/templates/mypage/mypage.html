@@ -90,14 +90,15 @@
 		<!-- user profile -->
 		<div class="mypage__profile">
 			<!-- user profile image -->
-			<img src="imgs/profile-img.png" />
+			<img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 			<div th:with="info = ${session.user}" class="mypage__profile-info">
 
 				<div class="usernameAndsetting__wrapper">
 					<!-- user name -->
 					<h1 th:text="${info.userNickname}"></h1>
 					<!-- setting icon -->
-					<a href="/mypage-setting"> <img src="imgs/mypage/settings.png" />
+					<a href="/mypage-setting">
+						<img src="imgs/mypage/settings.png" />
 					</a>
 				</div>
 				<!-- user regdate -->

@@ -5,18 +5,19 @@ import java.util.List;
 import dip.clever.model.User;
 
 public interface UserService {
+	// 아이디로 유저 찾기
+	public boolean findUserId(User user);
 
+	// 이름으로 유저 찾기
+	public boolean findUserNickname(User user);
+
+	// 메일로 유저 찾기
+	public boolean findUserEmail(User user);
 	// 회원가입
 	public void insertUser(User user);
 
 	// 회원조회
 	public User selectUser(User user);
-
-	// 아이디로 유저 찾기
-	public boolean findUserId(String userId);
-
-	// 이름으로 유저 찾기
-	public boolean findUserNickname(String userNickname);
 
 	// 유저리스트 반환
 	public List<User> findAll();
@@ -32,9 +33,6 @@ public interface UserService {
 
 	// 매니저 >
 	public void updateUser(String id);
-
-	// 메일로 유저 찾기
-	public boolean findUserEmail(String userEmail);
 
 	// ** mypage **
 	// 아이디로 유저 찾기

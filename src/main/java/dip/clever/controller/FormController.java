@@ -1,5 +1,10 @@
 package dip.clever.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,20 +19,52 @@ import dip.clever.model.Round;
 import dip.clever.model.Test;
 import dip.clever.model.User;
 import dip.clever.service.UserService;
+import dip.clever.util.Util;
 
 // 폼 이동 컨트롤러
 @Controller
 @RequestMapping("")
 public class FormController {
-	
 	@Autowired
-	private UserService userService;
-	
-	
+	private UserService userService;		
+
 	// 메인 페이지로 이동
 	@RequestMapping("")
 	public String home() {
 		return "index";
+	}
+	
+	// 회원가입 메소드
+	@PostMapping("join")
+	public String join(HttpSession httpSession, Model model, User user) {
+		String inPath = Util.path + "illustration-";
+		String outPath = Util.path + "user\\";
+		FileInputStream fileInputStream;
+		File file;
+		int rand = Util.rand(25);		
+
+		userService.insertUser(user);
+		
+		inPath += rand + ".png";
+		outPath += user.getUserId() + ".png";
+		
+		Util.uploadFile(Util.getFileInputStream(inPath), outPath);
+		
+		return loginCheck(httpSession, model, user);
+	}
+	
+	//로그인 진행
+	@PostMapping("/login")
+	public String loginCheck(HttpSession httpSession, Model model, User user) {
+		user = userService.selectUser(user);
+		if (user == null) {
+			model.addAttribute("loginError", true);
+
+			return "loginForm";
+		}
+		httpSession.setAttribute("user", user);
+
+		return "redirect:";
 	}
 	
 	// 검색 폼으로 이동
@@ -39,7 +76,7 @@ public class FormController {
 	//로그인 폼으로 이동
 	@GetMapping("login")
 	public String loginForm() {
-		return "loginForm2";
+		return "loginForm";
 	}
 
 	//회원 가입 폼으로 이동
@@ -67,31 +104,7 @@ public class FormController {
 		model.addAttribute("test", test);
 		return "roundForm";
 	}
-	
-	
-	// 회원가입 메소드
-	@PostMapping("join")
-	public String join(HttpServletRequest httpServletRequest, Model model, User user) {		
-		userService.insertUser(user);
-		
-		return loginCheck(httpServletRequest, model, user);
-	}
-	
-	//로그인 진행
-	@PostMapping("login")
-	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
-		user = userService.selectUser(user);
-		if (user == null) {
-			model.addAttribute("loginError", true);
-
-			return "loginForm2";
-		}
-		
-		httpServletRequest.getSession().setAttribute("user", user);		
-
-		return "redirect:";
-	}
-	
+  
 	//로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest httpServletRequest) {
@@ -103,11 +116,6 @@ public class FormController {
 		return "redirect:";
 	}
 	
-//	@GetMapping("authority")
-//	public String authorityForm() {
-//		return "authority";
-//	}
-//
 //	//로그인 진행
 //	@PostMapping("login")
 //	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
