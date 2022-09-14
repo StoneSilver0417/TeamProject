@@ -104,7 +104,7 @@ public class FormController {
 		model.addAttribute("test", test);
 		return "roundForm";
 	}
-  
+	
 	//로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest httpServletRequest) {
@@ -115,25 +115,6 @@ public class FormController {
 
 		return "redirect:";
 	}
-	
-//	//로그인 진행
-//	@PostMapping("login")
-//	public String loginCheck(HttpServletRequest httpServletRequest, Model model, User user) {
-//		user = userRepository.selectUser(user);
-//		Log log;		
-//		
-//		if (user == null) {
-//			model.addAttribute("loginError", true);
-//
-//			return "loginForm";
-//		}
-//		log = new Log(user.getId(), Command.LOGIN, null);
-//				
-//		logRepository.insertLog(log);
-//		httpServletRequest.getSession().setAttribute("user", user);		
-//
-//		return "redirect:";
-//	}
 //	
 //	//로그아웃
 //	@RequestMapping("logout")

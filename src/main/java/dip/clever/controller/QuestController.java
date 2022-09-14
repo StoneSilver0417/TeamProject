@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dip.clever.model.Quest;
 import dip.clever.model.Round;
-import dip.clever.model.Test;
 import dip.clever.service.QuestService;
 import dip.clever.util.Json;
 
 @Controller
+@RequestMapping("")
 public class QuestController {
 	@Autowired
 	private QuestService questService;
@@ -54,8 +54,8 @@ public class QuestController {
 		model.addAttribute("quest", quest);
 		
 		return "questInfo";
-   }
-    
+	}
+
 	@PostMapping("/solve-quest")
 	public String solveQuest() {
 		return "quest/solve-quest";
@@ -69,6 +69,7 @@ public class QuestController {
 	@PostMapping("/edit-reply")
 	public String editReply() {
 		System.out.println("asdadasd");
+		
 		return "edit_forms/edit-reply";
-    }
+	}
 }
