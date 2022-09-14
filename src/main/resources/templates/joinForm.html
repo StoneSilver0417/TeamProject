@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/form.css" />
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>		
+	<link rel="stylesheet" href="/css/form.css" />	
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="/js/util.js"></script>
 	<script th:inline="javascript">
 	window.history.forward();
 	function noBack(){window.history.forward();}
+
 	$(document).ready(function(){
 			$('#regbut').click(function(data){
 				var id = $('#userId').val();
@@ -19,41 +19,41 @@
 				var email = $('#userEmail').val();
 				
 				go = true;
-								
-				if(id == "")
+				
+				if(isEmpty(id))
 					label('#idmsg','아이디를 입력해주세요.');	
 				else if(id != $('#id2').val())
 					label('#idmsg','아이디 확인이 필요합니다');					
 				
-				if(name == "")
+				if(isEmpty(name))
 					label('#namemsg','닉네임을 입력해주세요');					
 				else if(name != $('#name2').val())
 					label('#namemsg','닉네임 확인이 필요합니다');
 				
-				if(pwd == "")
+				if(isEmpty(pwd))
 					label('#pwdmsg','비밀번호를 입력해주세요.');
 				else if(pwd != $('#pwd2').val())
 					label('#pwdmsg','비밀번호가 일치하지 않습니다');
 				
-				if(email == "")
+				if(isEmpty(email))
 					label('#mailmsg', '이메일을 입력해주세요.');
 				else if(email != $('#email2').val())
 					label('#mailmsg','이메일 확인이 필요합니다');
 				
 				if(go){
-					$('#encodePwd').val(sha256(pwd))
+					$('#encodePwd').val(encode(pwd))
 				}
-				
 				return go;
 			});
 			
 			$('#idchkbut').click(function(data){
 				var id = $('#userId').val();
 
-				if(id == "")
+				log(isEmpty(id))
+				if(isEmpty(id))
 					return;
 				$.ajax({
-					url:'/check/checkId',
+					url:'/user/checkId',
 					data:{userId:id},
 					type:'post',
 					success:function(data){
@@ -77,7 +77,7 @@
 				if(name == "")
 					return;
 				$.ajax({
-					url:'/check/checkNickname',
+					url:'/user/checkName',
 					data:{userNickname:name},
 					type:'post',	
 					success:function(data){
@@ -101,7 +101,7 @@
 				if(email == "")
 					return;
 				$.ajax({
-					url:'/check/checkEmail',
+					url:'/user/checkEmail',
 					data:{userEmail:email},
 					type:'post',	
 					success:function(data){
@@ -119,26 +119,12 @@
 				})
 			});
 		});
-		
-	function label(object, text, color){
-		$(object).text(text).css('color', color ? color : 'red');
-		go = color != null;
-	}
 	</script>
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 	<!-- 회원가입 폼 -->
 	<div class="container">
 		<div th:replace="layout/header2 :: logo"></div>
-		<div class="logo_area">
-			<h1 class="logo_default">
-				<a href="/" class="logo" data-clk="top.logo"><!-- 클릭시 메인화면으로 이동 -->
-					<span>
-						회원가입
-					</span>
-				</a>
-			</h1>
-		</div>
 		<!-- 회원 정보 입력 -->
 		<form action="/join" method="post" class="loginForm">
 			<!-- 아이디는 중복 불가, 확인 필요 -->

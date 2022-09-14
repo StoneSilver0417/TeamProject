@@ -5,22 +5,21 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
+/* 	$(document).ready(function(){
 		$.ajax({
-			url:'/quest2/list',
+			url:'/quest/list',
 			type:'post',
 			data:{roundNo:$('#roundNo').val()},
 			success:function(data){
-				console.log(JSON.stringify(data))
 				$('#questList').html(data);
 			}
 		})
-	})	
+	})	 */
 </script>
 </head>
 <body>
-	<li th:each="round:${roundList}" class="round" tab-index="0">	
-		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">회차 이름</a>
+	<li th:each="quest:${questList}" class="quest" tab-index="0">	
+		<a th:href="${'/quest/' + quest.questNo}" th:text="${quest.questName}">회차 이름</a>
 	</li>
 	<div id="questList">
 	</div>

@@ -30,19 +30,19 @@ public class UserServiceImpl implements UserService {
 
 	// 아이디 중복 체크
 	@Override
-	public boolean findUserId(String userId) {
-		return userMapper.findUserId(userId) != null;
+	public boolean findUserId(User user) {
+		return userMapper.findUserId(user.getUserId()) != null;
 	}
 
 	// 닉네임 중복 체크
 	@Override
-	public boolean findUserNickname(String userNickname) {
-		return userMapper.findUserNickname(userNickname) != null;
+	public boolean findUserNickname(User user) {
+		return userMapper.findUserNickname(user.getUserNickname()) != null;
 	}
 
 	@Override
-	public boolean findUserEmail(String userEmail) {
-		return userMapper.findUserEmail(userEmail) != null;
+	public boolean findUserEmail(User user) {
+		return userMapper.findUserEmail(user.getUserEmail()) != null;
 	}
 
   // ** 유저 관리 ** 

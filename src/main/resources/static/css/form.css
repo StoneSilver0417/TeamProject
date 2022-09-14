@@ -22,3 +22,7 @@ ul {
 .btn {
 	width: 100%;
 }
+
+.login>div{
+	margin: 5%;
+}

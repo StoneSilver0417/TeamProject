@@ -55,7 +55,7 @@
 					<div id="profile">
 						<div th:with="info = ${session.user}" onclick="profileOnclick()"
 							class="profileBtn" id="profile__info">
-							<img id="profile__img" src="imgs/profile-img.png" />
+							<img id="profile__img" th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 							<p th:text="${info.userNickname}" id="profile__name"></p>
 						</div>
 						<div id="profileDropdown" class="profile-dropdown">

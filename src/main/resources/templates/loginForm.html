@@ -6,51 +6,46 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link rel="icon" th:href="@{/imgs/favicon.ico}">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<link rel="stylesheet" href="/css/form.css" />	
+<script	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script th:src="@{/js/jquery.min.js}"></script>
+<script src="/js/util.js"></script>
 <script type="text/javascript">
 	window.history.forward();
 	function noBack(){window.history.forward();}
 	
 	function login() {
 		var pwd = $('#userPwd').val();
-
-		$('#encodePwd').val(sha256(pwd))
+		
+		$('#encodePwd').val(encode(pwd))
 	}
 </script>
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 	<div class="container">
 		<div th:replace="layout/header2 :: logo"></div>
-		<h2 style="padding-top: 30px">Login Page</h2>
-		<form action="/login" method="post">
+		<form action="/login" method="post" class="login">
 			<div class="form-group">
-				<label for="userId">Id :</label> <input type="text"
-					class="form-control" placeholder="Enter Id" name="userId" required>
+				<input type="text"	class="form-control" placeholder="아이디" name="userId" required>
 			</div>
 			<div class="form-group">
-				<input type="hidden" id="encodePwd" name="userPwd"> <label
-					for="userPwd">Password :</label> <input type="password"
-					id="userPwd" class="form-control" placeholder="Enter password"
-					required>
+				<input type="hidden" id="encodePwd" name="userPwd">
+				<input type="password" id="userPwd" class="form-control" placeholder="비밀번호" required>
 			</div>
 			<div class="form-group form-check">
-				<label class="form-check-label"> <input
-					class="form-check-input" type="checkbox" name="remember">
-					Remember me
-				</label>
+				<label class="form-check-label"> 
+					<input class="form-check-input" type="checkbox" name="remember">
+						아이디 기억
+					</label>
 			</div>
 			<div th:if="${loginError}" th:text="'로그인 실패'" style="color: red;" />
-			<button type="submit" onclick="login();" class="btn btn-primary">Submit</button>
+			<button type="submit" onclick="login();" class="btn btn-primary">로그인</button>
 		</form>
-		<br> <a href="/join">Register</a>
+		<br> <a href="/join">회원 가입</a>
 	</div>
 </body>
 </html>
