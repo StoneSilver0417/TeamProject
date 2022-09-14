@@ -73,9 +73,11 @@ public class UserController {
 	@PostMapping("/manageUser/search-user/{keyword}")
 	public String searchUser(@PathVariable String keyword, Model model) {
 		System.out.println(keyword);
+		
 		System.out.println(userService.findSearchResult(keyword));
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
+		
 	}
 
 	// 유저 영구 삭제 method
@@ -99,13 +101,13 @@ public class UserController {
 		System.out.println(action);
 		System.out.println(id);
 		if (action.equals("add")) {
-			userService.updateManager(id);
+//			userService.updateManager(id);
 //			User user = userService.findUserById(id);
 //			user.setRole(Role.);
 //			userService.saveUser(user);
 			message = "매니저로 임명";
 		} else if (action.equals("remove")) {
-			userService.updateUser(id);
+//			userService.updateUser(id);
 //			User user = userService.findUserById(id);
 //			user.setRole(Role.ROLE_USER);
 //			userService.saveUser(user);
@@ -210,7 +212,6 @@ public class UserController {
 		}
 		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
 	}
-    
 	// 개인정보 수정
 	// 이름 수정
 	@PostMapping("/update-name")
