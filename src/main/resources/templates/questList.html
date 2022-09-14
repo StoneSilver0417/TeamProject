@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>	
+	<form action="/insertQuest" method="post">
+		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
+		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
+		<button type="submit">문제등록</button>
+	</form>
+</body>
+</html>
