@@ -1,5 +1,6 @@
 package dip.clever.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dip.clever.model.Category;
 import dip.clever.service.CategoryService;
+import dip.clever.util.Json;
+import dip.clever.util.Util;
 
 @Controller
 @RequestMapping("category")
@@ -23,10 +26,22 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping("")
-	public ResponseEntity<List<Category>> category() {		
-		return new ResponseEntity<List<Category>> (categoryService.selectCategoryList(), HttpStatus.OK);
+	public String category(Model model, @RequestParam HashMap<String, String> param) {
+		Json json = new Json(param);
+		
+		model.addAttribute("categoryList",json.getObject());	
+		
+		return "category";
 	}
-
+	
+	//카테고리 목록 반환
+	@PostMapping("/select")
+	public ResponseEntity<List<Category>> selectCategoryList(){
+		List<Category> categoryList = categoryService.selectCategoryList();
+		
+		return new ResponseEntity<List<Category>> (categoryList, HttpStatus.OK);		
+	}
+	
 	@GetMapping("/{no}")
 	public String category(Model model, @PathVariable int no) {
 		Category category = new Category();
@@ -36,7 +51,7 @@ public class CategoryController {
 		
 		model.addAttribute("category",category);
 		
-		return "category";
+		return "testList";
 	}
 	
 	//카테고리 관리 폼
@@ -66,14 +81,6 @@ public class CategoryController {
 		
 		return true;
 	} 
-	
-	//카테고리 목록 반환
-	@PostMapping("/list")
-	public ResponseEntity<List<Category>> selectCategoryList(){
-		List<Category> categoryList = categoryService.selectCategoryList();
-		
-		return new ResponseEntity<List<Category>> (categoryList, HttpStatus.OK);		
-	}
 	
 	//카테고리 정보
 //	private Category selectCategory(Category category) {
