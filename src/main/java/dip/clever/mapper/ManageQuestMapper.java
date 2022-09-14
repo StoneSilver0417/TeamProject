@@ -1,10 +1,11 @@
 package dip.clever.mapper;
 
-import dip.clever.model.Quest;
-import dip.clever.model.Round;
 import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.Choice;
+import dip.clever.model.Quest;
+import dip.clever.model.Round;
+import dip.clever.model.Test;
 
 @Mapper
 public interface ManageQuestMapper {
@@ -20,6 +21,15 @@ public interface ManageQuestMapper {
     
     // 회차선택
     public Round selectRound(Round Round);
+    
+    // 회차등록
+    public void insertRound(Round round);
+    
+    // 시험선택
+    public Test selectRound(Test test);
+    
+    
+    
     
     // 문제수정
     public void modifyQuest(long questNo, Quest quest);

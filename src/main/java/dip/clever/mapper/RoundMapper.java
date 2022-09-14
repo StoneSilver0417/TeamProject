@@ -15,4 +15,7 @@ public interface RoundMapper{
 	public List<Round> selectRoundList(int testNo);
 	
 	public Round selectRound(int roundNo);
+	
+	// 회차등록
+	public void insertRound(Round round);
 }
