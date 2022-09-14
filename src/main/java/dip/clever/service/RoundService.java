@@ -13,4 +13,7 @@ public interface RoundService {
 	public List<Round> selectRoundList(Test test);
 	
 	public Round selectRound(Round round);
+	
+	// 회차등록
+	public void insertRound(Round round);
 }

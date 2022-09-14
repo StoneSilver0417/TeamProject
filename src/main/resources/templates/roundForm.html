@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	
 	</script>
@@ -11,24 +13,28 @@
 <body>
 	<div class="container">
 		<h2 style="padding-top: 30px">회차등록 페이지</h2>
-		<form action="/insertRound" method="post">
+		<form action="/round/insertRound" method="post">
 			
 			<div class="form-group">
-				<label for="testNo">시험 번호 :</label> <input class="form-control" name="testNo" th:text="" readonly>
+				<label for="testNo"></label> <input type="hidden" name="testNo" th:value="${test.testNo}" >
 			</div>
 			
 			<div class="form-group">
-				<label for="regUser">작성자 :</label> <input class="form-control" name="regUser" th:text="" readonly>
+				<label for="regUser"></label> <input class="form-control" name="regUser" th:value="${test.managerId}" readonly>
 			</div>
 			
 			<div class="form-group">
-				<label for="roundName">시험 회차 이름 :</label> <input type="text" class="form-control" name="roundName" required>
+				<label for="testName">시험 이름:</label> <input class="form-control" name="testName" th:value="${test.testName}" readonly>
 			</div>
 			
 			<div class="form-group">
-				<label for="testDate">시험 날짜 :</label> <input type="text" class="form-control" name="testDate">
+				<label for="roundName">시험 회차:</label> <input class="form-control" name="roundName" type="text" placeholder="xxxx년 x회차">
 			</div>
-
+			
+			<div class="form-group">
+				<label for="testDate">시험 일자 :</label> <input class="form-control" name="testDate" type="text" placeholder="20220901">
+			</div>
+			
 			<button type="submit" class="btn btn-primary">등록</button>
 		</form>
 	</div>

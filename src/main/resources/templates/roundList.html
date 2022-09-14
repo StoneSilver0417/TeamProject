@@ -22,9 +22,19 @@
 	})
 </script>
 </head>
-<body>	
+<body>
 	<div th:replace="layout/searchArea :: search"></div>
 	<p id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></p>
+	<section th:with="info = ${session.user}">
+		<div th:if="${info.userRole.toString() == 'ADMIN'|| info.userId == 'root2'}">
+			<form action="/insertRound" method="post">
+				<input type="hidden" id="testNo" th:value="${test.testNo}" name="testNo">
+				<input type="hidden" id="testName" th:value="${test.testName}" name="testName">
+				<input type="hidden" id="managerId" th:value="${test.managerId}" name="managerId">
+				<button type="submit">회차등록</button>
+			</form>
+		</div>
+	</section>
 	<div id="roundList">
 	</div>	
 </body>
