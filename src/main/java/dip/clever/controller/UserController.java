@@ -73,9 +73,11 @@ public class UserController {
 	@PostMapping("/manageUser/search-user/{keyword}")
 	public String searchUser(@PathVariable String keyword, Model model) {
 		System.out.println(keyword);
+		
 		System.out.println(userService.findSearchResult(keyword));
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
+		
 	}
 
 	// 유저 영구 삭제 method
@@ -209,7 +211,7 @@ public class UserController {
 			throw new RuntimeException("file Save Error");
 		}
 		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
-    
+	}
 	// 개인정보 수정
 	// 이름 수정
 	@PostMapping("/update-name")
