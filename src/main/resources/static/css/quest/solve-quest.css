@@ -134,7 +134,7 @@ hr {
   max-width: 1160px;
 }
   
-#test__info > button {
+#test__info > form > button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -160,11 +160,11 @@ hr {
   color: var(--color-black);
 }
 
-#test__info > button:hover {
+#test__info > form > button:hover {
   background-color: var(--color-light-grey);
 }
 
-#test__info > button:active {
+#test__info > form > button:active {
   background-color: #e1e1e1;
 }
  
