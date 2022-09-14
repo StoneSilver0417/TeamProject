@@ -1,6 +1,7 @@
 package dip.clever.serviceImp;
 
 import dip.clever.mapper.ManageQuestMapper;
+import dip.clever.model.Choice;
 import dip.clever.model.Quest;
 import dip.clever.model.Test;
 import dip.clever.model.Round;
@@ -14,32 +15,34 @@ public class ManageQuestImpl implements MangeQuestService {
 	
 	@Autowired
     ManageQuestMapper manageQuestMapper;
-	
-	// 회차정보입력
-	@Override
-	public void insertRound(Round testRound) {
-		manageQuestMapper.insertRound(testRound);
-	}
-	
-	// 회차정보수정
-	@Override
-	public void modifyRound(long roundNo, Round testRound) {
-		// TODO Auto-generated method stub
-		
-	}
-	// 회차정보삭제
-	@Override
-	public void deleteRound(long roundNo) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	// 문제정보입력
 	@Override
 	public void insertQuest(Quest quest) {
-		// TODO Auto-generated method stub
-		
+		manageQuestMapper.insertQuest(quest);
 	}
+	
+	// 선지등록
+	@Override
+	public void insertChoice(Choice choice) {
+		manageQuestMapper.insertChoice(choice);
+	}
+	
+	// 선지번호 선택
+	@Override
+	public Integer selectChoiceNo() {
+		return manageQuestMapper.selectChoiceNo();
+	}
+
+	
+	
+	// 회차선택
+	@Override
+	public Round selectRound(Round Round) {
+		return manageQuestMapper.selectRound(Round);
+	}
+	
+	
 	// 문제정보수정
 	@Override
 	public void modifyQuest(long questNo, Quest quest) {
@@ -53,7 +56,5 @@ public class ManageQuestImpl implements MangeQuestService {
 		
 	}
 
-
-	
 
 }

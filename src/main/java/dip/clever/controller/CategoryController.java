@@ -83,7 +83,7 @@ public class CategoryController {
 	} 
 	
 	//카테고리 정보
-	private Category selectCategory(Category category) {
-		return categoryService.selectCategory(category);
-	}
+//	private Category selectCategory(Category category) {
+//		return categoryService.selectCategory(category);
+//	}
 }

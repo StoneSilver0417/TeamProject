@@ -29,7 +29,11 @@
     	var now = new Date();
     	var diff = parseInt((now.getTime() - date.getTime()) / day)
     	
+    	if(diff > 0 ){
     	$('#joinDay').html(diff + "일 전 가입");
+    	} else {
+        	$('#joinDay').html("오늘 가입");
+    	}
     	
         $.ajax({
           url: 'http://127.0.0.1:5500/mypage-quest.html',
@@ -81,6 +85,8 @@
 	<div th:replace="layout/header :: header"></div>
 	<hr>
 
+
+
 	<!-- mypage -->
 	<section id="mypage">
 		<!-- user profile -->
@@ -93,28 +99,27 @@
 					<!-- user name -->
 					<h1 th:text="${info.userNickname}"></h1>
 					<!-- setting icon -->
-					<a href="/mypage-setting" > <img
-						src="imgs/mypage/settings.png" />
+					<a href="/mypage-setting"> <img src="imgs/mypage/settings.png" />
 					</a>
 				</div>
 				<!-- user regdate -->
 				<!-- <p th:text="${#calendars.format(#calendars.createNow()}"></p> -->
-				<p id="joinDay">3일 전 가입</p>
+				<p id="joinDay"></p>
 				<!-- user badge -->
-				<div th:if="${info.userExp} >= 300" class="badge"> 
+				<div th:if="${info.userExp} >= 300" class="badge">
 					<img src="imgs/badge/master.svg" />
 					<p th:text="${info.userExp}"></p>
 				</div>
-				<div th:if="${info.userExp} >= 100" class="badge"> 
+				<div th:if="${info.userExp} >= 100" class="badge">
 					<img src="imgs/badge/level2.svg" />
 					<p th:text="${info.userExp}"></p>
 				</div>
-				<div th:if="${info.userExp} >= 50" class="badge"> 
+				<div th:if="${info.userExp} >= 50" class="badge">
 					<img src="imgs/badge/level1.svg" />
 					<p th:text="${info.userExp}"></p>
 				</div>
-				<div th:if="${info.userExp} >= 0" class="badge"> 
-					<img src="imgs/badge/new.svg" imgwidth="40px"/>
+				<div th:if="${info.userExp} >= 0" class="badge">
+					<img src="imgs/badge/new.svg" imgwidth="40px" />
 					<p th:text="${info.userExp}"></p>
 				</div>
 			</div>
