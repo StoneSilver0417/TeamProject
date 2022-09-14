@@ -5,7 +5,16 @@ body {
   align-items: center;
 
   width: 100%;
+  height: 100%;
 } 
+
+hr {
+  width: 100%;
+  height: 0;
+  
+  border: 0; 
+  box-shadow: 0 0 1px 1px var(--color-light-grey);
+}
  
 #checkingBtn {
   display: inline-flex;
@@ -39,7 +48,6 @@ body {
 #checkingBtn:active {
   background-color: #e36448;
 } 
-
 
 .short-answer {
   display: flex;
@@ -133,17 +141,14 @@ body {
 
 #questList {
   width: 100%;
-  max-width: 1160px;
-  height: 100%;
-
+  max-width: 1160px; 
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 
   flex-wrap: wrap;
 
-  padding: 20px 0;
-  margin-bottom: 400px;
+  padding: 20px 0; 
 
   background: none;
 
