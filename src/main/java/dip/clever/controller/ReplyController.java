@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 import dip.clever.model.Reply;
 import dip.clever.model.User;
 import dip.clever.service.MangeQuestService;
@@ -84,4 +85,19 @@ public class ReplyController {
 			System.out.println("삭제완료");
 			return new ResponseEntity<>(message, HttpStatus.OK);
 		}
+	
+	@PostMapping("/modifyReply/{id}")
+	public ResponseEntity<String> modifyReply(@PathVariable int id, @RequestBody Reply reply) {
+		ResponseEntity<String> entity = null;
+		 try {
+			 reply.setReplyNo(id);
+			 replyservice.modifyReply(reply);
+	            entity = new ResponseEntity<String>("modSuccess", HttpStatus.OK);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	        }
+	        return entity;
+	}
+	
 }

@@ -40,4 +40,9 @@ public class ReplyServiceImp implements ReplyService {
 		
 	}
 
+	@Override
+	public void modifyReply(Reply reply) {
+		replyMapper.modifyReply(reply);
+	}
+
 }

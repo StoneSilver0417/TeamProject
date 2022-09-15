@@ -90,14 +90,15 @@
 		<!-- user profile -->
 		<div class="mypage__profile">
 			<!-- user profile image -->
-			<img src="imgs/profile-img.png" />
+			<img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 			<div th:with="info = ${session.user}" class="mypage__profile-info">
 
 				<div class="usernameAndsetting__wrapper">
 					<!-- user name -->
 					<h1 th:text="${info.userNickname}"></h1>
 					<!-- setting icon -->
-					<a href="/mypage-setting"> <img src="imgs/mypage/settings.png" />
+					<a href="/mypage-setting">
+						<img src="imgs/mypage/settings.png" />
 					</a>
 				</div>
 				<!-- user regdate -->
@@ -126,8 +127,9 @@
 		<!-- user activity -->
 		<nav class="mypage__list">
 			<!-- tab navigation -->
-			<p onclick="myQuestBtn()" class="active">내 문제</p>
-			<p onclick="myActiveBtn()">내 활동</p>
+			<p onclick="myQuestBtn()" class="active">내가 푼 문제</p>
+			<p onclick="myActiveBtn()">내가 올린 문제</p>
+			<p onclick="myActiveBtn()">내 댓글</p>
 			<p onclick="myLevelBtn()">등급</p>
 			<div class="marker" target="_blank"></div>
 		</nav>
