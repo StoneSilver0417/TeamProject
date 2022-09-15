@@ -162,51 +162,50 @@
 
 		<!-- comment list -->
 		<ul id="commentList">
-			<li>
-				<!-- user info --> <!-- 프로필 사진 -->
-				<div class="comment__content">
-					<div class="leftWrapper">
-						<div class="profile__img">
-							<img src="imgs/profile-img.png" />
-						</div>
-						<!-- 유저 이름/등급 / 댓글 내용 -->
-						<div class="userInfoAndCommentWrapper">
-							<div class="profileWrapper">
-								<div class="nameAndLevelWrapper">
-									<!-- 이름 -->
-									<!-- <p th:text="${info.userNickname}" id="profile__name">오다원</p> -->
-									<!-- 레벨 -->
-									<div id="profile__badge">
-										<!-- <img th:if="${info.userExp} >= 300"
-											src="imgs/badge/master.svg" /><img
-											th:if="${info.userExp} >= 100" src="imgs/badge/level2.svg" /><img
-											th:if="${info.userExp} >= 50" src="imgs/badge/level1.svg" /><img
-											th:if="${info.userExp} >= 0" src="imgs/badge/new.svg" /> -->
-									</div>
-								</div>
-								<!-- 작성 시간 -->
-								<p>한 시간 전</p>
-							</div>
-							<div class="commentContent">
-								<p class="replace-commentEdit">그거 아님. 그거 아님. 그거 . 그거</p>
-							</div>
-						</div>
+		<li th:each="reply:${user}">
+			<!-- user info --> <!-- 프로필 사진 -->
+			<div class="comment__content">
+				<div class="leftWrapper">
+					<div class="profile__img">
+						<img src="imgs/profile-img.png" />
 					</div>
-					<div onclick="replyOnclick(this)" class="comment__actions">
-						<i class="fa-solid fa-ellipsis-vertical"></i>
-						<div id="replyDropdown" class="reply-dropdown">
-							<ul>
-								<li onclick="editReply(this)"><a href="/edit-reply">수정</a>
-								</li>
-								<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
-								</li>
-							</ul>
+					<!-- 유저 이름/등급 / 댓글 내용 -->
+					<div class="userInfoAndCommentWrapper">
+						<div class="profileWrapper">
+							<div class="nameAndLevelWrapper">
+								<!-- 이름 -->
+								<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
+								<!-- 레벨 -->
+								<div id="profile__badge">
+									<img th:if="${reply.USER_EXP} >= 300"
+										src="imgs/badge/master.svg" /><img
+										th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
+										th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
+										th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+								</div>
+							</div>
+							<!-- 작성 시간 -->
+							<p th:text="${reply.REG_TIME}">한 시간 전</p>
+						</div>
+						<div class="commentContent">
+							<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
 						</div>
 					</div>
 				</div>
-				<div id="navbar__divider"></div>
-			</li>
-		</ul>
+				<div onclick="replyOnclick(this)" class="comment__actions">
+					<i class="fa-solid fa-ellipsis-vertical"></i>
+					<div id="replyDropdown" class="reply-dropdown">
+						<ul>
+							<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
+							<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="navbar__divider"></div>
+		</li>
+	</ul>
 	</div>
 </body>
 </html>
