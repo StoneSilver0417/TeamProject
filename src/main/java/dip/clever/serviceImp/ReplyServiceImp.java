@@ -34,4 +34,9 @@ public class ReplyServiceImp implements ReplyService {
 		return replyMapper.joinUser(bno);
 	}
 
+	@Override
+	public void modifyReply(Reply reply) {
+		replyMapper.modifyReply(reply);
+	}
+
 }

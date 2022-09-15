@@ -38,4 +38,12 @@
 	AND Quest_no = #{QuestNo}
 	</select>
 	
+	<!-- 댓글 수정 -->
+	<update id="modifyReply" parameterType="dip.clever.model.Reply">
+	    UPDATE TB_REPLY SET
+		CONTENT = #{content}
+	    WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	
 </mapper>
