@@ -1,5 +1,8 @@
 package dip.clever.mapper;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.Choice;
@@ -28,8 +31,8 @@ public interface ManageQuestMapper {
     // 시험선택
     public Test selectRound(Test test);
     
-    
-    
+    // 문제출력
+    public List<HashMap<String, Object>> joinQuest(int bno);
     
     // 문제수정
     public void modifyQuest(long questNo, Quest quest);

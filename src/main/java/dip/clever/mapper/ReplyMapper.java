@@ -16,6 +16,9 @@ public interface ReplyMapper {
 
 	// 회원가입
 	public void insertReply(Reply reply);
-
+	
+	//댓글출력
 	public List<HashMap<String, Object>> joinUser(int bno);
+	
+	public void deleteReply(String id);
 }

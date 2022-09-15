@@ -33,5 +33,11 @@ public class ReplyServiceImp implements ReplyService {
 	public List<HashMap<String, Object>> joinUser(int bno) {
 		return replyMapper.joinUser(bno);
 	}
+	
+	@Override
+	public void deleteReply(String id) {
+		replyMapper.deleteReply(id);
+		
+	}
 
 }

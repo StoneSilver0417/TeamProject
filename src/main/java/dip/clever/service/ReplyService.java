@@ -12,6 +12,9 @@ public interface ReplyService {
 
 	// 회원가입
 	public void insertReply(Reply reply);
-	
+
 	public List<HashMap<String, Object>> joinUser(int bno);
+
+	// 유저삭제
+	public void deleteReply(String id);
 }

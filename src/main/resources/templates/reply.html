@@ -6,29 +6,27 @@
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	/* 댓글삭제 */
-	$(document).ready(function() {
-		function deleteUserBtn(id, name) {
+	
+	
+		function deleteReplyBtn(id) {
 			var check1 = confirm('삭제하시겠습니까?');
 			if (check1 == true) {
 				$.ajax({
-					url : "/manageUser/delete-user/" + id,
+					url : "/delete-reply/" + id,
 					type : "POST",
 					dataType : 'text', // String 값을 return하기 때문
 					success : function(message) {
 						alert(message);
-						//location.replace('/manageUser');
-						location.href = '/authority';
+						location.href = '/reply';
 					},
 					error : function() {
 						alert('유저삭제실패');
 						//location.replace('/manageUser');
 					}
-				})
-			}
-		}
-		;
-
-	});
+				});
+			};
+		};
+	
 
 	/* 댓글추가 */
 	$(document).ready(function() {
@@ -63,7 +61,7 @@
 <!-- 문제 상세출력 -->
 
 <body>
-	<!-- <table class="table table-hover">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th scope="col"></th>
@@ -72,15 +70,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="Quest:${Questinfo}">
+			<tr th:each="Quest:${quest}">
 				<td th:text="${Quest.QUEST_NO}"></td>
-				<td th:text="${Quest.QUEST_SEQ}"></td>
-				<th>
 				<td th:text="${Quest.QUEST_CONTENT}"></td>
 				<th>
-			</tr>asd
+				<td th:text="${Quest.C1}"></td>
+				<td th:text="${Quest.C2}"></td>
+				<td th:text="${Quest.C3}"></td>
+				<td th:text="${Quest.C4}"></td>
+				<td th:text="${Quest.C5}"></td>
+				<th>
+			</tr>
 		</tbody>
-	</table> -->
+	</table>
 
 	<!-- 댓글 인서트 -->
 
@@ -89,16 +91,37 @@
 	<button type="button" class="btn btn-primary" id="reply">저장</button>
 
 
-	<h3>댓글출력</h3>
+
 
 	<tr>
 		<!-- <span th:if="${reply.REG_USER} == ${session.user?.userid}">
 						</span> -->
-		
-		
- 
-		<!-- 	<td><button th:if="${reply.REG_USER == session.user.userId}"
-								th:onclick="deleteUserBtn" class="deleteUserBtn btn">댓글삭제</button></td> -->
+
+		<!-- 		<button th:if="${reply.REG_USER == session.user.userId}" -->
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">닉네임</th>
+					<th scope="col">레벨</th>
+					<th scope="col">작성시간</th>
+					<th scope="col">내용</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="reply:${user}">
+					<td th:text="${reply.USER_NICKNAME}"></td>
+					<td th:text="${reply.USER_EXP}"></td>
+					<td th:text="${reply.REG_TIME}"></td>
+					<td th:text="${reply.CONTENT}"></td>
+					<td><button th:onclick="deleteReplyBtn([[${reply.REPLY_NO}]])"
+							class="deleteReplyBtn btn">댓글삭제</button></td>
+					
+				</tr>
+			</tbody>
+		</table>
+
+
 	</tr>
 
 
