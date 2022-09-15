@@ -14,6 +14,29 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
+	$(document).ready(function() {
+		$.ajax({
+			url : '/quest2/list',
+			type : 'post',
+			data : {
+				roundNo : $('#roundNo').attr('value')
+			},
+			success : function(data) {
+				console.log(JSON.stringify(data))
+				$.ajax({
+					url : '/quest2',
+					type : 'post',
+					data : {
+						param : JSON.stringify(data)
+					},
+					success : function(data) {
+						$('#questList').html(data);
+					}
+				})
+			}
+		})
+	})
+
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
 		if (thisRadio.hasClass('imChecked')) {
@@ -41,15 +64,25 @@
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-
-	<div id="testDetails">
-		<h1>산업안전기사</h1>
-		<div class="details__title">
-			<h2>2022년 2회</h2>
-			<p>총</p>
-			<p>100(타임리프 리스트 수정)</p>
-			<p>문제</p>
+	
+	<div id="test__info">
+		<div id="testDetails">
+			<h1>산업안전기사</h1>
+			<div class="details__title">
+				<h2>2022년 2회</h2>
+				<p>총</p>
+				<p>100</p>
+				<p>문제</p>
+			</div>
 		</div>
+		<form action="/insertQuest" method="post">
+			<!-- <div th:text="${round.roundName}" style="text-align: center;">회차
+				이름</div>
+			<input type="hidden" id="roundNo" th:value="${round.roundNo}"
+				name="roundNo"> <input type="hidden" id="roundName"
+				th:value="${round.roundName}" name="roundName"> -->
+			<button type="submit">문제등록</button>
+		</form>
 	</div>
 
 	<div id="navbar__divider"></div>
