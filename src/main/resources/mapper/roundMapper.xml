@@ -34,7 +34,7 @@
 	
 	<!-- 회차등록 -->
 	<insert id="insertRound">
-		INSERT INTO TB_TEST_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
+		INSERT INTO TB_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
 		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
 	</insert>
 	

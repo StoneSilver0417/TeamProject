@@ -74,6 +74,7 @@
 		WHERE USER_ID =
 		#{keyword}
 	</select>
+	
 	<!-- 유저 삭제 -->
 	<update id="deleteUser" parameterType="String">
 		UPDATE	TB_USER

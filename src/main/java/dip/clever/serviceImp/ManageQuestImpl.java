@@ -7,6 +7,9 @@ import dip.clever.model.Test;
 import dip.clever.model.Round;
 import dip.clever.service.MangeQuestService;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +58,10 @@ public class ManageQuestImpl implements MangeQuestService {
 		// TODO Auto-generated method stub
 		
 	}
-
+	// 문제출력
+	@Override
+	public List<HashMap<String, Object>> joinQuest(int bno) {
+		return manageQuestMapper.joinQuest(bno);
+	}
 
 }

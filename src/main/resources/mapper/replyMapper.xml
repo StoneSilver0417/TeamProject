@@ -28,14 +28,33 @@
 
 		VALUES(#{QuestNo},#{regUser},#{content},'Y')
 	</insert>
-	
-	<select id="joinUser" parameterType="int" resultType="java.util.HashMap">
-	SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME
-	FROM tb_reply 		AS T1
-	INNER JOIN tb_user 	AS T2 
+
+	<!-- USER 테이블과 REPLY테이블 조인하여 정보 출력 -->
+	<select id="joinUser" parameterType="int"
+		resultType="java.util.HashMap">
+		SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME, T1.REPLY_NO
+		FROM tb_reply AS T1
+		INNER JOIN tb_user AS T2
 		ON T2.USER_ID = T1.REG_USER
-	WHERE T1.use_f = 'Y'
-	AND Quest_no = #{QuestNo}
+		WHERE T1.use_f = 'Y'
+		AND Quest_no = #{QuestNo}
 	</select>
+
+	<!-- 유저 삭제 -->
+	<update id="deleteReply" parameterType="String">
+		UPDATE TB_REPLY
+		SET USE_F
+		= 'N'
+		WHERE reply_no = #{id}
+	</update>
+
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyReply" parameterType="dip.clever.model.Reply">
+	    UPDATE TB_REPLY SET
+		CONTENT = #{content}
+	    WHERE REPLY_NO = #{replyNo}
+	</update>
+	
 	
 </mapper>
