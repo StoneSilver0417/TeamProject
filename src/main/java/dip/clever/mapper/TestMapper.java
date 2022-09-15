@@ -15,6 +15,8 @@ public interface TestMapper{
 	
 	public Test selectTest(int testNo);
 	
+	public Test selectTestByRound(int roundNo);
+	
 	public Category selectCategory(int categoryNo);
 	
 	public List getResultList(Map<String, String> searchCondition);

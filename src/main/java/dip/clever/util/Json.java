@@ -1,62 +1,99 @@
 package dip.clever.util;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 public class Json {
-	private List<HashMap<String, Object>> jsonList = new ArrayList<>();
-	private HashMap<String, Object> json;
-	private String jsonStr;
-	
-	public Json(HashMap<String, String> param) {
-		jsonStr = param.get("param");
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<HashMap<String, Object>> getObject() {
-		String[] list;
-		String key;
-		Object value;
-
-		replace("[").replace("{");
-		jsonStr = jsonStr.replace("]", ",");
-
-		list = jsonStr.split("},");
-		for(String str: list) {			
-			String[] strs = str.split(",");
+	public static List<Map<String, Object>> parse(String data){
+		List<Map<String, Object>> jsonList = new ArrayList<>();
+		String2 dat = new String2(data);
+		String2 json;
+		
+		if(isList(dat))	dat.removeSide();		
+		
+		while(isJson(dat)) {
+			json = getJson(dat);
+			System.out.println("json: " + json);
 			
-			json = new HashMap<>();			
-			for(String s : strs) {
-				String[] split = s.split(":");				
-				key = split[0].replace("\"", "");
-				s = split[1];
-				if (isString(s))
-					value = s.replace("\"", "");
-				else {
-					if(s.equals("null"))value = null;
-					else 			value = Integer.parseInt(s);
-				}
-				json.put(key, value);				
-			}
-			if(json.isEmpty()) break;
-			jsonList.add(json);
-		}
+			if(json == null)	break;
+			
+			jsonList.add(parse(json));
+		}		
+		
 		return jsonList;
 	}
 	
-	private boolean isString(String jsonString) {
-		return jsonString.contains("\"");
+	private static Map<String, Object> parse(String2 data){
+		Map<String, Object> json = new HashMap<>();
+		String key;
+		Object value = null;
+		
+		data.removeSide();
+		while(true) {
+			key = getKey(data);
+			
+			if(key == null)		break;
+			if(isJson(data))	value = parse(getJson(data));
+			else 				value = getValue(data);
+			
+			json.put(key, value);
+		}
+		return json; 
 	}
 	
-	private Json replace(String str) {
-		jsonStr = jsonStr.replace(str, "");
+	private static String2 getJson(String2 data) {
+		final int index = data.find("},");
+
+		if (index == -1)	return data;
+		return data.divide(index + 1);
+	}
+
+	private static String getKey(String2 data) {
+		final int index = data.find(":");
+		String2 key;
+		if (index == -1)	return null;
 		
-		return this;
+		key = data.divide(index).removeSide();
+
+		return key.get();
+	}
+	
+	private static Object getValue(String2 data) {
+		final int index = data.find(",");
+		String2 dat;
+		
+		if(index >= 0)	dat = data.divide(index);
+		else			dat = data;
+		
+		if(dat.equals("null"))	return null;		
+		if(isString(dat))		return dat.removeSide().get();
+		
+		return getInt(dat);
+	}
+	
+	private static boolean isList(String2 data) {
+		return data.isFirst('[');
+	}
+
+	private static boolean isJson(String2 data) {
+		return data.isFirst('{');
+	}
+	
+	private static boolean isString(String2 data) {
+		return data.isFirst('"');
+	}
+	
+	public static void main(String[] args) {
+		final String str = "[{\"categoryNo\":1,\"categoryName\":\"국가기술자격시험\"},{\"categoryNo\":2,\"categoryName\":\"민간자격시험\"},{\"categoryNo\":3,\"categoryName\":\"공무원시험\"}]";
+		
+		System.out.println(parse(str));
+	}
+	
+	private static int getInt(String2 number) {
+		return Integer.parseInt(number.get());
 	}
 }

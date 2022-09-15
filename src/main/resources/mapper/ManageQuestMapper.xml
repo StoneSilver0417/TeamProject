@@ -18,10 +18,10 @@
 	</insert>
 	
 	<!-- 선지번호 불러옴 -->
-	<select id="selectChoiceNo" resultType="int">		
-		SELECT	CHOICE_NO
-		FROM	TB_CHOICE
-		WHERE	CHOICE_NO = LAST_INSERT_ID()
+	<select id="selectQuestNo" resultType="int">		
+		SELECT	QUEST_NO
+		FROM	TB_QUEST
+		WHERE	QUEST_NO = LAST_INSERT_ID()
 	</select>	
 	
 	

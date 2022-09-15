@@ -9,6 +9,6 @@ public class Quest {
 	private int roundNo;
 	private int questSeq;
 	private String questContent;
-	private int choiceNo;
 	private String answer;
+	private Choice choice;
 }

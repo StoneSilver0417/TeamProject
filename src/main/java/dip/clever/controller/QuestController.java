@@ -14,37 +14,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dip.clever.model.Choice;
 import dip.clever.model.Quest;
 import dip.clever.model.Round;
+import dip.clever.model.User;
 import dip.clever.service.QuestService;
 import dip.clever.util.Json;
+import dip.clever.util.Util;
 
 @Controller
-@RequestMapping("")
 public class QuestController {
 	@Autowired
 	private QuestService questService;
 	
-	@PostMapping("/quest2")
-	public String quest(Model model, @RequestParam HashMap<String, String> param){			
-		Json json = new Json(param);
+	@PostMapping("/quest")
+	public String quest(Model model, @RequestParam HashMap<String, String> param){
+		model.addAttribute("questList", Json.parse(param.get("param")));
+		
+		System.out.println(Json.parse(param.get("param")));
 
-		model.addAttribute("questList",json.getObject());
-
-		return "quest";
+		return "questList";
 	}
 	
 	//시험 목록 반환
-	@PostMapping("/quest2/select")
+	@PostMapping("/quest/select")
 	public ResponseEntity<List<Quest>> questList(Round round) {
 		List<Quest> questList = questService.selectQuestList(round);
 		
-		System.out.println(round);
+		//questList.stream().forEach(t -> t.setChoice(null));
 		
-		return new ResponseEntity<List<Quest>> (questList, HttpStatus.OK);
+		return Util.resoponse(questService.selectQuestList(round));		
 	}
 	
-	@GetMapping("/quest2/{no}")
+	@GetMapping("/quest/{no}")
 	public String test(Model model, @PathVariable int no) {
 		Quest quest = new Quest();
 		
@@ -54,8 +56,18 @@ public class QuestController {
 		model.addAttribute("quest", quest);
 		
 		return "questInfo";
-	}
+	}	
 
+	@PostMapping("/quest/solvedList")
+	public ResponseEntity<List<Quest>> selectSolvedList(User user) {
+		return Util.resoponse(questService.selectSolvedList(user));
+	}
+	
+	@PostMapping("/quest/uploadList")
+	public ResponseEntity<List<Quest>> selectUploadList(User user){
+		return Util.resoponse(questService.selectUploadList(user));
+	}
+	
 	@PostMapping("/solve-quest")
 	public String solveQuest() {
 		return "quest/solve-quest";
@@ -71,5 +83,9 @@ public class QuestController {
 		System.out.println("asdadasd");
 		
 		return "edit_forms/edit-reply";
+	}
+	
+	private Choice selectChoice(Quest quest) {
+		return questService.selectChoice(quest);
 	}
 }

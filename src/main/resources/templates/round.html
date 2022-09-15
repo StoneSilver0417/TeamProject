@@ -1,28 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title th:text="${round.roundName}"></title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main/header.css" />
+<link rel="stylesheet" href="/css/main/index.css" />
+<link rel="stylesheet" href="/css/quest/solve-quest.css" />
+<link rel="stylesheet" href="/css/main/footer.css" />
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
+<script src="js/script.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script defer>
+	$(document).on('click', "input[type='radio']", function() {
+		thisRadio = $(this);
+		if (thisRadio.hasClass('imChecked')) {
+			thisRadio.removeClass('imChecked');
+			thisRadio.prop('checked', false);
+		} else {
+			thisRadio.prop('checked', true);
+			thisRadio.addClass('imChecked');
+		}
+	});
+
+	function questDetailsBtn() {
 		$.ajax({
-			url:'/quest2/list',
+			url : '/solve-quest/num',
+			type : 'GET',
+			success : function(data) {
+				alert('load success');
+				window.location.href = data;
+			},
+		});
+	}
+</script>
+<script type="text/javascript">
+	var test;
+	var questList;
+	
+	$(document).ready(function(){
+		var no = $('#roundNo').val();
+		
+		$.ajax({
+			url:'/quest/select',
 			type:'post',
-			data:{roundNo:$('#roundNo').val()},
-			success:function(data){
-				console.log(JSON.stringify(data))
-				$('#questList').html(data);
+			data:{roundNo:no},
+			success:function(data){				
+				$('#questCount').html(data.length);
+
+				$.ajax({
+					url:'/quest',
+					type:'post',
+					data:{param:JSON.stringify(data)},
+					success:function(data){	
+						$('#questList').html(data);
+					}
+				})
 			}
 		})
-	})	
+		
+		$.ajax({
+			url:'/test/selectByRound',
+			type:'post',			
+			data:{roundNo:no},
+			success:function(data){
+				test = data;
+				$('#testName').html(data.testName);
+			}
+		})
+	})
 </script>
 </head>
-<body>
-	<li th:each="round:${roundList}" class="round" tab-index="0">	
-		<a th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">회차 이름</a>
-	</li>
+<body>	
+	<!-- header -->
+	<!-- <div th:replace="layout/header2 :: main"></div> -->
+	<div th:replace="layout/header :: header"></div>
+	<hr>
+	<form action="/insertQuest" method="post">
+		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
+		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
+		<button th:if="${session.user?.userId == round.regUser}" type="submit">문제등록</button>
+		<div id="testDetails">
+		<h1 id="testName">시험 이름</h1>
+		<div class="details__title">
+			<h2 th:text="${round.roundName}">회차 이름</h2>
+			<p>총</p>
+			<p id="questCount">문제 수</p>
+			<p>문제</p>
+		</div>
+	</div>
+	<div id="navbar__divider"></div>
+	<hr>
 	<div id="questList">
 	</div>
+
+	<hr>
+
+	<div class="checking">
+
+		<button onclick="checkingBtn()" id="checkingBtn">채점하기</button>
+	</div>
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
+	</form>
 </body>
 </html>

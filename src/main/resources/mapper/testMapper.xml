@@ -19,6 +19,16 @@
 		AND			USE_F = 'Y'
 	</select>	
 	
+	<select id="selectTestByRound" parameterType="int" resultMap="test">
+		SELECT		*
+		FROM		TB_TEST
+		WHERE		TEST_NO = (
+			SELECT		TEST_NO
+			FROM		TB_ROUND
+			WHERE		ROUND_NO = #{round_no}
+		)		
+	</select>
+	
 	<!-- 검색 결과 반환 -->
 	<select id="getResultList" parameterType="map" resultType="java.util.HashMap">
 		SELECT		${searchCondition}_NO, ${searchCondition}_NAME

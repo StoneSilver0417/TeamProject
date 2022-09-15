@@ -13,7 +13,7 @@ public interface MangeQuestService {
     public void insertChoice(Choice choice);
     
     // 선지번호 선택
-    public Integer selectChoiceNo();
+    public Integer selectQuestNo();
     
     // 회차선택
     public Round selectRound(Round Round);
