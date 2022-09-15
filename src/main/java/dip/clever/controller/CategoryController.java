@@ -27,19 +27,15 @@ public class CategoryController {
 	
 	@PostMapping("")
 	public String category(Model model, @RequestParam HashMap<String, String> param) {
-		Json json = new Json(param);
+		model.addAttribute("categoryList", Json.parse(param.get("param")));	
 		
-		model.addAttribute("categoryList",json.getObject());	
-		
-		return "category";
+		return "categoryList";
 	}
 	
 	//카테고리 목록 반환
 	@PostMapping("/select")
 	public ResponseEntity<List<Category>> selectCategoryList(){
-		List<Category> categoryList = categoryService.selectCategoryList();
-		
-		return new ResponseEntity<List<Category>> (categoryList, HttpStatus.OK);		
+		return Util.resoponse(categoryService.selectCategoryList());
 	}
 	
 	@GetMapping("/{no}")
@@ -51,7 +47,7 @@ public class CategoryController {
 		
 		model.addAttribute("category",category);
 		
-		return "testList";
+		return "category";//"testList";
 	}
 	
 	//카테고리 관리 폼

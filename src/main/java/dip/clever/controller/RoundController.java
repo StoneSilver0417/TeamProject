@@ -20,6 +20,7 @@ import dip.clever.model.Test;
 import dip.clever.service.RoundService;
 import dip.clever.service.TestService;
 import dip.clever.util.Json;
+import dip.clever.util.Util;
 
 @Controller
 @RequestMapping("round")
@@ -30,12 +31,10 @@ public class RoundController {
 	TestService testService;
 	
 	@PostMapping("")
-	public String round(Model model, @RequestParam HashMap<String, String> param){			
-		Json json = new Json(param);
+	public String round(Model model, @RequestParam HashMap<String, String> param){
+		model.addAttribute("roundList", Json.parse(param.get("param")));
 
-		model.addAttribute("roundList", json.getObject());
-
-		return "round";
+		return "roundList";
 	}
 	
 	//시험 목록 반환
@@ -45,15 +44,15 @@ public class RoundController {
 	}
 	
 	@GetMapping("/{no}")
-	public String test(Model model, @PathVariable int no) {
+	public String round(Model model, @PathVariable int no) {
 		Round round = new Round();
 		
 		round.setRoundNo(no);
 		round = roundService.selectRound(round);		
 		
 		model.addAttribute("round", round);
-		
-		return "questList";
+
+		return "round";
 	}
 	
 	// 회차등록

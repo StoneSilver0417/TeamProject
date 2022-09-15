@@ -2,27 +2,8 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dip.clever.mapper.QuestMapper">
-	<select id="selectQuestList" parameterType="int" resultMap="quest">
-		SELECT		T1.QUEST_NO,
-					T1.QUEST_SEQ,
-					T1.QUEST_CONTENT,
-					C1, C2, C3, C4, C5
-		FROM		TB_QUEST	AS T1
-		LEFT JOIN	TB_CHOICE	AS T2
-			ON			T1.QUEST_NO = T2.QUEST_NO
-		WHERE		ROUND_NO = #{roundNo}
-		AND			USE_F = 'Y';
-	</select>
-	
-	<select id="selectQuest" parameterType="int" resultMap="quest">
-		SELECT		*
-		FROM		TB_QUEST
-		WHERE		QUEST_NO = #{questNo}
-		AND			USE_F = 'Y'
-	</select>
-
-	<select id="selectSolvedList" parameterType="string" resultMap="quest">
+<mapper namespace="dip.clever.mapper.LogMapper">
+	<select id="selectSolvedQuestList" parameterType="string" resultMap="quest">
 		SELECT		*
 		FROM		TB_LOG		AS T1
 		INNER JOIN	TB_QUEST	AS T2
@@ -31,7 +12,7 @@
 		AND			ACTION = 'SOLVED'
 	</select>
 	
-	<select id="selectUploadList" parameterType="string" resultMap="quest">
+	<select id="selectUploadQuestList" parameterType="string" resultMap="quest">
 		SELECT		*
 		FROM		TB_QUEST
 		WHERE		ROUND_NO IN(
@@ -42,21 +23,36 @@
 		)
 	</select>
 	
-	<!-- 문제 매핑 -->
+	<!-- 회차 매핑 -->
 	<resultMap type="dip.clever.model.Quest" id="quest" >
 		<result property="questNo" 	column="QUEST_NO"/>
 		<result property="roundNo" column="ROUND_NO"/>		
 		<result property="questSeq" column="QUEST_SEQ"/>
 		<result property="questContent" column="QUEST_CONTENT"/>
-		<result property="choice.c1" column="C1"/>
-		<result property="choice.c2" column="C2"/>
-		<result property="choice.c3" column="C3"/>
-		<result property="choice.c4" column="C4"/>
-		<result property="choice.c5" column="C5"/>
+		<result property="choiceNo" column="CHOICE_NO"/>
 		<result property="answer" column="ANSWER"/>
 	</resultMap>	
 	
-	<!-- 밑에 부분은 사용하지 않음 -->	
+	<!-- 밑에 부분은 사용하지 않음 -->
+	
+	<select id="searchCount" parameterType="String" resultType="int">
+		SELECT		COUNT(*)
+		FROM		TB_ARTICLE
+		WHERE		TITLE LIKE '%${query}%'
+	</select>
+	
+	<select id="selectId" resultType="int">
+		SELECT		LAST_INSERT_ID()
+		FROM		TB_ARTICLE
+		LIMIT		1
+	</select>
+	
+	<select id="checkUser" parameterType="int" resultType="String">
+		SELECT		USER_ID
+		FROM		TB_ARTICLE
+		WHERE		NO = ${no}
+	</select>
+	
 	<update id="updateArticle" parameterType="map">
 		UPDATE	TB_ARTICLE
 		SET		TITLE = #{title},
