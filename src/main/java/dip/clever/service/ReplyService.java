@@ -13,5 +13,9 @@ public interface ReplyService {
 	// 회원가입
 	public void insertReply(Reply reply);
 	
+	// 댓글리스트 조회
 	public List<HashMap<String, Object>> joinUser(int bno);
+	
+	// 댓글 수정
+	public void modifyReply(Reply reply);
 }

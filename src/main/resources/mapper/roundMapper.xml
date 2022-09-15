@@ -6,14 +6,14 @@
 	<!-- 카테고리 목록 불러오기 -->
 	<select id="selectRoundList" parameterType="int" resultMap="round">
 		SELECT		*
-		FROM		TB_TEST_ROUND
+		FROM		TB_ROUND
 		WHERE		TEST_NO = #{testNo}
 		AND			USE_F = 'Y'
 	</select>
 	
 	<select id="selectRound" parameterType="int" resultMap="round">
 		SELECT		*
-		FROM		TB_TEST_ROUND
+		FROM		TB_ROUND
 		WHERE		ROUND_NO = #{roundNo}
 		AND			USE_F = 'Y'
 	</select>
@@ -34,7 +34,7 @@
 	
 	<!-- 회차등록 -->
 	<insert id="insertRound">
-		INSERT INTO TB_TEST_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
+		INSERT INTO TB_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
 		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
 	</insert>
 	
