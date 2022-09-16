@@ -33,6 +33,10 @@ public class RoundServiceImp implements RoundService{
 		return roundMapper.selectRound(round.getRoundNo());
 	}
 	
+	public int selectLastInsert() {
+		return roundMapper.selectlastInsert();
+	}
+	
 	// 회차등록
 	@Override
 	public void insertRound(Round round) {

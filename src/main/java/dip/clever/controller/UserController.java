@@ -1,6 +1,5 @@
 package dip.clever.controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dip.clever.model.Action;
+import dip.clever.model.Log;
 import dip.clever.model.User;
+import dip.clever.service.LogService;
 import dip.clever.service.UserService;
 import dip.clever.util.Util;
 
@@ -29,6 +31,8 @@ import dip.clever.util.Util;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LogService logService;
 	
 	// 아이디 중복 체크
 	@PostMapping("/user/checkId")
@@ -47,6 +51,37 @@ public class UserController {
 	public ResponseEntity<Boolean> checkEmail(User user) {
 		return Util.resoponse(!userService.findUserEmail(user));
 	}
+	
+	// 회원가입 메소드
+	@PostMapping("/user/join")
+	public String join(HttpSession httpSession, Model model, User user) {
+		Log log = new Log(user.getUserId(), Action.REGISTER, null);
+
+		userService.insertUser(user);
+		logService.insertLog(log);
+		randomProfile(user);
+		
+		return loginCheck(httpSession, model, user);
+	}	
+	
+	//로그인 진행
+	@PostMapping("/user/login")
+	public String loginCheck(HttpSession httpSession, Model model, User user) {
+		Log log;
+		
+		user = userService.selectUser(user);
+		if (user == null) {
+			model.addAttribute("loginError", true);			
+			
+			return "loginForm";
+		}
+		httpSession.setAttribute("user", user);
+		log = new Log(user.getUserId(), Action.LOGIN, null);
+		logService.insertLog(log);
+
+		return "redirect:/";
+	}
+	
 	// mypage 반환
 	@RequestMapping("/mypage")
 	public String mypage() {
@@ -177,6 +212,7 @@ public class UserController {
 		return "redirect:";
 	}
 	
+	// 미리보기 사진 임시 저장
 	@PostMapping("/user/uploadTemp")
 	public ResponseEntity<Boolean> uploadTemp(HttpSession httpSession, @RequestParam("profileImage") MultipartFile file){		
 		final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\temp\\";	
@@ -211,6 +247,18 @@ public class UserController {
 		}
 		
 		return inputStream;
+	}
+
+	// 프로필 랜덤 배정
+	private void randomProfile(User user) {
+		String inPath = Util.path + "illustration-";
+		String outPath = Util.path + "user\\";
+		int rand = Util.rand(25);
+		
+		inPath += rand + ".png";
+		outPath += user.getUserId() + ".png";
+		
+		Util.uploadFile(Util.getFileInputStream(inPath), outPath);
 	}
 	
 	// 개인정보 수정

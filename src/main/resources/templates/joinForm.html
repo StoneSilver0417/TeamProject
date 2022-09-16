@@ -17,121 +17,122 @@
 	}
 
 	$(document).ready(
-			function() {
-				let randomNum = Math.floor(Math.random() * 10);
-				$('#random__img').attr('src',
-						'/imgs/slidebar/illustration-' + randomNum + '.svg');
+		function() {
+			let randomNum = Math.floor(Math.random() * 10);
+			$('#random__img').attr('src',
+					'/imgs/slidebar/illustration-' + randomNum + '.svg');
 
-				$('#regbut').click(function(data) {
-					var id = $('#userId').val();
-					var pwd = $('#userPwd').val();
-					var name = $('#userNickname').val();
-					var email = $('#userEmail').val();
+			$('#submitBtn').click(function(data) {
+				var id = $('#userId').val();
+				var pwd = $('#userPwd').val();
+				var name = $('#userNickname').val();
+				var email = $('#userEmail').val();
 
-					go = true;
+				go = true;
 
-					if (isEmpty(id))
-						label('#idmsg', '아이디를 입력해주세요.');
-					else if (id != $('#id2').val())
-						label('#idmsg', '아이디 확인이 필요합니다');
+				if (isEmpty(id))
+					label('#idmsg', '아이디를 입력해주세요.');
+				else if (id != $('#id2').val())
+					label('#idmsg', '아이디 확인이 필요합니다');
 
-					if (isEmpty(name))
-						label('#namemsg', '닉네임을 입력해주세요');
-					else if (name != $('#name2').val())
-						label('#namemsg', '닉네임 확인이 필요합니다');
+				if (isEmpty(name))
+					label('#namemsg', '닉네임을 입력해주세요');
+				else if (name != $('#name2').val())
+					label('#namemsg', '닉네임 확인이 필요합니다');
 
-					if (isEmpty(pwd))
-						label('#pwdmsg', '비밀번호를 입력해주세요.');
-					else if (pwd != $('#pwd2').val())
-						label('#pwdmsg', '비밀번호가 일치하지 않습니다');
+				if (isEmpty(pwd))
+					label('#pwdmsg', '비밀번호를 입력해주세요.');
+				else if (pwd != $('#pwd2').val())
+					label('#pwdmsg', '비밀번호가 일치하지 않습니다');
 
-					if (isEmpty(email))
-						label('#mailmsg', '이메일을 입력해주세요.');
-					else if (email != $('#email2').val())
-						label('#mailmsg', '이메일 확인이 필요합니다');
+				if (isEmpty(email))
+					label('#mailmsg', '이메일을 입력해주세요.');
+				else if (email != $('#email2').val())
+					label('#mailmsg', '이메일 확인이 필요합니다');
 
-					if (go) {
-						$('#encodePwd').val(encode(pwd))
-					}
-					return go;
-				});
+				if (go) {
+					$('#encodePwd').val(encode(pwd));
+				}
 
-				$('#idchkbut').click(function(data) {
-					var id = $('#userId').val();
-
-					log(isEmpty(id))
-					if (isEmpty(id))
-						return;
-					$.ajax({
-						url : '/user/checkId',
-						data : {
-							userId : id
-						},
-						type : 'post',
-						success : function(data) {
-							if (data) {
-								$('#id2').val(id);
-								label('#idmsg', '사용 가능한 아이디', '#23a094');
-							} else {
-								label('#idmsg', '사용 불가능한 아이디');
-							}
-						},
-						fail : function() {
-							alert('실패');
-						}
-					})
-				});
-
-				$('#namechkbut').click(function(data) {
-					var name = $('#userNickname').val();
-
-					if (name == "")
-						return;
-					$.ajax({
-						url : '/user/checkName',
-						data : {
-							userNickname : name
-						},
-						type : 'post',
-						success : function(data) {
-							if (data) {
-								$('#name2').val(name);
-								label('#namemsg', '사용 가능한 닉네임', '#23a094');
-							} else {
-								label('#namemsg', '사용 불가능한 닉네임');
-							}
-						},
-						fail : function() {
-							alert('실패');
-						}
-					})
-				});
-
-				$('#emailchkbut').click(function(data) {
-					var email = $('#userEmail').val();
-
-					if (email == "")
-						return;
-					$.ajax({
-						url : '/user/checkEmail',
-						data : {
-							userEmail : email
-						},
-						type : 'post',
-						success : function(data) {
-							if (data) {
-								$('#email2').val(email);
-								label('#mailmsg', '사용 가능한 이메일', '#23a094');
-							} else {
-								label('#mailmsg', '사용 불가능한 이메일');
-							}
-						},
-						fail : function() {
-							alert('실패');
-						}
-					})
-				});
+				return go;
 			});
+
+			$('#idchkbut').click(function(data) {
+				var id = $('#userId').val();
+
+				log(isEmpty(id))
+				if (isEmpty(id))
+					return;
+				$.ajax({
+					url : '/user/checkId',
+					data : {
+						userId : id
+					},
+					type : 'post',
+					success : function(data) {
+						if (data) {
+							$('#id2').val(id);
+							label('#idmsg', '사용 가능한 아이디', '#23a094');
+						} else {
+							label('#idmsg', '사용 불가능한 아이디');
+						}
+					},
+					fail : function() {
+						alert('실패');
+					}
+				})
+			});
+
+			$('#namechkbut').click(function(data) {
+				var name = $('#userNickname').val();
+
+				if (name == "")
+					return;
+				$.ajax({
+					url : '/user/checkName',
+					data : {
+						userNickname : name
+					},
+					type : 'post',
+					success : function(data) {
+						if (data) {
+							$('#name2').val(name);
+							label('#namemsg', '사용 가능한 닉네임', '#23a094');
+						} else {
+							label('#namemsg', '사용 불가능한 닉네임');
+						}
+					},
+					fail : function() {
+						alert('실패');
+					}
+				})
+			});
+
+			$('#emailchkbut').click(function(data) {
+				var email = $('#userEmail').val();
+
+				if (email == "")
+					return;
+				$.ajax({
+					url : '/user/checkEmail',
+					data : {
+						userEmail : email
+					},
+					type : 'post',
+					success : function(data) {
+						if (data) {
+							$('#email2').val(email);
+							label('#mailmsg', '사용 가능한 이메일', '#23a094');
+						} else {
+							label('#mailmsg', '사용 불가능한 이메일');
+						}
+					},
+					fail : function() {
+						alert('실패');
+					}
+				})
+			});
+		});
 </script>
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();"
@@ -142,12 +143,11 @@
 		<h2>회원가입</h2>
 
 		<!-- 회원 정보 입력 -->
-		<form action="/join" method="post">
+		<form action="/user/join" method="post">
 			<!-- 아이디는 중복 불가, 확인 필요 -->
 			<label for="userId">아이디</label>
 			<div class="inputAndCheckBtnWrapper">
-				<input placeholder="아이디를 입력해주세요" class="joinInput" name="userId"
-					id="userId" type="text" required />
+				<input placeholder="아이디를 입력해주세요" class="joinInput" name="userId" id="userId" type="text" required />
 				<button type="button" id="idchkbut" class="joinCheckBtn">
 					아이디 확인</button>
 			</div>
@@ -189,7 +189,7 @@
 			</div>
 			<label id="pwdmsg"> </label>
 
-			<button onclick="login()" id="submitBtn" type="submit">회원가입</button>
+			<button id="submitBtn" type="submit">회원가입</button>
 		</form>
 
 		<div id="goLogin">

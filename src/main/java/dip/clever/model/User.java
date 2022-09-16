@@ -2,6 +2,8 @@ package dip.clever.model;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import lombok.Data;
 
 @Data
@@ -14,5 +16,7 @@ public class User{
 	private int userExp;
 	private Date regTime;
 	
-
+	public static User getUser(HttpSession httpSession) {
+		return (User)httpSession.getAttribute("user");
+	}
 }
