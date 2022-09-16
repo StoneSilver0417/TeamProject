@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.Choice;
-import dip.clever.model.Log;
 import dip.clever.model.Quest;
 
 @Mapper

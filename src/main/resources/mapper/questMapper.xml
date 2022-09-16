@@ -70,27 +70,7 @@
 		WHERE		QUEST_NO > #{questNo}
 		ORDER BY	QUEST_NO
 		LIMIT 1
-	</select>
-
-	<select id="selectSolvedList" parameterType="string" resultMap="quest">
-		SELECT		*
-		FROM		TB_LOG		AS T1
-		INNER JOIN	TB_QUEST	AS T2
-			ON			TARGET_ID = QUEST_NO
-		WHERE		USER_ID = #{userId}
-		AND			ACTION = 'SOLVED'
-	</select>
-	
-	<select id="selectUploadList" parameterType="string" resultMap="quest">
-		SELECT		*
-		FROM		TB_QUEST
-		WHERE		ROUND_NO IN(
-			SELECT		ROUND_NO
-			FROM		TB_ROUND
-			WHERE		REG_USER = #{userId}
-			AND			USE_F = 'Y'
-		)
-	</select>
+	</select>  
 	
 	<select id="checkAnswer" parameterType="map" resultType="int">
 		SELECT		T1.QUEST_NO
