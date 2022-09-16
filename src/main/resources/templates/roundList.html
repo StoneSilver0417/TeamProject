@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title> 
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$.ajax({
-			url:'/round/list',
-			type:'post',
-			data:{testNo:$('#testNo').attr('value')},
-			success:function(data){
-				$.ajax({
-					url:'/round',
-					type:'post',
-					data:{param:JSON.stringify(data)},
-					success:function(data){
-						$('#roundList').html(data);
-					}
-				})
+			url : '/quest2/list',
+			type : 'post',
+			data : {
+				roundNo : $('#roundNo').val()
+			},
+			success : function(data) {
+				console.log(JSON.stringify(data))
+				$('#questList').html(data);
 			}
 		})
 	})
 </script>
 </head>
 <body>
-	<div th:replace="layout/searchArea :: search"></div>
-	<p id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></p>
-	<section th:if="${session.user != null}" th:with="info = ${session.user}">
-		<div th:if="${info.userRole.toString() == 'ADMIN'|| info.userId == 'root2'}">
-			<form action="/insertRound" method="post">
-				<input type="hidden" id="testNo" th:value="${test.testNo}" name="testNo">
-				<input type="hidden" id="testName" th:value="${test.testName}" name="testName">
-				<input type="hidden" id="managerId" th:value="${test.managerId}" name="managerId">
-				<button type="submit">회차등록</button>
-			</form>
-		</div>
-	</section>
-	<div id="roundList">
-	</div>	
+	<ul class="category__list">
+		<li>
+			<p>총</p>
+			<p th:text="${#lists.size(roundList)}">11(타임리프 리스트)</p>
+			<p>회</p>
+		</li>
+		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
+			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
+		</a></li>
+	</ul>
+	<div id="questList"></div>
 </body>
 </html>

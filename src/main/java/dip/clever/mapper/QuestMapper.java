@@ -5,11 +5,19 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import dip.clever.model.Choice;
+import dip.clever.model.Log;
 import dip.clever.model.Quest;
 
 @Mapper
 public interface QuestMapper {	
 	public List<Quest> selectQuestList(int roundNo);
 	
+	public List<Quest> selectSolvedList(String userId);
+	
+	public List<Quest> selectUploadList(String userId);
+	
 	public Quest selectQuest(int questNo);
+	
+	public Choice selectChoice(int questNo);
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dip.clever.mapper.LogMapper">
+	<select id="selectSolvedQuestList" parameterType="string" resultMap="quest">
+		SELECT		*
+		FROM		TB_LOG		AS T1
+		INNER JOIN	TB_QUEST	AS T2
+			ON			TARGET_ID = QUEST_NO
+		WHERE		USER_ID = #{userId}
+		AND			ACTION = 'SOLVED'
+	</select>
+	
+	<select id="selectUploadQuestList" parameterType="string" resultMap="quest">
+		SELECT		*
+		FROM		TB_QUEST
+		WHERE		ROUND_NO IN(
+			SELECT		ROUND_NO
+			FROM		TB_ROUND
+			WHERE		REG_USER = #{userId}
+			AND			USE_F = 'Y'
+		)
+	</select>
+	
+	<!-- 회차 매핑 -->
+	<resultMap type="dip.clever.model.Quest" id="quest" >
+		<result property="questNo" 	column="QUEST_NO"/>
+		<result property="roundNo" column="ROUND_NO"/>		
+		<result property="questSeq" column="QUEST_SEQ"/>
+		<result property="questContent" column="QUEST_CONTENT"/>
+		<result property="choiceNo" column="CHOICE_NO"/>
+		<result property="answer" column="ANSWER"/>
+	</resultMap>	
+	
+	<!-- 밑에 부분은 사용하지 않음 -->
+	
+	<select id="searchCount" parameterType="String" resultType="int">
+		SELECT		COUNT(*)
+		FROM		TB_ARTICLE
+		WHERE		TITLE LIKE '%${query}%'
+	</select>
+	
+	<select id="selectId" resultType="int">
+		SELECT		LAST_INSERT_ID()
+		FROM		TB_ARTICLE
+		LIMIT		1
+	</select>
+	
+	<select id="checkUser" parameterType="int" resultType="String">
+		SELECT		USER_ID
+		FROM		TB_ARTICLE
+		WHERE		NO = ${no}
+	</select>
+	
+	<update id="updateArticle" parameterType="map">
+		UPDATE	TB_ARTICLE
+		SET		TITLE = #{title},
+				CONTENT = #{content},
+				MOD_DATE = SYSDATE()
+		WHERE	NO = #{no}
+	</update>
+	
+	<update id="deleteArticle" parameterType="int">
+		UPDATE	TB_ARTICLE
+		SET		USE_F = 'N'
+		WHERE	NO = #{no}
+	</update>	
+	
+<!-- 	<resultMap type="info.thecoding.model.Article" id="article" >
+		<result property="boardId" 	column="BOARD_ID"/>
+		<result property="boardName"	column="BOARD_NAME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userId"	column="USER_ID"/>
+		<result property="title"	column="TITLE"/>
+		<result property="creDate"	column="CRE_DATE"/>
+		<result property="modDate"	column="MOD_DATE"/>
+		<result property="content"	column="CONTENT"/>
+		<result property="readCnt"	column="READ_CNT"/>
+	</resultMap> -->
+</mapper>

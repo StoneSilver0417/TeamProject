@@ -1,31 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			url:'/test/list',
-			type:'post',
-			data:{categoryNo:$('#categoryNo').attr('value')},
-			success:function(data){
-				$.ajax({
-					url:'/test',
-					type:'post',
-					data:{param:JSON.stringify(data)},
-					success:function(data){
-						$('#testList').html(data);
-					}
-				})
-			}
-		})
-	})
-</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-<body>	
-	<div th:replace="layout/searchArea :: search"></div>
-	<p id="categoryNo" th:value="${category.categoryNo}" th:text="${category.categoryName}"></p>
-	<div id="testList">
-	</div>	
+<body>
+	<li th:each="test:${testList}" class="test" tab-index="0">	
+		<a th:href="${'/test/' + test.testNo}" th:text="${test.testName}">카테고리 이름</a>
+	</li>
 </body>
 </html>

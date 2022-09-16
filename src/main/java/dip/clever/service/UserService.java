@@ -43,5 +43,8 @@ public interface UserService {
 	public void editUserName(User user);
 	
 	// 이메일 수정
-	public void editUserEmail(String email);
+	public void editUserEmail(User user);
+	
+	// 비밀번호 수정
+	public void editUserPwd(User user);
 }

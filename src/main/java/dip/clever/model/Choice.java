@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Choice {
-	private int choiceNo;
+	private int questNo;
 	private String c1;
 	private String c2;
 	private String c3;

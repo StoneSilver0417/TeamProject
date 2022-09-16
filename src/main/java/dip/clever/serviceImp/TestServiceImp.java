@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import dip.clever.mapper.TestMapper;
 import dip.clever.model.Category;
+import dip.clever.model.Round;
 import dip.clever.model.SearchCondition;
 import dip.clever.model.Test;
 import dip.clever.service.TestService;
@@ -30,6 +31,11 @@ public class TestServiceImp implements TestService{
 		return testMapper.selectTest(test.getTestNo());		
 	}
 
+	@Override
+	public Test selectTest(Round round) {
+		return testMapper.selectTestByRound(round.getRoundNo());
+	}
+	
 	@Override
 	public List getResultList(SearchCondition searchCondition, String query) {
 		Map<String, String> searchConditionMap = new HashMap<>();
