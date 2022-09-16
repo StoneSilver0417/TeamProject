@@ -16,9 +16,14 @@
 	</select>
 	
 	<select id="selectQuest" parameterType="int" resultMap="quest">
-		SELECT		*
-		FROM		TB_QUEST
-		WHERE		QUEST_NO = #{questNo}
+		SELECT		T1.QUEST_NO,
+					T1.QUEST_SEQ,
+					T1.QUEST_CONTENT,
+					C1, C2, C3, C4, C5
+		FROM		TB_QUEST	AS T1
+		INNER JOIN	TB_CHOICE	AS T2
+			ON			T1.QUEST_NO = T2.QUEST_NO
+		WHERE		T1.QUEST_NO = #{questNo}
 		AND			USE_F = 'Y'
 	</select>
 
@@ -42,6 +47,53 @@
 		)
 	</select>
 	
+	<select id="selectQuestInfo" parameterType="int" resultType="java.util.HashMap">
+		SELECT		T1.TEST_NAME,
+					T2.ROUND_NAME,(
+						SELECT	COUNT(*)
+						FROM		tb_quest	AS T4
+						WHERE		T4.ROUND_NO = T2.ROUND_NO
+					)			AS COUNT
+		FROM			tb_test		AS T1
+		INNER JOIN		tb_round	AS T2
+		ON					T2.TEST_NO = T1.TEST_NO
+		INNER JOIN		tb_quest	AS T3
+		ON					T3.ROUND_NO = T2.ROUND_NO
+		WHERE			T3.QUEST_NO = #{questNo}
+	</select>
+	
+	<select id="selectNextQuest" parameterType="int" resultType="Integer">
+		SELECT		QUEST_NO
+		FROM			TB_QUEST	AS T1
+		INNER JOIN	TB_ROUND		AS T2
+			ON			T1.ROUND_NO = T2.ROUND_NO
+		WHERE		QUEST_NO > #{questNo}
+		ORDER BY	QUEST_NO
+		LIMIT 1
+	</select>  
+	
+	<select id="checkAnswer" parameterType="map" resultType="int">
+		SELECT		T1.QUEST_NO
+		FROM		TB_QUEST	AS	T1
+		INNER JOIN	
+			<foreach collection="collection=collection" item="answer" index="index"
+				open="(" separator="UNION" close=")">
+				SELECT	#{answer.questNo}	AS QUEST_NO,
+						#{answer.answer}	AS ANSWER
+			</foreach>			AS T2			
+			ON			T1.QUEST_NO = T2.QUEST_NO
+			AND			T1.ANSWER = T2.ANSWER			
+	</select>
+	<!-- <select id="foreachUserList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT	ID, USERNAME, PASSWORD
+		FROM	TB_USER
+		WHERE	ID IN 
+			<foreach collection="collection=user_list" item="userId" index="index" open="("
+				separator="," close=")">
+				#{userId}
+			</foreach>
+	</select> -->
+  
 	<!-- 문제 매핑 -->
 	<resultMap type="dip.clever.model.Quest" id="quest" >
 		<result property="questNo" 	column="QUEST_NO"/>
@@ -69,7 +121,7 @@
 		UPDATE	TB_ARTICLE
 		SET		USE_F = 'N'
 		WHERE	NO = #{no}
-	</update>	
+	</update>
 	
 <!-- 	<resultMap type="info.thecoding.model.Article" id="article" >
 		<result property="boardId" 	column="BOARD_ID"/>

@@ -141,7 +141,7 @@
 
   word-break: keep-all;
 
-  font-family: 'SF Pro Text', 'source han sans korean', 'Noto Sans KR';
+  font-family: 'SF Pro Text', source-han-sans-korean, 'Noto Sans KR';
 }
 
 html {
