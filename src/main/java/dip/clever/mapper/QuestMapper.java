@@ -20,4 +20,10 @@ public interface QuestMapper {
 	public Quest selectQuest(int questNo);
 	
 	public Choice selectChoice(int questNo);
+	
+	public Map<String, Object> selectQuestInfo(int questNo);
+	
+	public Integer selectNextQuest(int questNo);
+	
+	public Integer[] checkAnswer(List<Map<String, Object>> answerList);
 }
