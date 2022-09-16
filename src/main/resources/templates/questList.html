@@ -19,28 +19,33 @@
 					th:text="${quest.questContent}">문제 내용</span>
 			</p>
 		</div>
-		<div class="questChoices" th:with="choice = ${quest.choice}"
-			th:value="${quest.questNo}">
-			<ol>
-				<li th:if="${choice.c1 != null}"><label><input
-						th:name="${'choice' + quest.questNo}" type="radio" name="choice"
-						class="choice" th:text="${choice.c1}" value="1" /> </label></li>
-				<li th:if="${choice.c2 != null}"><label> <input
-						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
-						th:text="${choice.c2}" value="2" />
-				</label></li>
-				<li th:if="${choice.c3 != null}"><label> <input
-						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
-						th:text="${choice.c3}" value="3" />
-				</label></li>
-				<li th:if="${choice.c4 != null}"><label> <input
-						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
-						th:text="${choice.c4}" value="4" />
-				</label></li>
-				<li th:if="${choice.c5 != null}"><label> <input
-						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
-						th:text="${choice.c5}" value="5" />
-				</label></li>
+		<div class="questChoices" th:value="${quest.questNo}">
+			<ol th:with="choice = ${quest.choice}">
+				<li th:if="${choice.c1 != null}">
+					<label>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c1}" value="1"/>
+					</label>
+				</li>
+				<li th:if="${choice.c2 != null}">
+					<label>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c2}" value="2"/>
+					</label>
+				</li>
+				<li th:if="${choice.c3 != null}">
+					<label>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c3}" value="3"/>
+					</label>
+				</li>
+				<li th:if="${choice.c4 != null}">
+					<label>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c4}" value="4"/>
+					</label>
+				</li>
+				<li th:if="${choice.c5 != null}">
+					<label>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c5}" value="5"/>
+					</label>
+				</li>
 			</ol>
 		</div>
 		<button type="button" onclick="questDetailsBtn(this)"

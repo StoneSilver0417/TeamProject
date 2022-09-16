@@ -82,6 +82,8 @@ public class QuestController {
 		User user = (User)httpSession.getAttribute("user");
 		Log log;
 		
+		System.out.println("param: " +  param);
+		
 		if(user != null) {
 			for(int sq : solvedQuest) {
 				log = new Log(user.getUserId(), Action.SOLVED, sq);

@@ -70,7 +70,7 @@
 		WHERE		QUEST_NO > #{questNo}
 		ORDER BY	QUEST_NO
 		LIMIT 1
-	</select>  
+	</select>
 	
 	<select id="checkAnswer" parameterType="map" resultType="int">
 		SELECT		T1.QUEST_NO
