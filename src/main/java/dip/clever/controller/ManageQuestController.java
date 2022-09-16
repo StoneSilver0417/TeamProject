@@ -9,18 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dip.clever.model.Choice;
 import dip.clever.model.Quest;
 import dip.clever.model.Round;
-import dip.clever.model.Test;
 import dip.clever.service.MangeQuestService;
-
-
 
 @Controller
 @RequestMapping("/quest")
 public class ManageQuestController {
-	
+
 	@Autowired
-    private MangeQuestService mangeQuestService;
-	
+	private MangeQuestService mangeQuestService;
+
 	// 문제등록
 	@PostMapping("/insertQuest")
 	public String insertQuest(Model model, int roundNo, Choice choice, Quest quest) {
@@ -28,12 +25,13 @@ public class ManageQuestController {
 		round.setRoundNo(roundNo);
 		model.addAttribute("round", mangeQuestService.selectRound(round));
 		quest.setRoundNo(roundNo);
-		
+
 		mangeQuestService.insertQuest(quest);
-		choice.setQuestNo(mangeQuestService.selectQuestNo());		;
+		choice.setQuestNo(mangeQuestService.selectQuestNo());
+		;
 		mangeQuestService.insertChoice(choice);
-		
+
 		return "questForm";
 	}
-	
+
 }
