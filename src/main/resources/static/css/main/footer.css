@@ -84,10 +84,7 @@ footer > .footer__side > .copyright {
 }
 
 footer > .footer__side > .footer_icons > a > img {
-  width: 30px;
-
- /*  border: 0.1rem solid var(--color-black);
-  border-radius: 8px; */
+  width: 30px; 
 
   color: var(--color-light-grey);
 }
