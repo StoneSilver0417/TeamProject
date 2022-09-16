@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+	function updateReplyDoneBtn(id) {
+		var boardName = $('#board_name').val();
+		alert($('#content').val());
+		$.ajax({
+			url : "/edit-reply2/" + id,
+			type : "PUT",
+			//contentType: "application/json",
+			data : {
+				content : $('#content').val()
+			},
+			success : function() {
+				alert('성공');
+				/* location.replace('/' + boardName + '/article?no='
+					+ $('#article_idx').val()); */
+			},
+			error : function() {
+				alert('실패');
+				/* location.replace('/' + boardName + '/article?no='
+					+ $('#article_idx').val()); */
+			}
+		});
+	}
+
+	$('form').submit(function(e) {
+		e.preventDefault();
+	})
+</script>
+</head>
+
+<body>
+	<form>
+		<div th:each="reply : ${reply}">
+			<!-- 댓글 내용 출력 -->
+			<textarea th:text="${reply.content}" id="content" required></textarea>
+		</div>
+		<!-- update + delete button -->
+		<div>
+			<!-- 버튼 함수에 댓글 id값을 함께 넘겨서 ajax에서 해당하는 댓글의 아이디를 받을 수 있도록 함 -->
+			<button th:onclick="updateReplyDoneBtn([[${reply.replyNo}]])">ok</button>
+			<input type="reset" value="reset" />
+		</div>
+	</form>
+</body>
+
+</html>

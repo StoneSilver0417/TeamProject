@@ -13,7 +13,8 @@ public interface ReplyService {
 	// 회원가입
 	public void insertReply(Reply reply);
 
-
+	public Reply findReplyById(String id);
+	
 	// 유저삭제
 	public void deleteReply(String id);
 	

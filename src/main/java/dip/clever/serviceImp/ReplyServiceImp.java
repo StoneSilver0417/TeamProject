@@ -45,4 +45,8 @@ public class ReplyServiceImp implements ReplyService {
 		replyMapper.modifyReply(reply);
 	}
 
+	@Override
+	public Reply findReplyById(String id) {
+		return replyMapper.findReplyById(id);		
+	}
 }
