@@ -36,8 +36,8 @@
     	}
     	
         $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'GET',
+            url: '/mypage/quests',
+          type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
           },
@@ -46,18 +46,18 @@
     });
      
       function mySolvedQuestBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'POST',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });
+          $.ajax({
+              url: '/mypage/quests',
+              type: 'POST',
+              success: function (data) {
+                $('#replace-content').html(data);
+              },
+            });
       }
 
       function myQuestBtn() {
         $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-activity.html',
+            url: '/mypage/upload-quests',
           type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
@@ -67,7 +67,7 @@
       
       function myReplyBtn() {
           $.ajax({
-            url: 'http://127.0.0.1:5500/mypage-activity.html',
+            url: '/mypage/comments',
             type: 'POST',
             success: function (data) {
               $('#replace-content').html(data);
@@ -77,7 +77,7 @@
 
       function myLevelBtn() {
         $.ajax({
-          url: '/mypage-level',
+          url: '/mypage/level',
           type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
