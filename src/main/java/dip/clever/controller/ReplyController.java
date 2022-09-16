@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 import dip.clever.model.Reply;
@@ -39,10 +42,10 @@ public class ReplyController {
 	@GetMapping("reply")
 	public String Replyinfo(Model model) {
 		
-		int choiceNo = 11;
-		List<HashMap<String, Object>> quest=managequestservice.joinQuest(choiceNo);
+		int questNo = 2;
+		List<HashMap<String, Object>> quest=managequestservice.joinQuest(questNo);
 		model.addAttribute("quest",quest);
-		System.out.println(quest);
+		//System.out.println(quest);
 		
 		//model.addAttribute("user",userservice.findAll());
 		//User regUser = (User)httpServletRequest.getSession().getAttribute("user");
@@ -53,7 +56,7 @@ public class ReplyController {
 		int questnum=1;
 		List<HashMap<String, Object>> user=replyservice.joinUser(questnum);
 		model.addAttribute("user",user);
-		System.out.println(user);
+		//System.out.println(user);
 		
 		return "reply";
 	} 
@@ -68,7 +71,7 @@ public class ReplyController {
 		reply.setRegUser("1");
 		reply.setQuestNo(1);
 		
-		System.out.println("article.toString() =>" + reply.toString());
+		//System.out.println("article.toString() =>" + reply.toString());
 		replyservice.insertReply(reply);
 		return new ResponseEntity<String>(message, HttpStatus.CREATED);
 	}
@@ -86,18 +89,42 @@ public class ReplyController {
 			return new ResponseEntity<>(message, HttpStatus.OK);
 		}
 	
-	@PostMapping("/modifyReply/{id}")
-	public ResponseEntity<String> modifyReply(@PathVariable int id, @RequestBody Reply reply) {
-		ResponseEntity<String> entity = null;
-		 try {
-			 reply.setReplyNo(id);
-			 replyservice.modifyReply(reply);
-	            entity = new ResponseEntity<String>("modSuccess", HttpStatus.OK);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-	        }
-	        return entity;
-	}
+		/*
+		 * @PostMapping("/modifyReply/{id}") public ResponseEntity<String>
+		 * modifyReply(@PathVariable int id, @RequestBody Reply reply) {
+		 * ResponseEntity<String> entity = null; try { reply.setReplyNo(id);
+		 * replyservice.modifyReply(reply); entity = new
+		 * ResponseEntity<String>("modSuccess", HttpStatus.OK); } catch (Exception e) {
+		 * e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(),
+		 * HttpStatus.BAD_REQUEST); } return entity; }
+		 */
+	// updateForm으로 넘겨주는 method
+		@PostMapping("/edit-reply/{id}")
+		public String updateCommentBtn(@PathVariable String id, Model model) {
+			System.out.println("QWEQWEQWEQWEQWE");
+			Reply reply = replyservice.findReplyById(id);
+			System.out.println("=================> toString: " + reply.toString());
+			model.addAttribute("reply", reply);
+			return "edit_forms/edit-comment";
+		}
+
+		
+		  // 댓글 update query문을 실행하는 method
+		  
+		@Transactional
+		@PutMapping("/edit-reply2/{id}") 
+		public ResponseEntity<Reply> updateComment(@PathVariable String id, Reply reply1) {
+			System.out.println("======> setting 전: " + reply1.toString());
+			// 아이디를 통해서 수정 전 댓글을 가져옴
+			Reply reply = replyservice.findReplyById(id);
+			System.out.println(reply);
+			
+			reply.setContent(reply1.getContent());
+			
+			System.out.println("======> setting 후: " + reply.toString());
+			replyservice.modifyReply(reply);
+			return new ResponseEntity<Reply>(reply1, HttpStatus.OK);
+		}
+		 
 	
 }

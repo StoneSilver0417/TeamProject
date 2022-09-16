@@ -53,7 +53,6 @@ public class QuestController {
 		
 		return "quest";
 	}	
-	
 	@PostMapping("/quest/solvedList")
 	public ResponseEntity<List<Quest>> selectSolvedList(User user) {
 		return Util.resoponse(questService.selectSolvedList(user));
@@ -75,7 +74,6 @@ public class QuestController {
 	public ResponseEntity<Integer[]> checkAnswer(String param){
 		return Util.resoponse(questService.checkAnswer(Json.parse(param)));
 	}
-	
 	@PostMapping("/solve-quest")
 	public String solveQuest() {
 		return "quest/solve-quest";

@@ -56,5 +56,12 @@
 	    WHERE REPLY_NO = #{replyNo}
 	</update>
 	
+	<!-- 아이디로 유저 찾기 -->
+	<select id="findReplyById" resultMap="replyMap">
+		SELECT	*
+		FROM	TB_REPLY
+		WHERE	REPLY_NO = #{replyNo}
+	</select>
+	
 	
 </mapper>

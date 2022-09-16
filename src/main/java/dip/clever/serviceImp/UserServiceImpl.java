@@ -92,8 +92,14 @@ public class UserServiceImpl implements UserService {
 
 	// 이메일 수정
 	@Override
-	public void editUserEmail(String email) {
-		userMapper.editUserEmail(email);
+	public void editUserEmail(User user) {
+		userMapper.editUserEmail(user);
+	}
+	
+	// 비밀번호 수정
+	@Override
+	public void editUserPwd(User user) {
+		userMapper.editUserPwd(user);
 	}
 
 
