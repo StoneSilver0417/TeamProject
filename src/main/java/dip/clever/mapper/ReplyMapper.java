@@ -17,7 +17,8 @@ public interface ReplyMapper {
 	// 댓글등록
 	public void insertReply(Reply reply);
 	
-
+	//아이디로 댓글찾기
+	public Reply findReplyById(String replyNo);
 	
 	public void deleteReply(String id);
 

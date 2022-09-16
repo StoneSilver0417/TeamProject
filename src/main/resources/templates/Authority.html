@@ -8,11 +8,11 @@
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function() {
-		
+
 		$('form').submit(function(e) {
 			e.preventDefault();
 			var keyword = $('#keyword').val();
-			alert(keyword);  
+			alert(keyword);
 			$.ajax({
 				url : "/manageUser/search-user/" + keyword,
 				type : "POST",
@@ -28,8 +28,6 @@
 		});
 	});
 
-
-	
 	// manager, user 권한 부여
 	function addAndRemoveManagerBtn(action, id, name) {
 		if (action == "add") {
@@ -53,19 +51,18 @@
 			})
 		}
 	};
-	
+
 	// user 영구 삭제 
 	function deleteUserBtn(id, name) {
 		//alert('deleteUserBtn') 
 		var check1 = confirm('삭제하시겠습니까?');
 		if (check1 == true) {
-			var check2 = confirm("삭제시 복구가 불가합니다"
-					+ name + "삭제하시겠습니까?");
+			var check2 = confirm("삭제시 복구가 불가합니다" + name + "삭제하시겠습니까?");
 		}
 
 		if (check2 == true) {
 			$.ajax({
-				url : "/manageUser/delete-user/"+ id,
+				url : "/manageUser/delete-user/" + id,
 				type : "POST",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
@@ -79,14 +76,14 @@
 				}
 			})
 		}
-	}; 
+	};
 </script>
 </head>
 <body>
 
 	<div class="container">
 		<div class="page-header">
-			<h1>권한</h1>
+			<h1>관리자페이지</h1>
 		</div>
 
 		<div id="for__absolute">
@@ -116,33 +113,31 @@
 						<th scope="col">레벨</th>
 					</tr>
 				</thead>
-				<tbody style="text-align: center;"> 
+				<tbody style="text-align: center;">
 					<tr th:each="list:${checkAll}">
 						<td th:text="${list.userId}"></td>
 						<td th:text="${list.userNickname}"></td>
 						<td th:text="${list.userRole}"></td>
 						<td th:text="${list.userExp}"></td>
 						<td>
-						<button th:if="${#strings.equals(list.userRole, 'USER')}"
-							th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
-							class="addManagerBtn btn">권한추가</button>
+							<button th:if="${#strings.equals(list.userRole, 'USER')}"
+								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
+								class="addManagerBtn btn">권한추가</button>
 
-						<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
-							th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
-							class="removeManagerBtn btn">권한강등</button>
-						</td>
-						<td><button
-								th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
+								class="removeManagerBtn btn">권한강등</button>
+
+							<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
 								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
-								class="deleteUserBtn btn">유저삭제</button></td>
+								class="deleteUserBtn btn">유저삭제</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<br />
-
-
-
+		
 	</div>
 
 </body>

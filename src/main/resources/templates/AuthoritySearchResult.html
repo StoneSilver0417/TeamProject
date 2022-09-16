@@ -24,7 +24,7 @@
 
 				}
 			});
-		}); 
+		});
 	});
 
 	// manager, user 권한 부여
@@ -80,44 +80,47 @@
 </head>
 <body>
 
-		<br /> <br /> <br />
-		<div id="mainHide">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th scope="col">사용자명</th>
-						<th scope="col">닉네임</th>
-						<th scope="col">역할</th>
-						<th scope="col">레벨</th>
-					</tr>
-				</thead>
-				<tbody>
-				<tbody style="text-align: center;"> 
-					<tr th:each="list:${userList}">
-						<td th:text="${list.userId}"></td>
-						<td th:text="${list.userNickname}"></td>
-						<td th:text="${list.userRole}"></td>
-						<td th:text="${list.userExp}"></td>
-						<td>
-							<button th:if="${#strings.equals(list.userRole, 'USER')}"
-								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
-								class="addManagerBtn btn">권한추가</button>
+	<br />
+	<br />
+	<br />
+	<div id="mainHide">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">사용자명</th>
+					<th scope="col">닉네임</th>
+					<th scope="col">역할</th>
+					<th scope="col">레벨</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tbody style="text-align: center;">
+				<tr th:each="list:${userList}">
+					<td th:text="${list.userId}"></td>
+					<td th:text="${list.userNickname}"></td>
+					<td th:text="${list.userRole}"></td>
+					<td th:text="${list.userExp}"></td>
+					<td>
+						<button th:if="${#strings.equals(list.userRole, 'USER')}"
+							th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
+							class="addManagerBtn btn">권한추가</button>
 
-							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
-								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
-								class="removeManagerBtn btn">권한강등</button>
-						</td>
-						<td><button
-								th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
-								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
-								class="deleteUserBtn btn">유저삭제</button></td>
-					</tr>
-				</tbody>
-				
-			</table>
-		</div>
-		<br />
-	
+						<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+							th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
+							class="removeManagerBtn btn">권한강등</button>
+
+						<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+							th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
+							class="deleteUserBtn btn">유저삭제</button>
+					</td>
+
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<br />
+
 
 
 </body>

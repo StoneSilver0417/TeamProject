@@ -45,7 +45,7 @@ public class QuestServiceImp implements QuestService{
 	public Choice selectChoice(Quest quest) {
 		return questMapper.selectChoice(quest.getQuestNo());
 	}
-
+  
 	@Override
 	public Map<String, Object> selectQuestInfo(Quest quest) {
 		return questMapper.selectQuestInfo(quest.getQuestNo());

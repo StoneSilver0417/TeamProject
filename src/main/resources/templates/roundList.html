@@ -2,22 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title> 
+<title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.ajax({
-			url : '/quest2/list',
-			type : 'post',
-			data : {
-				roundNo : $('#roundNo').val()
-			},
-			success : function(data) {
+			url:'/quest2/list',
+			type:'post',
+			data:{roundNo:$('#roundNo').val()},
+			success:function(data){
 				console.log(JSON.stringify(data))
 				$('#questList').html(data);
 			}
 		})
-	})
+	})	
 </script>
 </head>
 <body>
