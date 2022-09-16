@@ -19,7 +19,8 @@
 	<hr>
 
 	<!-- delete account -->
-	<section id="deleteAccount">
+	<section th:with="info = ${session.user}" id="deleteAccount">
+	<p th:text="${info.userId}"></p>
 		<h1 id="deleteAccount__title">회원 탈퇴</h1>
 		<div id="navbar__divider"></div>
 		<div class="leave__warning">
@@ -32,7 +33,7 @@
 			<div class="warning__description">
 				<h3>계정 및 기록</h3>
 				<ul>
-					<li>• 계정이 카카오, 네이버, 구글 계정과 연동돼 있었다면 연동이 모두 해제됩니다.</li>
+					<li>• 경고! 당신의 무심코 한 클릭 한번이 돌이킬 수 없는 결과를 불러옵니다. </li>
 					<li>• 문제 푼 기록ㅇ랑 ㄹ어저구랑 다 지워짐!!!!!!!!</li>
 					<li>• 문제 푼 기록ㅇ랑 ㄹ어저구랑 다 지워짐!!!!!!!!문제 푼 기록ㅇ랑 ㄹ어저구랑 다
 						지워짐!!!!!!!!</li>
@@ -40,14 +41,12 @@
 					<li>• 문제 푼 기록ㅇ랑 ㄹ어저구랑 다 지워짐!!!!!!!!</li>
 				</ul>
 				<div class="warning-check">
-					<input type="checkbox" name="warning-checkbox" /> <label
-						for="warning-checkbox">탈퇴 유의사항을 확인했습니다.</label>
+				<input type="checkbox" name="warning-checkbox" /> 
+				<label for="warning-checkbox">탈퇴 유의사항을 확인했습니다.</label>
 				</div>
 				<div id="navbar__divider"></div>
 				<div class="leave">
 					<form action="/deleteAccount" method="post">
-						<label for="password-check">비밀번호</label> <input type="password"
-							name="password-check" />
 						<button type="submit">회원탈퇴</button>
 					</form>
 				</div>

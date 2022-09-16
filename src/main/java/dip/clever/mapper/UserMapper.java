@@ -52,4 +52,7 @@ public interface UserMapper {
 	
 	// 비밀번호 수정
 	public void editUserPwd(User user);
+	
+	// 회원탈퇴
+	public void deleteAccount(User user);
 }

@@ -166,8 +166,15 @@ public class UserController {
 
 	// 계정 설정 - 회원 탈퇴
 	@PostMapping("/deleteAccount")
-	public String deleteAccount() {
-		return "edit_forms/edit-email";
+	public String deleteAccount(User user, HttpServletRequest httpServletRequest) {
+		user = (User)httpServletRequest.getSession().getAttribute("user");
+		System.out.println(user);
+		userService.deleteAccount(user);
+		
+		HttpSession httpSession = httpServletRequest.getSession(false);
+		if (httpSession != null)
+			httpSession.invalidate();
+		return "redirect:";
 	}
 	
 	@PostMapping("/user/uploadTemp")

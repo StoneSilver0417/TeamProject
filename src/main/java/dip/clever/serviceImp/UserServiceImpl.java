@@ -101,6 +101,12 @@ public class UserServiceImpl implements UserService {
 	public void editUserPwd(User user) {
 		userMapper.editUserPwd(user);
 	}
+	
+	// 회원 탈퇴
+	@Override
+	public void deleteAccount(User user) {
+		userMapper.deleteAccount(user);
+	}
 
 
 }
