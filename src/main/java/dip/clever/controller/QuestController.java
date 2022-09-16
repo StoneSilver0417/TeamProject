@@ -81,18 +81,16 @@ public class QuestController {
 		Integer[] solvedQuest = questService.checkAnswer(Json.parse(param));
 		User user = (User)httpSession.getAttribute("user");
 		Log log;
-		
-		System.out.println("param: " +  param);
-		
+				
 		if(user != null) {
 			for(int sq : solvedQuest) {
 				log = new Log(user.getUserId(), Action.SOLVED, sq);
 				
 				logService.insertLog(log);
 			}
-		}
+		}		
 		
-		return Util.resoponse(questService.checkAnswer(Json.parse(param)));
+		return Util.resoponse(solvedQuest);
 	}
 	@PostMapping("/solve-quest")
 	public String solveQuest() {
