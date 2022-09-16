@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head><meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clever</title>
 <link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/category/categoryList.css" />
@@ -44,7 +47,7 @@
 				<h1 id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></h1>
 				<div id="info__manager">
 					<p>담당 매니저:</p>
-					<p>fjkd22ㄴ아이디 표시</p>
+					<p>manager33</p>
 				</div>
 			</div>
 			<section th:if="${session.user != null}"
@@ -60,11 +63,16 @@
 						<button type="submit" id="newTestBtn">시험 추가</button>
 					</form>
 				</div>
+			</section>
 		</div>
-		</section>
 
 		<div id="navbar__divider"></div>
 
 		<div id="roundList"></div>
+	</div>
+
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
 </body>
 </html>
