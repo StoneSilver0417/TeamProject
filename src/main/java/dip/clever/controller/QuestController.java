@@ -39,25 +39,21 @@ public class QuestController {
 	//시험 목록 반환
 	@PostMapping("/quest/select")
 	public ResponseEntity<List<Quest>> questList(Round round) {
-		List<Quest> questList = questService.selectQuestList(round);
-		
-		//questList.stream().forEach(t -> t.setChoice(null));
-		
 		return Util.resoponse(questService.selectQuestList(round));		
 	}
 	
 	@GetMapping("/quest/{no}")
-	public String test(Model model, @PathVariable int no) {
+	public String quest(Model model, @PathVariable int no) {
 		Quest quest = new Quest();
 		
-		quest.setQuestNo(no);		
-		questService.selectQuest(quest);
+		quest.setQuestNo(no);
 		
-		model.addAttribute("quest", quest);
+		model.addAttribute("quest", questService.selectQuest(quest));
+		model.addAttribute("info", questService.selectQuestInfo(quest));
 		
-		return "questInfo";
+		return "quest";
 	}	
-
+	
 	@PostMapping("/quest/solvedList")
 	public ResponseEntity<List<Quest>> selectSolvedList(User user) {
 		return Util.resoponse(questService.selectSolvedList(user));
@@ -66,6 +62,18 @@ public class QuestController {
 	@PostMapping("/quest/uploadList")
 	public ResponseEntity<List<Quest>> selectUploadList(User user){
 		return Util.resoponse(questService.selectUploadList(user));
+	}
+	
+	@PostMapping("/quest/next")
+	public ResponseEntity<Integer> nextQuest(Quest quest) {
+		Integer no = questService.selectNextQuest(quest);		
+		
+		return Util.resoponse(no != null ? no : 0);
+	}
+	
+	@PostMapping("/quest/check")
+	public ResponseEntity<Integer[]> checkAnswer(String param){
+		return Util.resoponse(questService.checkAnswer(Json.parse(param)));
 	}
 	
 	@PostMapping("/solve-quest")

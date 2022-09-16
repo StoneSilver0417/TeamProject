@@ -15,124 +15,35 @@
 			</p>
 		</div>
 		<div class="questChoices">
-			<ol th:with="choice = ${quest.choice}">
+			<ol th:with="choice = ${quest.choice}" class="c" th:value="${quest.questNo}">
 				<li th:if="${choice.c1 != null}">
 					<label>
-						<input type="radio" name="choice" class="choice"  th:text="${choice.c1}"/>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c1}" value="1"/>
 					</label>
 				</li>
 				<li th:if="${choice.c2 != null}">
 					<label>
-						<input type="radio" name="choice" class="choice"  th:text="${choice.c2}"/>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c2}" value="2"/>
 					</label>
 				</li>
 				<li th:if="${choice.c3 != null}">
 					<label>
-						<input type="radio" name="choice" class="choice"  th:text="${choice.c3}"/>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c3}" value="3"/>
 					</label>
 				</li>
 				<li th:if="${choice.c4 != null}">
 					<label>
-						<input type="radio" name="choice" class="choice"  th:text="${choice.c4}"/>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c4}" value="4"/>
 					</label>
 				</li>
 				<li th:if="${choice.c5 != null}">
 					<label>
-						<input type="radio" name="choice" class="choice"  th:text="${choice.c5}"/>
+						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c5}" value="5"/>
 					</label>
 				</li>
 			</ol>
 		</div>
-		<button onclick="questDetailsBtn()" class="questDetailsBtn">
-			상세보기</button>
-	</div>
-	<div class="quest">
-		<div class="questNumAndQuestContent">
-			<p class="questInfo">
-				<span class="questNum">30</span><span class="questNum">.</span> <span
-					class="questContent"> 정신작업 부하를 측정하는 척도 보처리에 중추신경계 활동이 관여하고
-					그 활동이나 징후를 측정하는 것은?</span>
-			</p>
-		</div>
-		<div class="questChoices">
-			<ol>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) 척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) asd척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) asd척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) fff척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) 척ds도</label></li>
-			</ol>
-		</div>
-		<button onclick="questDetailsBtn()" class="questDetailsBtn">
-			상세보기</button>
-	</div>
-	<div class="quest">
-		<div class="questNumAndQuestContent">
-			<p class="questInfo">
-				<span class="questNum">10</span><span class="questNum">.</span> <span
-					class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-					변동, 뇌 전위, , 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것동공 반응 등
-					정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-			</p>
-		</div>
-		<div class="questAnswer">
-			<input class="short-answer" placeholder="정답을 입력하세요." type="text" />
-		</div>
-		<button onclick="questDetailsBtn()" class="questDetailsBtn">
-			상세보기</button>
-	</div>
-	<div class="quest">
-		<div class="questNumAndQuestContent">
-			<p class="questInfo">
-				<span class="questNum">30</span><span class="questNum">.</span> <span
-					class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-					변동, 뇌 전위, , 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것동공 반응 등
-					정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-			</p>
-		</div>
-		<div class="questChoices">
-			<ol>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) 척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) asd척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjec 주관적(subjective) 척ds도tive) fff척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) 척ds도</label></li>
-			</ol>
-		</div>
-		<button onclick="questDetailsBtn()" class="questDetailsBtn">
-			상세보기</button>
-	</div>
-	<div class="quest">
-		<div class="questNumAndQuestContent">
-			<p class="questInfo">
-				<span class="questNum">30</span><span class="questNum">.</span> <span
-					class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-					변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-			</p>
-		</div>
-		<div class="questChoices">
-			<ol>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 11111주관적(subjective) 척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subj 주관적(subjective) 척ds도 주관적(subjective)
-						척ds도 주관적(subjective) 척ds도 주관적(subjective) 척ds도 주관적(subjective)
-						척ds도ective) asd척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) fff척도</label></li>
-				<li><label><input type="radio" name="choice"
-						class="choice" /> 주관적(subjective) 척ds도</label></li>
-			</ol>
-		</div>
-		<button onclick="questDetailsBtn()" class="questDetailsBtn">
+		<button type="button" onclick="questDetailsBtn(this)" class="questDetailsBtn" th:value="${quest.questNo}">
 			상세보기</button>
 	</div>
 </body>

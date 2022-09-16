@@ -17,7 +17,6 @@ public class Json {
 		
 		while(isJson(dat)) {
 			json = getJson(dat);
-			System.out.println("json: " + json);
 			
 			if(json == null)	break;
 			
