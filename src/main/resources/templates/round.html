@@ -26,12 +26,13 @@
 <script type="text/javascript">
 	var test;
 	var questList;
-	
+
 	$(document).ready(function(){
 		var no = $('#roundNo').val();
-		
+
 		$.ajax({
 			url:'/quest/select',
+
 			type:'post',
 			data:{roundNo:no},
 			success:function(data){				
@@ -47,7 +48,7 @@
 				})
 			}
 		})
-		
+
 		$.ajax({
 			url:'/test/selectByRound',
 			type:'post',			
@@ -58,46 +59,39 @@
 			}
 		})
 	})
-  
+
 	function quest(no, ans){
 		this.questNo = no;
 		this.answer = ans;
 	}
-	
-	function changeTextColor(object, color){
-		object.parents('.quest').find('.questContent')
-			.css('backgroundColor', color);
-	}
-	
+
 	function check(){
 		var answer = [];
 		var name;
 		var no;
 		var ans;
-		var ol = $('.questChoices');
-				
+		var ol = $('.c');
+
 		for(var o of ol){
 			no = $(o).attr('value');			
 			name = 'choice' + no;			
 			ans = $('input[name=' + name + ']:checked').val();
 			answer.push(new quest(no, ans));
 		}
-		
-		alert(JSON.stringify(answer));
-		
+
 		$.ajax({
 			url:'/quest/check',
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				alert(data)
-				changeTextColor(ol, 'red');				
-				for(var d of data){					
-					var o = $('.questChoices[value=' + d + ']');
+				var i = 0;
 
-					alert(o)
-					
-					changeTextColor(o,'white');					
+				//alert(ol.parents('.quest').find);
+				ol.parents('.quest').find('.questContent').css('backgroundColor', 'red');
+				for(var d of data){					
+					var o = $('.c[value=' + d + ']');
+
+					o.parents('.quest').find('.questContent').css('backgroundColor','white');
 				}
 			}
 		})
