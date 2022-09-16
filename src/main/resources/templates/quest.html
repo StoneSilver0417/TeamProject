@@ -18,7 +18,7 @@
 	const button = $('#sendCommentBtn');
 
 	button.disabled = true;
- 
+
 	function stateHandle() {
 		if (placeholder.val() === '') {
 			button.disabled = true;
@@ -70,7 +70,7 @@
 		if (input == true) {
 			$.ajax({
 				url : '/delete-reply',
-				type : 'POST', 
+				type : 'POST',
 				data : {},
 				success : function(data) {
 					alert(data);
@@ -78,19 +78,21 @@
 			});
 		}
 	}
-	
-	function nextBtn(){
+
+	function nextBtn() {
 		var no = $('#questNo').val();
-		
+
 		$.ajax({
-			url:'/quest/next',
-			type:'post',
-			data:{questNo:no},
-			success:function(data){
-				if(data == 0)
+			url : '/quest/next',
+			type : 'post',
+			data : {
+				questNo : no
+			},
+			success : function(data) {
+				if (data == 0)
 					alert('마지막 문제 입니다.');
-				else{
-					location.href='/quest/' + data;
+				else {
+					location.href = '/quest/' + data;
 				}
 			}
 		})
@@ -113,58 +115,56 @@
 		</div>
 		<input type="hidden" id="questNo" th:value="${quest.questNo}">
 	</div>
-	<hr />
+
+	<div id="navbar__divider"></div>
+
 	<!-- quest: 현재 문제 내용 출력 -->
 	<div id="quest">
 		<div class="questNumAndQuestContent">
 			<p class="questInfo">
-				<span class="questNum" th:text="${quest.questSeq}">30</span>
-				<span class="questNum">.</span>
-				<span class="questContent" th:text="${quest.questContent}"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-					변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
+				<span class="questNum" th:text="${quest.questSeq}">30</span> <span
+					class="questNum">.</span> <span class="questContent"
+					th:text="${quest.questContent}"> 정신작업 부하를 측정하는 척도를 크게 4가지로
+					분류할 때 심박수의 변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는
+					것은?</span>
 			</p>
 		</div>
 
 		<!-- 객관식 경우 -->
 		<div class="questChoices" th:if="${quest.choice.c1 != null}">
 			<ol>
-				<li th:if="${quest.choice.c1 != null}">
-					<label>
-						<input type="radio" name="choice" class="choice" th:text="${quest.choice.c1}" value="1"/>
-					</label>
-				</li>
-				<li th:if="${quest.choice.c2 != null}">
-					<label>
-						<input type="radio" name="choice" class="choice" th:text="${quest.choice.c2}" value="2"/>
-					</label>
-				</li>
-				<li th:if="${quest.choice.c3 != null}">
-					<label>
-						<input type="radio" name="choice" class="choice" th:text="${quest.choice.c3}" value="3"/>
-					</label>
-				</li>
-				<li th:if="${quest.choice.c4 != null}">
-					<label>
-						<input type="radio" name="choice" class="choice" th:text="${quest.choice.c4}" value="4"/>
-					</label>
-				</li>
-				<li th:if="${quest.choice.c5 != null}">
-					<label>
-						<input type="radio" name="choice" class="choice" th:text="${quest.choice.c5}" value="5"/>
-					</label>
-				</li>
+				<li th:if="${quest.choice.c1 != null}"><label> <input
+						type="radio" name="choice" class="choice"
+						th:text="${quest.choice.c1}" value="1" />
+				</label></li>
+				<li th:if="${quest.choice.c2 != null}"><label> <input
+						type="radio" name="choice" class="choice"
+						th:text="${quest.choice.c2}" value="2" />
+				</label></li>
+				<li th:if="${quest.choice.c3 != null}"><label> <input
+						type="radio" name="choice" class="choice"
+						th:text="${quest.choice.c3}" value="3" />
+				</label></li>
+				<li th:if="${quest.choice.c4 != null}"><label> <input
+						type="radio" name="choice" class="choice"
+						th:text="${quest.choice.c4}" value="4" />
+				</label></li>
+				<li th:if="${quest.choice.c5 != null}"><label> <input
+						type="radio" name="choice" class="choice"
+						th:text="${quest.choice.c5}" value="5" />
+				</label></li>
 			</ol>
 		</div>
 		<!-- 주관식 경우 -->
 		<div class="questAnswer" th:if="${quest.choice.c1 == null}">
-	        <input class="short-answer" type="text" />
-	    </div>
+			<input class="short-answer" type="text" />
+		</div>
 	</div>
 
 	<div id="goBack">
 		<button onclick="nextBtn()" id="goBackBtn">다음 문제</button>
 	</div>
-	<hr/>
+	<hr />
 
 	<div id="comment" th:if="${session.user != null}">
 		<!-- write comment -->
@@ -173,7 +173,8 @@
 			<div class="user__profile">
 				<!-- 프로필 사진 -->
 				<div class="profile__img">
-					<img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}"/>
+					<img
+						th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 				</div>
 				<!-- 이름 -->
 				<!-- <p th:text="${info.userNickname}" id="profile__name">오다원</p> -->
@@ -197,50 +198,50 @@
 
 		<!-- comment list -->
 		<ul id="commentList">
-		<li th:each="reply:${user}">
-			<!-- user info --> <!-- 프로필 사진 -->
-			<div class="comment__content">
-				<div class="leftWrapper">
-					<div class="profile__img">
-						<img th:src="${'/imgs/profile/user/' + reply.REG_USER + '.png'}" />
-					</div>
-					<!-- 유저 이름/등급 / 댓글 내용 -->
-					<div class="userInfoAndCommentWrapper">
-						<div class="profileWrapper">
-							<div class="nameAndLevelWrapper">
-								<!-- 이름 -->
-								<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
-								<!-- 레벨 -->
-								<div id="profile__badge">
-									<img th:if="${reply.USER_EXP} >= 300"
-										src="imgs/badge/master.svg" /><img
-										th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
-										th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
-										th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+			<li th:each="reply:${user}">
+				<!-- user info --> <!-- 프로필 사진 -->
+				<div class="comment__content">
+					<div class="leftWrapper">
+						<div class="profile__img">
+							<img th:src="${'/imgs/profile/user/' + reply.REG_USER + '.png'}" />
+						</div>
+						<!-- 유저 이름/등급 / 댓글 내용 -->
+						<div class="userInfoAndCommentWrapper">
+							<div class="profileWrapper">
+								<div class="nameAndLevelWrapper">
+									<!-- 이름 -->
+									<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
+									<!-- 레벨 -->
+									<div id="profile__badge">
+										<img th:if="${reply.USER_EXP} >= 300"
+											src="imgs/badge/master.svg" /><img
+											th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
+											th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
+											th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+									</div>
 								</div>
+								<!-- 작성 시간 -->
+								<p th:text="${reply.REG_TIME}">한 시간 전</p>
 							</div>
-							<!-- 작성 시간 -->
-							<p th:text="${reply.REG_TIME}">한 시간 전</p>
+							<div class="commentContent">
+								<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+							</div>
 						</div>
-						<div class="commentContent">
-							<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+					</div>
+					<div onclick="replyOnclick(this)" class="comment__actions">
+						<i class="fa-solid fa-ellipsis-vertical"></i>
+						<div id="replyDropdown" class="reply-dropdown">
+							<ul>
+								<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
+								<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
-				<div onclick="replyOnclick(this)" class="comment__actions">
-					<i class="fa-solid fa-ellipsis-vertical"></i>
-					<div id="replyDropdown" class="reply-dropdown">
-						<ul>
-							<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
-							<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="navbar__divider"></div>
-		</li>
-	</ul>
+				<div id="navbar__divider"></div>
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
