@@ -22,13 +22,11 @@
 	WHERE T1.use_f = 'Y'
 	AND T1.QUEST_NO = #{questNo}
 	</select>
-	
 	<!-- 문제정보 등록 -->
 	<insert id="insertQuest" parameterType="dip.clever.model.Quest">
 		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, CHOICE_NO, ANSWER)
 		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{choiceNo}, #{answer})
 	</insert>
-
 	
 	<!-- 선지등록 -->
 	<insert id="insertChoice" parameterType="dip.clever.model.Choice">

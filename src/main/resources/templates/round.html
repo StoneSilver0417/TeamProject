@@ -23,15 +23,10 @@
 		}
 	});
 
-	function questDetailsBtn() {
-		$.ajax({
-			url : '/solve-quest/num',
-			type : 'GET',
-			success : function(data) {
-				alert('load success');
-				window.location.href = data;
-			},
-		});
+	function questDetailsBtn(button) {
+		var no = button.value;
+
+		window.open('about:blank').location.href='/quest/' + no;
 	}
 </script>
 <script type="text/javascript">
@@ -69,6 +64,43 @@
 			}
 		})
 	})
+  
+	function quest(no, ans){
+		this.questNo = no;
+		this.answer = ans;
+	}
+	
+	function check(){
+		var answer = [];
+		var name;
+		var no;
+		var ans;
+		var ol = $('.c');
+				
+		for(var o of ol){
+			no = $(o).attr('value');			
+			name = 'choice' + no;			
+			ans = $('input[name=' + name + ']:checked').val();
+			answer.push(new quest(no, ans));
+		}
+		
+		$.ajax({
+			url:'/quest/check',
+			type:'post',
+			data:{param:JSON.stringify(answer)},
+			success:function(data){
+				var i = 0;
+				
+				//alert(ol.parents('.quest').find);
+				ol.parents('.quest').find('.questContent').css('backgroundColor', 'red');
+				for(var d of data){					
+					var o = $('.c[value=' + d + ']');
+
+					o.parents('.quest').find('.questContent').css('backgroundColor','white');
+				}
+			}
+		})
+	}
 </script>
 </head>
 <body>	
@@ -76,7 +108,7 @@
 	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-	<form action="/insertQuest" method="post">
+	<form method="post">
 		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
 		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
 		<button th:if="${session.user?.userId == round.regUser}" type="submit">문제등록</button>
@@ -91,14 +123,14 @@
 	</div>
 	<div id="navbar__divider"></div>
 	<hr>
+	<!-- 문제 목록 출력 -->
 	<div id="questList">
 	</div>
 
 	<hr>
 
 	<div class="checking">
-
-		<button onclick="checkingBtn()" id="checkingBtn">채점하기</button>
+		<button type="button" onclick="check()" id="checkingBtn">채점하기</button>
 	</div>
 
 	<!-- footer -->
