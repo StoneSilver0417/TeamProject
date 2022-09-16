@@ -91,17 +91,20 @@
 			answer.push(new quest(no, ans));
 		}
 		
+		alert(JSON.stringify(answer));
+		
 		$.ajax({
 			url:'/quest/check',
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				var i = 0;
-				
+				alert(data)
 				changeTextColor(ol, 'red');				
 				for(var d of data){					
-					var o = $('.c[value=' + d + ']');
+					var o = $('.questChoices[value=' + d + ']');
 
+					alert(o)
+					
 					changeTextColor(o,'white');					
 				}
 			}
