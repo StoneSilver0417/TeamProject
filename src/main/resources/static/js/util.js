@@ -40,9 +40,21 @@ function encode(code) {
 	return sha256(code);
 }
 
+function sessionCheck(){
+	$.ajax({
+		url:'/user/session',
+		type:'post',
+		success:function(data){
+			return data;
+		}		
+	})
+	
+	return false;
+}
+
 (function(d) {
 	t = setTimeout(function() {
-		h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive';
+		h.className = h.className.replace(/\bwf-loading\b/g, '');
 	}, config.scriptTimeout),
 		tk = d.createElement('script'),
 		f = false,
