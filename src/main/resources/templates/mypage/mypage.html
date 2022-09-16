@@ -36,8 +36,8 @@
     	}
     	
         $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'GET',
+            url: '/mypage/quests',
+          type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
           },
@@ -45,30 +45,40 @@
         
     });
      
-      function myQuestBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });
+      function mySolvedQuestBtn() {
+          $.ajax({
+              url: '/mypage/quests',
+              type: 'POST',
+              success: function (data) {
+                $('#replace-content').html(data);
+              },
+            });
       }
 
-      function myActiveBtn() {
+      function myQuestBtn() {
         $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-activity.html',
-          type: 'GET',
+            url: '/mypage/upload-quests',
+          type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
           },
         });
       }
+      
+      function myReplyBtn() {
+          $.ajax({
+            url: '/mypage/comments',
+            type: 'POST',
+            success: function (data) {
+              $('#replace-content').html(data);
+            },
+          });
+        }
 
       function myLevelBtn() {
         $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-level.html',
-          type: 'GET',
+          url: '/mypage/level',
+          type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
           },
@@ -122,9 +132,9 @@
 		<!-- user activity -->
 		<nav class="mypage__list">
 			<!-- tab navigation -->
-			<p onclick="myQuest()" class="active">내가 푼 문제</p>
-			<p onclick="myActiveBtn()">내가 올린 문제</p>
-			<p onclick="myActiveBtn()">내 댓글</p>
+			<p onclick="mySolvedQuestBtn()" class="active">내가 푼 문제</p>
+			<p onclick="myQuestBtn()">내가 올린 문제</p>
+			<p onclick="myReplyBtn()">내 댓글</p>
 			<p onclick="myLevelBtn()">등급</p>
 			<div class="marker" target="_blank"></div>
 		</nav>
