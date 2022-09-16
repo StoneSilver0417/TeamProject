@@ -36,7 +36,7 @@ public class Json {
 		Map<String, Object> json = new HashMap<>();
 		String key;
 		Object value = null;
-		System.out.println(data);
+
 		data.removeSide();
 		while(true) {
 			key = getKey(data);

@@ -14,8 +14,8 @@
 				<span class="questContent" th:text="${quest.questContent}">문제 내용</span>
 			</p>
 		</div>
-		<div class="questChoices">
-			<ol th:with="choice = ${quest.choice}" class="c" th:value="${quest.questNo}">
+		<div class="questChoices" th:value="${quest.questNo}">
+			<ol th:with="choice = ${quest.choice}">
 				<li th:if="${choice.c1 != null}">
 					<label>
 						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c1}" value="1"/>
