@@ -90,6 +90,7 @@
         text-decoration-line: underline;
       }
     </style>
+    <script src="/js/util.js"></script>
     <script defer>
       // 취소 버튼 클릭 시 html 복구(ajax 출력 이전으로)
       var originalEmailHtml = $('#replace-edit-email').html();
@@ -134,9 +135,11 @@
            type: 'POST',
            data: {
              userId: $('#userId').val(),
-             userPwd: $('#userPwd').val(),
+             userPwd: encode($('#userPwd').val()),
+             
            },
            dataType: 'text',
+           
            success: function (message) {
              alert(message);
              location.replace('/mypage-setting');

@@ -210,7 +210,9 @@ public class UserController {
 	// 이름 수정
 	@PostMapping("/update-name")
 	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
-		httpServletRequest.getSession().setAttribute("user", user);
+		String name = user.getUserNickname();
+		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user.setUserNickname(name);
 		userService.editUserName(user);
 		String message = "이름이 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
@@ -219,12 +221,15 @@ public class UserController {
 	// 이메일 수정
 	@PostMapping("/edit-email")
 	public ResponseEntity<String> editEmail(User user, HttpServletRequest httpServletRequest) {
+		String email = user.getUserEmail();
+		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user.setUserEmail(email);
 		userService.editUserEmail(user);
 		String message = "이메일이 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 	
-	// 이메일 수정
+	// 비밀번호 수정
 	@PostMapping("/edit-pwd")
 	public ResponseEntity<String> editPwd(User user, HttpServletRequest httpServletRequest) {
 		userService.editUserPwd(user);
