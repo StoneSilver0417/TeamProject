@@ -141,13 +141,12 @@
 	</div>
 
 	<div id="navbar__divider"></div>
-	<hr>
 
 	<div id="questContent">
 		<!-- 문제 목록 출력 -->
 		<div id="questList"></div>
 
-		<hr>
+		<div id="navbar__divider"></div>
 
 		<div class="checking">
 			<button type="button" onclick="check()" id="checkingBtn">채점하기</button>
@@ -155,14 +154,13 @@
 	</div>
 
 	<div id="noQuestContent">
-		<img src="imgs/sorry.svg" />
+		<img src="/imgs/etc/sorry.svg" />
 		<div class="describe">
 			<h1>Oops!</h1>
-			<h2>아직 문제가 올라오지 않았습니다</h2>
+			<h2>아직 올라온 문제가 없습니다</h2>
 			<h3>직접 문제를 등록하시려면, 로그인 후 문제 등록 버튼을 눌러주세요!</h3>
 		</div>
 	</div>
-
 
 	<!-- footer -->
 	<div th:replace="layout/footer :: footer"></div>

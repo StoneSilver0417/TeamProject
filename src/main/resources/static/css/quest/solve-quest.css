@@ -340,7 +340,7 @@ hr {
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  margin: 0.01rem 10px 0 -0.5rem;
+  margin: 0.01rem 10px 10px -0.5rem;
 
   border-color: var(--color-black);
   border-radius: 100%;
@@ -378,7 +378,7 @@ hr {
   width: 100%;
   max-width: 1160px;
 
-  padding: 100px;
+  padding: 180px;
 
   background: none;
 
@@ -386,7 +386,7 @@ hr {
 }
 
 #noQuestContent img {
-  padding-right: 70px;
+  padding-right: 58px;
 
   transition: var(--transition-default);
 }
@@ -413,6 +413,8 @@ hr {
 #noQuestContent > .describe h2 {
   font-size: var(--font-big);
   font-weight: 600;
+  
+  padding-bottom: 12px;
 }
 
 #noQuestContent > .describe h3 {
