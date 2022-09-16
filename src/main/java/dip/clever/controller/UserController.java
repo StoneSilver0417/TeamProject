@@ -148,7 +148,7 @@ public class UserController {
 		}
 	}
 
-	// 계정 설정 - 사진/이름
+	// 계정 설정 - 이메일/패스워드
 	@PostMapping("/settings-account/{action}")
 	public String editAccount(@PathVariable String action) {
 		if (action.equals("email")) {
@@ -210,7 +210,9 @@ public class UserController {
 	// 이름 수정
 	@PostMapping("/update-name")
 	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
-		httpServletRequest.getSession().setAttribute("user", user);
+		String name = user.getUserNickname();
+		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user.setUserNickname(name);
 		userService.editUserName(user);
 		String message = "이름이 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
@@ -218,9 +220,20 @@ public class UserController {
 
 	// 이메일 수정
 	@PostMapping("/edit-email")
-	public ResponseEntity<String> editEmail(String email) {
-		userService.editUserEmail(email);
+	public ResponseEntity<String> editEmail(User user, HttpServletRequest httpServletRequest) {
+		String email = user.getUserEmail();
+		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user.setUserEmail(email);
+		userService.editUserEmail(user);
 		String message = "이메일이 변경되었습니다.";
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+	
+	// 비밀번호 수정
+	@PostMapping("/edit-pwd")
+	public ResponseEntity<String> editPwd(User user, HttpServletRequest httpServletRequest) {
+		userService.editUserPwd(user);
+		String message = "비밀번호가 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }

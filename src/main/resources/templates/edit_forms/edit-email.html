@@ -7,8 +7,10 @@
     autocomplete="off"
     autocapitalize="off"
     class="input__userInfo"
+    id="userEmail"
     th:value="${info.userEmail}"
   />
-  <button class="submitButton">인증메일 전송</button>
+  <input th:value="${info.userId}" id="userId" type="hidden">
+  <button onclick="updateEmailBtn()" class="submitButton">저장</button>
 </div>
 <button onclick="cancelEmailBtn()" class="cancelBtn btn">취소</button>

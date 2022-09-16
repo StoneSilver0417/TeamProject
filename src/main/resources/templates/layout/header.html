@@ -31,7 +31,7 @@
 			<form action="/search" id="header__actions-search">
 				<input type="text" placeholder="검색어를 입력해주세요." />
 				<button type="submit">
-					<img src="imgs/header/search.png" alt="search" />
+					<img src="/imgs/header/search.png" alt="search" />
 				</button>
 			</form>
 			<!-- 유저 상태에 따름 -->
@@ -46,10 +46,10 @@
 					<!-- 레벨 -->
 					<div id="profile__badge">
 						<a href="/mypage"> <img th:if="${info.userExp} >= 300"
-							src="imgs/badge/master.svg" /><img
-							th:if="${info.userExp} >= 100" src="imgs/badge/level2.svg" /><img
-							th:if="${info.userExp} >= 50" src="imgs/badge/level1.svg" /><img
-							th:if="${info.userExp} >= 0" src="imgs/badge/new.svg" /></a>
+							src="/imgs/badge/master.svg" /><img
+							th:if="${info.userExp} >= 100" src="/imgs/badge/level2.svg" /><img
+							th:if="${info.userExp} >= 50" src="/imgs/badge/level1.svg" /><img
+							th:if="${info.userExp} >= 0" src="/imgs/badge/new.svg" /></a>
 					</div>
 					<!-- 프로필 -->
 					<div id="profile">
