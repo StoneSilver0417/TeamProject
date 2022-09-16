@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clever</title>
-<link rel="stylesheet" href="/css/style.css" />
+ <link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/quest/quest-detail.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
@@ -27,25 +27,25 @@
 			button.disabled = false;
 		}
 	}
-
+	
 	function sendCommentBtn() {
 		$.ajax({
-            url : "/insertReply",
-            type : "POST",
-            //dataType : "text",
-            //contentType : "application/json",
-            data : {
-               content : $('#reply_content').val()
-            },
-            success : function(message) {
-               alert(message);
-               alert('저장 성공!');
-            },
-            error : function(data) {
-               alert('저장 실패!');
+			url : "/insertReply",
+			type : "POST",
+			//dataType : "text",
+			//contentType : "application/json",
+			data : {
+				content : $('#reply_content').val()
+			},
+			success : function(message) {
+				alert(message);
+				alert('저장 성공!');
+			},
+			error : function(data) {
+				alert('저장 실패!');
 
-            }
-         });
+			}
+		});
 	}
 
 	function replyOnclick(button) {
@@ -70,8 +70,10 @@
 		};
 	}
 
-	function Goedit(id) {
+	function Goedit(button) {
 		var input = confirm('댓글을 수정하시겠습니까?');
+		var id = button.value;
+		
 		$.ajax({
 			url : "/edit-reply/" + id,
 			type : "post",
@@ -80,28 +82,29 @@
 			},
 			contentType : "application/json",
 			success : function(data) {
-				$('.replace-commentEdit').html(data);
+				$(button).parents('.comment__content')
+					.find('.replace-commentEdit').html(data);
 			},
-			error : function(){
+			error : function() {
 				alert("qweqweqwe")
 			}
 		});
 	}
 
-	function deleteReply(locaion) {
+	function deleteReply(id) {
 		var input = confirm('댓글을 삭제하시겠습니까?');
 		if (input == true) {
 			$.ajax({
-				url : "/delete-reply",
+				url : "/delete-reply/" + id,
 				type : 'POST',
 				data : {},
 				success : function(data) {
-					alert(data);
+					alert('삭제완료')
+					location.href = '/reply';
 				},
 			});
 		}
 	}
-	
 </script>
 </head>
 <body>
@@ -121,7 +124,7 @@
 	</div>
 	<hr />
 
-	<div id="quest"  th:each="Quest:${quest}">
+	<div id="quest" th:each="Quest:${quest}">
 		<div class="questNumAndQuestContent">
 			<p class="questInfo">
 				<span class="questNum" th:text="${Quest.QUEST_NO}"></span><span
@@ -176,7 +179,8 @@
 				</div>
 			</div>
 			<!-- write comment form -->
-			<textarea id="reply_content" class="writeForm" placeholder="댓글을 작성해주세요."></textarea>
+			<textarea id="reply_content" class="writeForm"
+				placeholder="댓글을 작성해주세요."></textarea>
 
 			<!-- send button -->
 			<div id="sendBtn">
@@ -221,9 +225,10 @@
 						<i class="fa-solid fa-ellipsis-vertical"></i>
 						<div id="replyDropdown" class="reply-dropdown">
 							<ul>
-								
-								<li><button th:onclick="Goedit([[${reply.REPLY_NO}]])" style="display: block;">수정</button></li>
-								<li th:onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
+
+								<li><button th:onclick="Goedit(this)" th:value="${reply.REPLY_NO}"
+										style="display: block;">수정</button></li>
+								<li th:onclick="deleteReply([[${reply.REPLY_NO}]])">삭제</a>
 								</li>
 							</ul>
 						</div>

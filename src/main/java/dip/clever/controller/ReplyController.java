@@ -101,7 +101,6 @@ public class ReplyController {
 	// updateForm으로 넘겨주는 method
 		@PostMapping("/edit-reply/{id}")
 		public String updateCommentBtn(@PathVariable String id, Model model) {
-			System.out.println("QWEQWEQWEQWEQWE");
 			Reply reply = replyservice.findReplyById(id);
 			System.out.println("=================> toString: " + reply.toString());
 			model.addAttribute("reply", reply);

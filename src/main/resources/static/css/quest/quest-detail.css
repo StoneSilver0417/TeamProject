@@ -1,40 +1,3 @@
-:root {
-  /* Color */
-  --color-white: #ffffff;
-  --color-black: #282828;
-  --color-ivory: #f4f4f0;
-  --color-light-grey: #f3f3f3;
-  --color-dark-grey: #6d6d6d;
-  --color-red: #ff7051;
-  --color-dark-red: #98282a;
-  --color-yellow: #f1f333;
-  --color-orange: #ffc900;
-  --color-pink: #ff90e8;
-  --color-green: #23a094;
-  --color-light-green: #daf8f2;
-  --color-blue: #90a8ed;
-
-  /* Size */
-  --side-padding: 12px;
-  --icon-size: 32px;
-  --search-icon-size: 22px;
-  --avatar-size: 32px;
-
-  /* Font Size */
-  --font-giant: 32px;
-  --font-big: 24px;
-  --font-great: 18px;
-  --font-xlarge: 16px;
-  --font-large: 18px;
-  --font-medium: 14px;
-  --font-small: 12px;
-  --font-micro: 10px;
-
-  /* Transition */
-  --transition-default: all ease 1s;
-  --transform-default: rotate(-10deg);
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -46,6 +9,10 @@ body {
   cursor: default;
 }
 
+hr {
+	width: 100%;
+}
+ 
 .user__profile {
   display: flex;
   justify-content: flex-start;
@@ -205,11 +172,7 @@ body {
 #sendCommentBtn:active {
   background-color: #e36448;
 }
-
-#navbar__divider {
-  margin-bottom: 480px;
-}
-
+ 
 .reply-dropdown {
   display: none;
 
@@ -249,8 +212,7 @@ body {
   align-items: flex-start;
 
   width: 100%;
-  max-width: 1160px;
-  height: 100%;
+  max-width: 1160px; 
 
   padding: 18px 0 10px 0;
 
@@ -301,18 +263,17 @@ body {
 
 #quest {
   width: 100%;
-  max-width: 1160px;
-  height: 100%;
+  max-width: 1160px; 
 
-  margin-top: 40px;
+  margin: 40px 0;
 
   background: none;
 }
 
 #quest > .questNumAndQuestContent {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
 
   padding-bottom: 12px;
 }
