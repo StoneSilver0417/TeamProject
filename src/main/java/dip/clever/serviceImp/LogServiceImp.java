@@ -1,26 +1,19 @@
 package dip.clever.serviceImp;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dip.clever.mapper.LogMapper;
 import dip.clever.model.Log;
-import dip.clever.model.Quest;
 import dip.clever.service.LogService;
 
 @Service
 public class LogServiceImp implements LogService{
-
+	@Autowired
+	private LogMapper logMapper;
+	
 	@Override
-	public List<Quest> selectSolvedQuestList(Log log) {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertLog(Log log) {
+		logMapper.insertLog(log);
 	}
-
-	@Override
-	public List<Quest> selectUploadQuestList(Log log) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

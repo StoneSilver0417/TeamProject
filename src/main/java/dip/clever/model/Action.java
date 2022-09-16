@@ -1,5 +1,11 @@
 package dip.clever.model;
 
 public enum Action {
-	SOLVED
+	LOGIN,
+	REGISTER,
+	CREATE,
+	READ,
+	WRITE,
+	SOLVED,
+	COMMENT,
 }

@@ -3,26 +3,12 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dip.clever.mapper.LogMapper">
-	<select id="selectSolvedQuestList" parameterType="string" resultMap="quest">
-		SELECT		*
-		FROM		TB_LOG		AS T1
-		INNER JOIN	TB_QUEST	AS T2
-			ON			TARGET_ID = QUEST_NO
-		WHERE		USER_ID = #{userId}
-		AND			ACTION = 'SOLVED'
-	</select>
-	
-	<select id="selectUploadQuestList" parameterType="string" resultMap="quest">
-		SELECT		*
-		FROM		TB_QUEST
-		WHERE		ROUND_NO IN(
-			SELECT		ROUND_NO
-			FROM		TB_ROUND
-			WHERE		REG_USER = #{userId}
-			AND			USE_F = 'Y'
-		)
-	</select>
-	
+	<insert id="insertLog" parameterType="dip.clever.model.Log">
+		INSERT TB_LOG
+		VALUES(#{userId}, #{action}, #{targetId}, SYSDATE());
+	</insert>
+		
+	<!-- 밑에 부분은 사용하지 않음 -->
 	<!-- 회차 매핑 -->
 	<resultMap type="dip.clever.model.Quest" id="quest" >
 		<result property="questNo" 	column="QUEST_NO"/>
@@ -31,21 +17,7 @@
 		<result property="questContent" column="QUEST_CONTENT"/>
 		<result property="choiceNo" column="CHOICE_NO"/>
 		<result property="answer" column="ANSWER"/>
-	</resultMap>	
-	
-	<!-- 밑에 부분은 사용하지 않음 -->
-	
-	<select id="searchCount" parameterType="String" resultType="int">
-		SELECT		COUNT(*)
-		FROM		TB_ARTICLE
-		WHERE		TITLE LIKE '%${query}%'
-	</select>
-	
-	<select id="selectId" resultType="int">
-		SELECT		LAST_INSERT_ID()
-		FROM		TB_ARTICLE
-		LIMIT		1
-	</select>
+	</resultMap>
 	
 	<select id="checkUser" parameterType="int" resultType="String">
 		SELECT		USER_ID
