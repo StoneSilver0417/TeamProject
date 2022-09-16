@@ -55,13 +55,14 @@
 					<div id="profile">
 						<div th:with="info = ${session.user}" onclick="profileOnclick()"
 							class="profileBtn" id="profile__info">
-							<img id="profile__img" th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
+							<img id="profile__img"
+								th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 							<p th:text="${info.userNickname}" id="profile__name"></p>
 						</div>
 						<div id="profileDropdown" class="profile-dropdown">
 							<ul>
 								<li><a href="/mypage">프로필</a></li>
-								<li><a href="/mypage-setting">설정</a></li>
+								<li><a href="/mypage/setting">설정</a></li>
 								<li><div class="divider"></div></li>
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>

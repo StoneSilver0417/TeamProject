@@ -2,10 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 <link rel="stylesheet" th:href="@{/css/base.css}" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="/css/main/footer.css" />
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+.category {
+	float: left;
+	margin: 1%;
+}
+</style>
+<script src="js/script.js"></script>
+<script src="https://kit.fontawesome.com/267f657aa0.js"
+	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
 
@@ -78,9 +92,12 @@
 		}
 	};
 </script>
+
 </head>
 <body>
+	<div th:replace="layout/header :: header"></div>
 
+	<hr>
 	<div class="container">
 		<div class="page-header">
 			<h1>관리자페이지</h1>
@@ -137,9 +154,9 @@
 			</table>
 		</div>
 		<br />
-		
-	</div>
 
+	</div>
+	<div th:replace="layout/footer :: footer"></div>
 </body>
 
 </html>
