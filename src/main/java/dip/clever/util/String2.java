@@ -24,8 +24,10 @@ public class String2 {
 		return this;
 	}
 	
-	private void removefirst() {
+	public String2 removefirst() {
 		string = string.substring(1);
+		
+		return this;
 	}
 	
 	public String2 removeSide() {

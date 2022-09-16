@@ -1,7 +1,10 @@
 package dip.clever.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dip.clever.model.Action;
 import dip.clever.model.Choice;
+import dip.clever.model.Log;
 import dip.clever.model.Quest;
 import dip.clever.model.Round;
 import dip.clever.model.User;
+import dip.clever.service.LogService;
 import dip.clever.service.QuestService;
 import dip.clever.util.Json;
 import dip.clever.util.Util;
@@ -26,12 +32,13 @@ import dip.clever.util.Util;
 public class QuestController {
 	@Autowired
 	private QuestService questService;
+	@Autowired
+	private LogService logService;
 	
 	@PostMapping("/quest")
 	public String quest(Model model, @RequestParam HashMap<String, String> param){
 		model.addAttribute("questList", Json.parse(param.get("param")));
-		
-		System.out.println(Json.parse(param.get("param")));
+		System.out.println(param);
 
 		return "questList";
 	}
@@ -72,7 +79,19 @@ public class QuestController {
 	}
 	
 	@PostMapping("/quest/check")
-	public ResponseEntity<Integer[]> checkAnswer(String param){
+	public ResponseEntity<Integer[]> checkAnswer(HttpSession httpSession, String param){
+		Integer[] solvedQuest = questService.checkAnswer(Json.parse(param));
+		User user = (User)httpSession.getAttribute("user");
+		Log log;
+		
+		if(user != null) {
+			for(int sq : solvedQuest) {
+				log = new Log(user.getUserId(), Action.SOLVED, sq);
+				
+				logService.insertLog(log);
+			}
+		}
+		
 		return Util.resoponse(questService.checkAnswer(Json.parse(param)));
 	}
 	

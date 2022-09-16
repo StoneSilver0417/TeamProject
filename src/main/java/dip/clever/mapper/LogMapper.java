@@ -9,8 +9,6 @@ import dip.clever.model.Log;
 import dip.clever.model.Quest;
 
 @Mapper
-public interface LogMapper {	
-	public List<Quest> selectSolvedQuestList(String userId);
-	
-	public List<Quest> selectUploadQuestList(Log log);
+public interface LogMapper {
+	public void insertLog(Log log);
 }

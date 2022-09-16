@@ -48,8 +48,8 @@ public class RoundController {
 		Round round = new Round();
 		
 		round.setRoundNo(no);
-		round = roundService.selectRound(round);		
-		
+		round = roundService.selectRound(round);
+		System.out.println(round);
 		model.addAttribute("round", round);
 
 		return "round";
