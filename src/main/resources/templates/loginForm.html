@@ -31,7 +31,7 @@
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();"
 	onunload="">
-	<div id="loginForm">
+	<div class="form">
 		<a href="/"><h1>Clever</h1></a>
 		<h2>로그인</h2>
 		<form action="/login" method="post">
@@ -41,7 +41,7 @@
 				name="userPwd" /> <input placeholder="비밀번호를 입력해주세요" id="userPwd"
 				class="loginInput" type="password" required />
 			<div th:if="${loginError}" th:text="'로그인 실패'" id="errorMsg"></div>
-			<button onclick="login();" id="loginBtn" type="submit">로그인</button>
+			<button onclick="login();" id="submitBtn" type="submit">로그인</button>
 		</form>
 		<div id="goRegister">
 			<p>아직 계정이 없으신가요?</p>
@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<div id="loginImg">
+	<div id="formImg">
 		<img id="random__img" />
 	</div>
 </body>

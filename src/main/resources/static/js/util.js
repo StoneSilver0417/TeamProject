@@ -23,7 +23,7 @@ function log(string){
 }
 
 function label(object, text, color){
-	$(object).text(text).css('color', color ? color : 'red');
+	$(object).text(text).css('color', color ? color : '#ff7051');
 	go = color != null;
 }
 
