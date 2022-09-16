@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<title>Clever</title>
+<script type="text/javascript">
+	function questDetailsBtn(button) {
+		var no = button.value;
+		window.open('about:blank').location.href = '/quest/' + no;
+	}
+</script>
 </head>
 <body>
 	<div class="quest" th:each="quest:${questList}">
 		<div class="questNumAndQuestContent">
 			<p class="questInfo">
-				<span class="questNum" th:text="${quest.questSeq}">문제 번호</span>
-				<span class="questNum">.</span> 
-				<span class="questContent" th:text="${quest.questContent}">문제 내용</span>
+				<span class="questNum" th:text="${quest.questSeq}">문제 번호</span><span
+					class="questNum">.</span> <span class="questContent"
+					th:text="${quest.questContent}">문제 내용</span>
 			</p>
 		</div>
-		<div class="questChoices">
-			<ol th:with="choice = ${quest.choice}" class="c" th:value="${quest.questNo}">
-				<li th:if="${choice.c1 != null}">
-					<label>
-						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c1}" value="1"/>
-					</label>
-				</li>
-				<li th:if="${choice.c2 != null}">
-					<label>
-						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c2}" value="2"/>
-					</label>
-				</li>
-				<li th:if="${choice.c3 != null}">
-					<label>
-						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c3}" value="3"/>
-					</label>
-				</li>
-				<li th:if="${choice.c4 != null}">
-					<label>
-						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c4}" value="4"/>
-					</label>
-				</li>
-				<li th:if="${choice.c5 != null}">
-					<label>
-						<input type="radio" th:name="${'choice' + quest.questNo}" class="choice"  th:text="${choice.c5}" value="5"/>
-					</label>
-				</li>
+		<div class="questChoices" th:with="choice = ${quest.choice}"
+			th:value="${quest.questNo}">
+			<ol>
+				<li th:if="${choice.c1 != null}"><label><input
+						th:name="${'choice' + quest.questNo}" type="radio" name="choice"
+						class="choice" th:text="${choice.c1}" value="1" /> </label></li>
+				<li th:if="${choice.c2 != null}"><label> <input
+						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+						th:text="${choice.c2}" value="2" />
+				</label></li>
+				<li th:if="${choice.c3 != null}"><label> <input
+						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+						th:text="${choice.c3}" value="3" />
+				</label></li>
+				<li th:if="${choice.c4 != null}"><label> <input
+						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+						th:text="${choice.c4}" value="4" />
+				</label></li>
+				<li th:if="${choice.c5 != null}"><label> <input
+						type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+						th:text="${choice.c5}" value="5" />
+				</label></li>
 			</ol>
 		</div>
-		<button type="button" onclick="questDetailsBtn(this)" class="questDetailsBtn" th:value="${quest.questNo}">
-			상세보기</button>
+		<button type="button" onclick="questDetailsBtn(this)"
+			class="questDetailsBtn" th:value="${quest.questNo}">상세보기</button>
 	</div>
 </body>
 </html>

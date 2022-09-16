@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title th:text="${round.roundName}"></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clever</title>
 <link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/main/header.css" />
-<link rel="stylesheet" href="/css/main/index.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="js/script.js"></script>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
@@ -22,12 +22,6 @@
 			thisRadio.addClass('imChecked');
 		}
 	});
-
-	function questDetailsBtn(button) {
-		var no = button.value;
-
-		window.open('about:blank').location.href='/quest/' + no;
-	}
 </script>
 <script type="text/javascript">
 	var test;
@@ -103,29 +97,42 @@
 	}
 </script>
 </head>
-<body>	
+<body>
 	<!-- header -->
 	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-	<form method="post">
-		<input type="hidden" id="roundNo" th:value="${round.roundNo}" name="roundNo">
-		<input type="hidden" id="roundName" th:value="${round.roundName}" name="roundName">
-		<button th:if="${session.user?.userId == round.regUser}" type="submit">문제등록</button>
+
+	<input type="hidden" id="roundNo" th:value="${round.roundNo}"
+		name="roundNo">
+	<input type="hidden" id="roundName" th:value="${round.roundName}"
+		name="roundName">
+	<!-- 	<button th:if="${session.user?.userId == round.regUser}" type="submit">문제등록</button>
+ -->
+	<div id="test__info">
 		<div id="testDetails">
-		<h1 id="testName">시험 이름</h1>
-		<div class="details__title">
-			<h2 th:text="${round.roundName}">회차 이름</h2>
-			<p>총</p>
-			<p id="questCount">문제 수</p>
-			<p>문제</p>
+			<h1 id="testName">시험 이름</h1>
+			<div class="details__title">
+				<h2 th:text="${round.roundName}">회차 이름</h2>
+				<p>총</p>
+				<p id="questCount"></p>
+				<p>문제</p>
+			</div>
 		</div>
+		<form action="/insertQuest" method="post">
+			<input type="hidden" id="roundNo" th:value="${round.roundNo}"
+				name="roundNo"> <input type="hidden" id="roundName"
+				th:value="${round.roundName}" name="roundName">
+			<button th:if="${session.user?.userId == round.regUser}"
+				type="submit">문제등록</button>
+		</form>
 	</div>
+
 	<div id="navbar__divider"></div>
 	<hr>
+
 	<!-- 문제 목록 출력 -->
-	<div id="questList">
-	</div>
+	<div id="questList"></div>
 
 	<hr>
 
@@ -135,6 +142,6 @@
 
 	<!-- footer -->
 	<div th:replace="layout/footer :: footer"></div>
-	</form>
+
 </body>
 </html>
