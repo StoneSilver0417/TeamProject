@@ -27,34 +27,34 @@ import dip.clever.util.Util;
 public class RoundController {
 	@Autowired
 	private RoundService roundService;
-	@Autowired 
+	@Autowired
 	TestService testService;
-	
+
 	@PostMapping("")
-	public String round(Model model, @RequestParam HashMap<String, String> param){
+	public String round(Model model, @RequestParam HashMap<String, String> param) {
 		model.addAttribute("roundList", Json.parse(param.get("param")));
 
 		return "roundList";
 	}
-	
-	//시험 목록 반환
+
+	// 시험 목록 반환
 	@PostMapping("/list")
 	public ResponseEntity<List<Round>> testList(Model model, Test test) {
-		return new ResponseEntity<List<Round>> (roundService.selectRoundList(test), HttpStatus.OK);
+		return new ResponseEntity<List<Round>>(roundService.selectRoundList(test), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{no}")
 	public String round(Model model, @PathVariable int no) {
 		Round round = new Round();
-		
+
 		round.setRoundNo(no);
 		round = roundService.selectRound(round);
-		System.out.println(round);
+    
 		model.addAttribute("round", round);
 
 		return "round";
 	}
-	
+
 	// 회차등록
 	@PostMapping("/insertRound")
 	public String inserRound(Model model, int testNo, Round round) {
@@ -67,5 +67,5 @@ public class RoundController {
 
 		return "roundForm";
 	}
-	
+
 }

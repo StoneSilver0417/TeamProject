@@ -14,29 +14,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
-	$(document).ready(function() {
-		$.ajax({
-			url : '/quest2/list',
-			type : 'post',
-			data : {
-				roundNo : $('#roundNo').attr('value')
-			},
-			success : function(data) {
-				console.log(JSON.stringify(data))
-				$.ajax({
-					url : '/quest2',
-					type : 'post',
-					data : {
-						param : JSON.stringify(data)
-					},
-					success : function(data) {
-						$('#questList').html(data);
-					}
-				})
-			}
-		})
-	})
-
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
 		if (thisRadio.hasClass('imChecked')) {
@@ -48,15 +25,83 @@
 		}
 	});
 
-	function questDetailsBtn() {
+	function questDetailsBtn(button) {
+		var no = button.value;
+
+		window.open('about:blank').location.href='/quest/' + no;
+	}
+</script>
+<script type="text/javascript">
+	var test;
+	var questList;
+	
+	$(document).ready(function(){
+		var no = $('#roundNo').val();
+		
 		$.ajax({
-			url : '/solve-quest/num',
-			type : 'GET',
-			success : function(data) {
-				alert('load success');
-				window.location.href = data;
-			},
-		});
+			url:'/quest/select',
+			type:'post',
+			data:{roundNo:no},
+			success:function(data){				
+				$('#questCount').html(data.length);
+
+				$.ajax({
+					url:'/quest',
+					type:'post',
+					data:{param:JSON.stringify(data)},
+					success:function(data){	
+						$('#questList').html(data);
+					}
+				})
+			}
+		})
+		
+		$.ajax({
+			url:'/test/selectByRound',
+			type:'post',			
+			data:{roundNo:no},
+			success:function(data){
+				test = data;
+				$('#testName').html(data.testName);
+			}
+		})
+	})
+  
+	function quest(no, ans){
+		this.questNo = no;
+		this.answer = ans;
+	}
+	
+	function check(){
+		var answer = [];
+		var name;
+		var no;
+		var ans;
+		var ol = $('.c');
+				
+		for(var o of ol){
+			no = $(o).attr('value');			
+			name = 'choice' + no;			
+			ans = $('input[name=' + name + ']:checked').val();
+			answer.push(new quest(no, ans));
+		}
+		
+		$.ajax({
+			url:'/quest/check',
+			type:'post',
+			data:{param:JSON.stringify(answer)},
+			success:function(data){
+				var i = 0;
+				
+				//alert(ol.parents('.quest').find);
+				ol.parents('.quest').find('.questContent').css('backgroundColor', 'red');
+				for(var d of data){					
+					var o = $('.c[value=' + d + ']');
+
+					o.parents('.quest').find('.questContent').css('backgroundColor','white');
+				}
+			}
+		})
 	}
 </script>
 </head>
@@ -65,151 +110,73 @@
 	<div th:replace="layout/header :: header"></div>
 	<hr>
 
+	<input type="hidden" id="roundNo" th:value="${round.roundNo}"
+		name="roundNo">
+	<input type="hidden" id="roundName" th:value="${round.roundName}"
+		name="roundName">
 	<div id="test__info">
 		<div id="testDetails">
-			<h1>산업안전기사</h1>
+			<h1 id="testName">시험 이름</h1>
 			<div class="details__title">
-				<h2>2022년 2회</h2>
+				<h2 th:text="${round.roundName}">회차 이름</h2>
 				<p>총</p>
-				<p>100</p>
+				<p id="questCount"></p>
 				<p>문제</p>
 			</div>
 		</div>
 		<form action="/insertQuest" method="post">
-			<!-- <div th:text="${round.roundName}" style="text-align: center;">회차
-				이름</div>
 			<input type="hidden" id="roundNo" th:value="${round.roundNo}"
 				name="roundNo"> <input type="hidden" id="roundName"
-				th:value="${round.roundName}" name="roundName"> -->
-			<button type="submit">문제등록</button>
+				th:value="${round.roundName}" name="roundName">
+			<button th:if="${session.user?.userId == round.regUser}"
+				type="submit">문제등록</button>
 		</form>
 	</div>
 
-	<div id="navbar__divider"></div>
-
-	<hr>
-
+	<div id="navbar__divider"></div> 
+	
 	<div id="questList">
-		<div class="quest">
+		<div class="quest" th:each="quest:${questList}">
 			<div class="questNumAndQuestContent">
 				<p class="questInfo">
-					<span class="questNum">30</span><span class="questNum">.</span> <span
-						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-						변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
+					<span class="questNum" th:text="${quest.questSeq}">문제 번호</span><span
+						class="questNum">.</span> <span class="questContent"
+						th:text="${quest.questContent}">문제 내용</span>
 				</p>
 			</div>
-			<div class="questChoices">
+			<div class="questChoices" th:with="choice = ${quest.choice}"
+				th:value="${quest.questNo}">
 				<ol>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) asd척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) fff척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척ds도 주관적(subjective) 척ds도
-							주관적(subjective) 척ds도 주관적(subjective) 척ds도 주관적(subjective) 척ds도</label></li>
+					<li th:if="${choice.c1 != null}"><label><input
+							th:name="${'choice' + quest.questNo}" type="radio" name="choice"
+							class="choice" th:text="${choice.c1}" value="1" /> </label></li>
+					<li th:if="${choice.c2 != null}"><label> <input
+							type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+							th:text="${choice.c2}" value="2" />
+					</label></li>
+					<li th:if="${choice.c3 != null}"><label> <input
+							type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+							th:text="${choice.c3}" value="3" />
+					</label></li>
+					<li th:if="${choice.c4 != null}"><label> <input
+							type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+							th:text="${choice.c4}" value="4" />
+					</label></li>
+					<li th:if="${choice.c5 != null}"><label> <input
+							type="radio" th:name="${'choice' + quest.questNo}" class="choice"
+							th:text="${choice.c5}" value="5" />
+					</label></li>
 				</ol>
 			</div>
-			<button onclick="questDetailsBtn()" class="questDetailsBtn">
-				상세보기</button>
-		</div>
-		<div class="quest">
-			<div class="questNumAndQuestContent">
-				<p class="questInfo">
-					<span class="questNum">30</span><span class="questNum">.</span> <span
-						class="questContent"> 정신작업 부하를 측정하는 척도 보처리에 중추신경계 활동이 관여하고
-						그 활동이나 징후를 측정하는 것은?</span>
-				</p>
-			</div>
-			<div class="questChoices">
-				<ol>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) asd척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) asd척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) fff척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척ds도</label></li>
-				</ol>
-			</div>
-			<button onclick="questDetailsBtn()" class="questDetailsBtn">
-				상세보기</button>
-		</div>
-		<div class="quest">
-			<div class="questNumAndQuestContent">
-				<p class="questInfo">
-					<span class="questNum">10</span><span class="questNum">.</span> <span
-						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-						변동, 뇌 전위, , 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것동공 반응 등
-						정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-				</p>
-			</div>
-			<div class="questAnswer">
-				<input class="short-answer" placeholder="정답을 입력하세요." type="text" />
-			</div>
-			<button onclick="questDetailsBtn()" class="questDetailsBtn">
-				상세보기</button>
-		</div>
-		<div class="quest">
-			<div class="questNumAndQuestContent">
-				<p class="questInfo">
-					<span class="questNum">30</span><span class="questNum">.</span> <span
-						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-						변동, 뇌 전위, , 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것동공 반응 등
-						정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-				</p>
-			</div>
-			<div class="questChoices">
-				<ol>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) asd척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjec 주관적(subjective) 척ds도tive) fff척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척ds도</label></li>
-				</ol>
-			</div>
-			<button onclick="questDetailsBtn()" class="questDetailsBtn">
-				상세보기</button>
-		</div>
-		<div class="quest">
-			<div class="questNumAndQuestContent">
-				<p class="questInfo">
-					<span class="questNum">30</span><span class="questNum">.</span> <span
-						class="questContent"> 정신작업 부하를 측정하는 척도를 크게 4가지로 분류할 때 심박수의
-						변동, 뇌 전위, 동공 반응 등 정보처리에 중추신경계 활동이 관여하고 그 활동이나 징후를 측정하는 것은?</span>
-				</p>
-			</div>
-			<div class="questChoices">
-				<ol>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 11111주관적(subjective) 척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subj 주관적(subjective) 척ds도 주관적(subjective)
-							척ds도 주관적(subjective) 척ds도 주관적(subjective) 척ds도 주관적(subjective)
-							척ds도ective) asd척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) fff척도</label></li>
-					<li><label><input type="radio" name="choice"
-							class="choice" /> 주관적(subjective) 척ds도</label></li>
-				</ol>
-			</div>
-			<button onclick="questDetailsBtn()" class="questDetailsBtn">
-				상세보기</button>
+			<button type="button" onclick="questDetailsBtn()"
+				class="questDetailsBtn" th:value="${quest.questNo}">상세보기</button>
 		</div>
 	</div>
 
 	<hr>
 
 	<div class="checking">
-
-		<button onclick="checkingBtn()" id="checkingBtn">채점하기</button>
+		<button type="button" onclick="check()" id="checkingBtn">채점하기</button>
 	</div>
 
 	<!-- footer -->

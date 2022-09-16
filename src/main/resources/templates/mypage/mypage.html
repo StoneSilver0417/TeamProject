@@ -44,11 +44,7 @@
         });
         
     });
-    
-    function settingsBtn() {
-    	
-    }
-
+     
       function myQuestBtn() {
         $.ajax({
           url: 'http://127.0.0.1:5500/mypage-quest.html',
@@ -97,8 +93,7 @@
 					<!-- user name -->
 					<h1 th:text="${info.userNickname}"></h1>
 					<!-- setting icon -->
-					<a href="/mypage-setting">
-						<img src="imgs/mypage/settings.png" />
+					<a href="/mypage-setting"> <img src="imgs/mypage/settings.png" />
 					</a>
 				</div>
 				<!-- user regdate -->
@@ -127,7 +122,7 @@
 		<!-- user activity -->
 		<nav class="mypage__list">
 			<!-- tab navigation -->
-			<p onclick="myQuestBtn()" class="active">내가 푼 문제</p>
+			<p onclick="myQuest()" class="active">내가 푼 문제</p>
 			<p onclick="myActiveBtn()">내가 올린 문제</p>
 			<p onclick="myActiveBtn()">내 댓글</p>
 			<p onclick="myLevelBtn()">등급</p>
