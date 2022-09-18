@@ -29,7 +29,7 @@ public class ManageQuestController {
 		mangeQuestService.insertQuest(quest);
 		choice.setQuestNo(mangeQuestService.selectQuestNo());		;
 		mangeQuestService.insertChoice(choice);
-		return "questForm";
+		return "round";
 	}
 
 }
