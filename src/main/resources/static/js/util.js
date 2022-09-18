@@ -40,7 +40,7 @@ function encode(code) {
 	return sha256(code);
 }
 
-function sessionCheck(){
+function session(){
 	$.ajax({
 		url:'/user/session',
 		type:'post',

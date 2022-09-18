@@ -10,75 +10,102 @@
 <link rel="stylesheet" href="css/mypage/mypage.css" />
 <link rel="stylesheet" href="css/main/footer.css" />
 <script src="js/script.js"></script>
-<script src="https://kit.fontawesome.com/267f657aa0.js"	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/267f657aa0.js"
+	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+tr>td {
+	text-align: center;
+}
+</style>
 <script th:inline="javascript">
-	function noSession(){
+	var user = JSON.parse('[[${session.user}]]');
+	var marker;
+	var item;
+
+	//세션 없으면 메인으로 돌아감
+	function noSession() {
 		alert('세션 없음');
-		location.href="/";
+		location.href = "/";
 	}
 
-    // default: 내 문제 - 내가 푼 문제
-    $(document).ready(function () {    	
-    	const day = 1000 * 60 * 60 * 24;
-    	var user = $('#userId').val();
-    	var now = new Date();
-    	var date;
-    	var diff;
-    	
-    	if(user == null)		noSession();
-    	
-    	date = new Date(user.regTime);    	
-    	diff = parseInt((now.getTime() - date.getTime()) / day);
-    	
-    	if(diff > 0 )		$('#joinDay').html(diff + "일 전 가입");
-		else	        	$('#joinDay').html("오늘 가입");    	
-    	
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });        
-    });
-     
-      function myQuestBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-quest.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });
-      }
+	//마커 표시
+	function indicator(e) {
+		marker.style.left = e.offsetLeft + "px";
+		marker.style.width = e.offsetWidth + "px";
+	}
 
-      function myActiveBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-activity.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });
-      }
+	function active(event) {
+		item.removeClass('active');
+		indicator(event);
+		$(event).addClass('active');
+	}
 
-      function myLevelBtn() {
-        $.ajax({
-          url: 'http://127.0.0.1:5500/mypage-level.html',
-          type: 'GET',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        });
-      } 
-    </script>
+	function myQuest(event, target){
+		active(event)
+		$.ajax({
+			url : '/quest/' + target + 'List',
+			type : 'post',
+			data : {
+				userId : user.userId
+			},
+			success : function(data) {
+				$('#replace-content').html(data);
+			},
+		});
+	}
+
+	function myReply(event) {
+		active(event);
+		$.ajax({
+			url : 'http://127.0.0.1:5500/mypage-activity.html',
+			type : 'GET',
+			success : function(data) {
+				$('#replace-content').html(data);
+			},
+		});
+	}
+	
+	// default: 내 문제 - 내가 푼 문제
+	$(document).ready(function() {
+		const day = 1000 * 60 * 60 * 24;
+		var now = new Date();
+		var date;
+		var diff;
+
+		if (user == null)
+			noSession();
+
+		date = new Date(user.regTime);
+		diff = parseInt((now.getTime() - date.getTime()) / day);
+
+		diff = diff > 0 ? diff + "일 전 가입" : "오늘 가입";
+		$('#joinDay').html(diff);
+
+		marker = document.querySelector(".marker");
+		item = $('.mypage__list p');
+
+		myQuest(item[0],'solved');
+	});
+
+	function myLevelBtn() {
+		$.ajax({
+			url : 'http://127.0.0.1:5500/mypage-level.html',
+			type : 'GET',
+			success : function(data) {
+				$('#replace-content').html(data);
+			},
+		});
+	}
+</script>
 </head>
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-	<input type="hidden" id="userId" th:value="${session.user}">
+	<input type="hidden" id="userId" th:value="${session.user?.userId}">
+	<input type="hidden" id="userRegTime"
+		th:value="${session.user?.regTime}">
 	<!-- mypage -->
 	<section id="mypage">
 		<!-- user profile -->
@@ -120,10 +147,10 @@
 		<!-- user activity -->
 		<nav class="mypage__list">
 			<!-- tab navigation -->
-			<p onclick="myQuest()" class="active">내가 푼 문제</p>
-			<p onclick="myActiveBtn()">내가 올린 문제</p>
-			<p onclick="myActiveBtn()">내 댓글</p>
-			<p onclick="myLevelBtn()">등급</p>
+			<p onclick="myQuest(this, 'solved')">내가 푼 문제</p>
+			<p onclick="myQuest(this, 'upload')">내가 올린 문제</p>
+			<p onclick="myReply(this)">내 댓글</p>
+			<p onclick="myLevelBtn(this)">등급</p>
 			<div class="marker" target="_blank"></div>
 		</nav>
 		<div id="navbar__divider"></div>
@@ -131,28 +158,6 @@
 		<!-- !!!!!!!! board 색깔 수정 필요 !!!!!!!!!! -->
 	</section>
 	<hr>
-	<script>
-        const marker = document.querySelector(".marker");
-        const item = document.querySelectorAll(".mypage__list p");
- 
-        function indicator(e) {
-        marker.style.left = e.offsetLeft + "px";
-        marker.style.width = e.offsetWidth + "px";
-
-        //   e.classList.remove('active');   
-        }
-
-        item.forEach((event) => { 
-            // event.currentTarget.classList.remove('active');   
-
-            event.addEventListener("click", (e) => {
-            indicator(e.target);
-            e.target.classList.add('active');
-
-            console.log(e.target);
-        });
-        });
-    </script>
 
 	<!-- footer -->
 	<div th:replace="layout/footer :: footer"></div>

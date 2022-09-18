@@ -1,10 +1,7 @@
 package dip.clever.controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,15 +25,12 @@ import dip.clever.service.UserService;
 
 @Controller
 public class ReplyController {
-
 	@Autowired
 	ReplyService replyservice;
 	@Autowired
 	UserService userservice;
 	@Autowired
 	MangeQuestService managequestservice;
-
-
 
 	// 댓글 리스트출력
 	@GetMapping("reply")
@@ -75,19 +69,20 @@ public class ReplyController {
 		replyservice.insertReply(reply);
 		return new ResponseEntity<String>(message, HttpStatus.CREATED);
 	}
+	
 	// 댓글 삭제 method
-		@PostMapping("/delete-reply/{id}")
-		public ResponseEntity<String> deleteReply(@PathVariable String id) {
-			String message = "삭제완료";
-			System.out.println(id);
-			// User user = userService.findSearchResult(id); 
-			// articleService.deleteAllArticleByUser(user);
-			// commentService.deleteCommentByUser(user);
-			replyservice.deleteReply(id);
+	@PostMapping("/delete-reply/{id}")
+	public ResponseEntity<String> deleteReply(@PathVariable String id) {
+		String message = "삭제완료";
+		System.out.println(id);
+		// User user = userService.findSearchResult(id); 
+		// articleService.deleteAllArticleByUser(user);
+		// commentService.deleteCommentByUser(user);
+		replyservice.deleteReply(id);
 
-			System.out.println("삭제완료");
-			return new ResponseEntity<>(message, HttpStatus.OK);
-		}
+		System.out.println("삭제완료");
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
 	
 		/*
 		 * @PostMapping("/modifyReply/{id}") public ResponseEntity<String>
@@ -98,32 +93,37 @@ public class ReplyController {
 		 * e.printStackTrace(); entity = new ResponseEntity<String>(e.getMessage(),
 		 * HttpStatus.BAD_REQUEST); } return entity; }
 		 */
-	// updateForm으로 넘겨주는 method
-		@PostMapping("/edit-reply/{id}")
-		public String updateCommentBtn(@PathVariable String id, Model model) {
-			Reply reply = replyservice.findReplyById(id);
-			System.out.println("=================> toString: " + reply.toString());
-			model.addAttribute("reply", reply);
-			return "edit_forms/edit-comment";
-		}
+// updateForm으로 넘겨주는 method
+	@PostMapping("/edit-reply/{id}")
+	public String updateCommentBtn(@PathVariable String id, Model model) {
+		Reply reply = replyservice.findReplyById(id);
+		System.out.println("=================> toString: " + reply.toString());
+		model.addAttribute("reply", reply);
+		return "edit_forms/edit-comment";
+	}
 
-		
-		  // 댓글 update query문을 실행하는 method
-		  
-		@Transactional
-		@PutMapping("/edit-reply2/{id}") 
-		public ResponseEntity<Reply> updateComment(@PathVariable String id, Reply reply1) {
-			System.out.println("======> setting 전: " + reply1.toString());
-			// 아이디를 통해서 수정 전 댓글을 가져옴
-			Reply reply = replyservice.findReplyById(id);
-			System.out.println(reply);
-			
-			reply.setContent(reply1.getContent());
-			
-			System.out.println("======> setting 후: " + reply.toString());
-			replyservice.modifyReply(reply);
-			return new ResponseEntity<Reply>(reply1, HttpStatus.OK);
-		}
-		 
 	
+	  // 댓글 update query문을 실행하는 method
+	  
+	@Transactional
+	@PutMapping("/edit-reply2/{id}") 
+	public ResponseEntity<Reply> updateComment(@PathVariable String id, Reply reply1) {
+		System.out.println("======> setting 전: " + reply1.toString());
+		// 아이디를 통해서 수정 전 댓글을 가져옴
+		Reply reply = replyservice.findReplyById(id);
+		System.out.println(reply);
+		
+		reply.setContent(reply1.getContent());
+		
+		System.out.println("======> setting 후: " + reply.toString());
+		replyservice.modifyReply(reply);
+		return new ResponseEntity<Reply>(reply1, HttpStatus.OK);
+	}
+		 
+//	@PostMapping("/reply/{userId}")
+//	public String myReply(Model model, @PathVariable String userId) {
+//		model.addAttribute("rep")
+//		
+//		return "/mypage/activity/mypage-reply";
+//	}
 }

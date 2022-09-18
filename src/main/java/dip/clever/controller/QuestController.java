@@ -1,6 +1,5 @@
 package dip.clever.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import dip.clever.model.Action;
 import dip.clever.model.Choice;
@@ -60,13 +61,17 @@ public class QuestController {
 		return "quest";
 	}	
 	@PostMapping("/quest/solvedList")
-	public ResponseEntity<List<Quest>> selectSolvedList(User user) {
-		return Util.resoponse(questService.selectSolvedList(user));
+	public String selectSolvedList(Model model, User user) {
+		model.addAttribute("solvedList", questService.selectSolvedList(user));
+		System.out.println(questService.selectSolvedList(user));
+		return "/quest/solve-quest";
 	}
 	
 	@PostMapping("/quest/uploadList")
-	public ResponseEntity<List<Quest>> selectUploadList(User user){
-		return Util.resoponse(questService.selectUploadList(user));
+	public String selectUploadList(Model model, User user){
+		model.addAttribute("uploadList", questService.selectUploadList(user));
+		
+		return "/quest/upload-quest";		
 	}
 	
 	@PostMapping("/quest/next")

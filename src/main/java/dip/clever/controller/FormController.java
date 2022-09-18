@@ -79,17 +79,12 @@ public class FormController {
 
 		return "redirect:";
 	}
-//	
-//	//로그아웃
-//	@RequestMapping("logout")
-//	public String logout(HttpServletRequest httpServletRequest) {
-//		HttpSession httpSession = httpServletRequest.getSession(false);
-//		
-//		if(httpSession != null)
-//			httpSession.invalidate();
-//		
-//		return "redirect:";
-//	}
+	
+	// mypage 반환
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
+	}
 //	
 //	//게시판 생성 폼으로 이동
 //	@GetMapping("create")

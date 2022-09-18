@@ -10,12 +10,6 @@
 	integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-	function solvedQuestBtn(){
-		$.ajax({
-			url:''
-		})
-	}
-
       $(document).ready(function () {
         $.ajax({
           url: 'http://127.0.0.1:5500/solved-quests.html',
@@ -48,10 +42,10 @@
     </script>
 </head>
 <body>
-	<nav id="myquest">
+<!-- 	<nav id="myquest">
 		<h2 onclick="solvedQuestBtn()">내가 푼 문제</h2>
 		<h2 onclick="wroteQuestBtn()">내가 올린 문제</h2>
-	</nav>
+	</nav> -->
 	<div id="replace"></div>
 </body>
 </html>
