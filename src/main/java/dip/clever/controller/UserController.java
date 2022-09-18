@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dip.clever.model.Role;
 import dip.clever.model.Action;
 import dip.clever.model.Log;
 import dip.clever.model.User;
@@ -148,17 +149,18 @@ public class UserController {
 		System.out.println(action);
 		System.out.println(id);
 		if (action.equals("add")) {
-//			userService.updateManager(id);
-//			User user = userService.findUserById(id);
-//			user.setRole(Role.);
-//			userService.saveUser(user);
-			message = "매니저로 임명";
+			userService.updateManager(id);
+			User user = userService.findUserById(id);
+			user.setUserRole(Role.MANAGER);
+			userService.insertUser(user);
+			
+			
 		} else if (action.equals("remove")) {
-//			userService.updateUser(id);
-//			User user = userService.findUserById(id);
-//			user.setRole(Role.ROLE_USER);
-//			userService.saveUser(user);
-			message = "유저로강등";
+			userService.updateUser(id);
+			User user = userService.findUserById(id);
+			user.setUserRole(Role.USER);
+			userService.insertUser(user);
+			
 		}
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}

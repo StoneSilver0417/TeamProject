@@ -73,7 +73,8 @@
 				type : 'POST',
 				data : {},
 				success : function(data) {
-					alert(data);
+					alert('댓글이 삭제되었습니다.')
+					location.href = '/quest';
 				},
 			});
 		}
@@ -98,17 +99,21 @@
 		})
 	}
 	function sendCommentBtn() {
+		var no = $('#questNo').val();
 		$.ajax({
 			url : "/insertReply",
 			type : "POST",
 			//dataType : "text",
 			//contentType : "application/json",
 			data : {
-				content : $('#reply_content').val()
+				content : $('#reply_content').val(),
+				questNo : no,
+				RegUser :  $('#RegUser').val()
 			},
 			success : function(message) {
 				alert(message);
 				alert('저장 성공!');
+				location.href='/quest/' + no;
 			},
 			error : function(data) {
 				alert('저장 실패!');
@@ -119,6 +124,7 @@
 	function Goedit(button) {
 		var input = confirm('댓글을 수정하시겠습니까?');
 		var id = button.value;
+		var no = $('#questNo2').val();
 		
 		$.ajax({
 			url : "/edit-reply/" + id,
@@ -132,12 +138,14 @@
 					.find('.replace-commentEdit').html(data);
 			},
 			error : function() {
-				alert("qweqweqwe")
+				alert("수정 완료")
+				location.href='/quest/' + no;
 			}
 		});
 	}
 	
 	function deleteReply(id) {
+		var no = $('#questNo3').val();
 		var input = confirm('댓글을 삭제하시겠습니까?');
 		if (input == true) {
 			$.ajax({
@@ -146,7 +154,7 @@
 				data : {},
 				success : function(data) {
 					alert('삭제완료')
-					location.href = '/reply';
+					location.href='/quest/' + no;
 				},
 			});
 		}
@@ -178,10 +186,10 @@
 	<!-- quest: 현재 문제 내용 출력 -->
 	<div id="quest">
 		<div class="questNumAndQuestContent">
-			<p class="questInfo"> 
-				<span class="questNum" th:text="${quest.questSeq}">30</span>
-				<span class="questNum">.</span>
-				<span class="questContent" th:text="${quest.questContent}"> </span> 
+			<p class="questInfo">
+				<span class="questNum" th:text="${quest.questSeq}">30</span> <span
+					class="questNum">.</span> <span class="questContent"
+					th:text="${quest.questContent}"> </span>
 			</p>
 		</div>
 
@@ -223,7 +231,7 @@
 
 	<div id="comment" th:if="${session.user != null}">
 		<!-- write comment -->
-		<div id="writeComment">
+		<div id="writeComment" th:value="${quest.questNo}">
 			<!-- user info -->
 			<div class="user__profile">
 				<!-- 프로필 사진 -->
@@ -232,23 +240,25 @@
 						th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" />
 				</div>
 				<!-- 이름 -->
-				<!-- <p th:text="${info.userNickname}" id="profile__name">오다원</p> -->
+				<p th:text="${session.user.userNickname}" id="profile__name">오다원</p>
 				<!-- 레벨 -->
 				<div id="profile__badge">
-					<!-- <img th:if="${info.userExp} >= 300" src="imgs/badge/master.svg" /><img
-						th:if="${info.userExp} >= 100" src="imgs/badge/level2.svg" /><img
-						th:if="${info.userExp} >= 50" src="imgs/badge/level1.svg" /><img
-						th:if="${info.userExp} >= 0" src="imgs/badge/new.svg" /> -->
+					<img th:if="${session.user.userExp} >= 300"
+						src="imgs/badge/master.svg" /><img
+						th:if="${session.user.userExp} >= 100" src="imgs/badge/level2.svg" /><img
+						th:if="${session.user.userExp} >= 50" src="imgs/badge/level1.svg" /><img
+						th:if="${session.user.userExp} >= 0" src="imgs/badge/new.svg" />
 				</div>
 			</div>
 			<!-- write comment form -->
-			<textarea class="writeForm" placeholder="댓글을 작성해주세요."></textarea>
-
+			<textarea class="writeForm" id="reply_content" placeholder="댓글을 작성해주세요."></textarea>
 			<!-- send button -->
 			<div id="sendBtn">
-				<input type="button" onclick="sendCommentBtn()" id="sendCommentBtn"
-					value="전송" />
+				<input type="button" onclick="sendCommentBtn()" id="sendCommentBtn" value="전송" />
+				<input type="hidden" id="questNo" th:value="${quest.questNo}">
+				<input type="hidden" id="RegUser" th:value="${session.user.userId}">
 			</div>
+
 		</div>
 
 		<ul id="commentList">
@@ -256,8 +266,8 @@
 				<!-- user info --> <!-- 프로필 사진 -->
 				<div class="comment__content">
 					<div class="leftWrapper">
-						<div class="profile__img"> 
-							<img th:src="${'/imgs/profile/user/' + reply.REG_USER + '.png'}" /> 
+						<div class="profile__img">
+							<img th:src="${'/imgs/profile/user/' + reply.REG_USER + '.png'}" />
 						</div>
 						<!-- 유저 이름/등급 / 댓글 내용 -->
 						<div class="userInfoAndCommentWrapper">
@@ -285,10 +295,13 @@
 					<div onclick="replyOnclick(this)" class="comment__actions">
 						<i class="fa-solid fa-ellipsis-vertical"></i>
 						<div id="replyDropdown" class="reply-dropdown">
-							<ul> 
-								<li><button th:onclick="Goedit(this)" th:value="${reply.REPLY_NO}"
-										style="display: block;">수정</button></li>
-								<li th:onclick="deleteReply([[${reply.REPLY_NO}]])">삭제</a> 
+							<ul>
+								<li><button th:onclick="Goedit(this)"
+										th:value="${reply.REPLY_NO}" style="display: block;">수정</button>
+										<input type="hidden" id="questNo2" th:value="${reply.QUEST_NO}">
+								</li>
+								<li th:onclick="deleteReply([[${reply.REPLY_NO}]])">삭제</a>
+								<input type="hidden" id="questNo3" th:value="${reply.QUEST_NO}">
 								</li>
 							</ul>
 						</div>
