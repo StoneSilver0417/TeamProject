@@ -9,7 +9,17 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/quest/questForm.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
+<script src="/js/script.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+
 </head>
+<script type="text/javascript">
+	window.history.forward();
+
+	function noBack() {
+		window.history.forward();
+	}
+</script>
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
@@ -24,13 +34,13 @@
 		<form action="/quest/insertQuest" method="post" id="insertQuest">
 			<input type="hidden" name="roundNo" th:value="${round.roundNo}" /> <label
 				for="roundName">시험 회차</label> <input name="roundName"
-				value="2022년 2회차" readonly />
-			<!-- <input name="roundName"
-          th:value="${round.roundName}" readonly> -->
-
-			<label for="questSeq">문제 번호 <span>*</span></label> <input
-				type="number" min="1" name="questSeq" required /> <label
-				for="questContent">문제 내용 <span>*</span></label>
+				th:value="${round.roundName}" readonly /> <label for="questSeq">문제
+				번호 <span>*</span>
+			</label> <input type="number" min="1" name="questSeq" required /> <label
+				for="questSeq">문제 번호 <span>*</span></label> <input type="number"
+				min="1" name="questSeq" required /> <label for="questContent">문제
+				내용 <span>*</span>
+			</label>
 			<textarea id="questContent" name="questContent"
 				placeholder="문제를 입력해주세요." required></textarea>
 			<label for="c1">선지 1 <span>*</span></label> <input
@@ -42,8 +52,7 @@
 				placeholder="4번 내용을 입력해주세요." type="text" name="c4" /> <label
 				for="c5">선지 5</label> <input placeholder="5번 내용을 입력해주세요."
 				type="text" name="c5" /> <label for="answer">정답 <span>*</span></label>
-			<input placeholder="내용을 입력해주세요." type="text" name="answer"
-				required />
+			<input placeholder="내용을 입력해주세요." type="text" name="answer" required />
 			<div class="buttonWrapper">
 				<button type="submit" id="submitBtn">등록</button>
 			</div>
