@@ -18,7 +18,7 @@
 			data : {
 				testNo : $('#testNo').attr('value')
 			},
-			success : function(data) {
+			success : function(data) {				
 				$('#roundCount').html(data.length);
 				$.ajax({
 					url : '/round',
@@ -47,12 +47,7 @@
 				<div id="info__manager">
 					<p>담당 매니저:</p>
 					<p>manager33</p>
-				</div>					
-				<li>
-					<span>총</span>
-					<span id="roundCount"></span>
-					<span>회</span>
-				</li>
+				</div>
 			</div>
 			<section th:if="${session.user != null}"
 				th:with="info = ${session.user}">

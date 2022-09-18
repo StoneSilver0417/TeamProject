@@ -4,21 +4,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			url:'/quest2/list',
-			type:'post',
-			data:{roundNo:$('#roundNo').val()},
-			success:function(data){
-				console.log(JSON.stringify(data))
-				$('#questList').html(data);
-			}
-		})
-	})	
-</script>
 </head>
-<body>
+<body>					
+	<li>
+		<span>총</span>
+		<span th:text="${roundList.size}"></span>
+		<span>회</span>
+	</li>
 	<ul class="category__list">
 		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
 			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
