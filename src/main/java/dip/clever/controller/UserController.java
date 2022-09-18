@@ -47,7 +47,15 @@ public class UserController {
 	public ResponseEntity<Boolean> checkEmail(User user) {
 		return Util.resoponse(!userService.findUserEmail(user));
 	}
+	
+	// 패스워드 체크
+	@PostMapping("/user/checkPassword")
+	public ResponseEntity<Boolean> checkPassword(User user) {
+		return Util.resoponse(userService.selectUser(user) != null);
+	}
 
+	
+	
 	// 유저 리스트출력
 	@GetMapping("/authority")
 	public String checkAll(Model model) {
@@ -220,6 +228,9 @@ public class UserController {
 	// 비밀번호 수정
 	@PostMapping("/edit-pwd")
 	public ResponseEntity<String> editPwd(User user, HttpServletRequest httpServletRequest) {
+		String pwd = user.getUserPwd();
+		user = (User) httpServletRequest.getSession().getAttribute("user");
+		user.setUserPwd(pwd);
 		userService.editUserPwd(user);
 		String message = "비밀번호가 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
