@@ -79,6 +79,7 @@
 		INNER JOIN	TB_ROUND		AS T2
 			ON			T1.ROUND_NO = T2.ROUND_NO
 		WHERE		QUEST_NO > #{questNo}
+		AND			T1.ROUND_NO = 1
 		ORDER BY	QUEST_NO
 		LIMIT 1
 	</select>
