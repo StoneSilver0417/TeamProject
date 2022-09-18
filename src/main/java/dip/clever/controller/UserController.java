@@ -5,7 +5,7 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private LogService logService;
-	
+  
 	// 아이디 중복 체크
 	@PostMapping("/user/checkId")
 	public ResponseEntity<Boolean> checkId(User user) {
@@ -43,7 +43,7 @@ public class UserController {
 	// 닉네임 중복 체크
 	@PostMapping("/user/checkName")
 	public ResponseEntity<Boolean> checkName(User user) {
-		return Util.resoponse(!userService.findUserNickname(user));		
+		return Util.resoponse(!userService.findUserNickname(user));
 	}
 
 	// 이메일 체크
@@ -51,7 +51,7 @@ public class UserController {
 	public ResponseEntity<Boolean> checkEmail(User user) {
 		return Util.resoponse(!userService.findUserEmail(user));
 	}
-	
+  
 	// 회원가입 메소드
 	@PostMapping("/user/join")
 	public String join(HttpSession httpSession, Model model, User user) {
@@ -97,7 +97,8 @@ public class UserController {
 			return "mypage/settings/settings-account";
 		}
 	}
-
+  
+  
 	// 유저 리스트출력
 	@GetMapping("/authority")
 	public String checkAll(Model model) {
@@ -113,11 +114,11 @@ public class UserController {
 	@PostMapping("/manageUser/search-user/{keyword}")
 	public String searchUser(@PathVariable String keyword, Model model) {
 		System.out.println(keyword);
-		
+
 		System.out.println(userService.findSearchResult(keyword));
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
-		
+
 	}
 
 	// 유저 영구 삭제 method
@@ -196,53 +197,55 @@ public class UserController {
 	// 계정 설정 - 회원 탈퇴
 	@PostMapping("/deleteAccount")
 	public String deleteAccount(User user, HttpServletRequest httpServletRequest) {
-		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user = (User) httpServletRequest.getSession().getAttribute("user");
 		System.out.println(user);
 		userService.deleteAccount(user);
-		
+
 		HttpSession httpSession = httpServletRequest.getSession(false);
 		if (httpSession != null)
 			httpSession.invalidate();
 		return "redirect:";
 	}
-	
-	// 미리보기 사진 임시 저장
+  
+	// 미리보기 사진 임시 저장  
 	@PostMapping("/user/uploadTemp")
-	public ResponseEntity<Boolean> uploadTemp(HttpSession httpSession, @RequestParam("profileImage") MultipartFile file){		
-		final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\temp\\";	
-		
+	public ResponseEntity<Boolean> uploadTemp(HttpSession httpSession,
+			@RequestParam("profileImage") MultipartFile file) {
+		final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\temp\\";
+
 		return Util.resoponse(uploadImage(httpSession, file, path));
 	}
-	
+
 	@PostMapping("/user/uploadProfile")
-	public ResponseEntity<Boolean> uploadProfile(HttpSession httpSession, @RequestParam("profileImage") MultipartFile file){
+	public ResponseEntity<Boolean> uploadProfile(HttpSession httpSession,
+			@RequestParam("profileImage") MultipartFile file) {
 		final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\user\\";
-		
+
 		return Util.resoponse(uploadImage(httpSession, file, path));
 	}
-	
+
 	private boolean uploadImage(HttpSession httpSession, MultipartFile file, String path) {
-		User user = (User)httpSession.getAttribute("user");	
-		
-		if(user == null|| file.getSize() == 0)
+		User user = (User) httpSession.getAttribute("user");
+
+		if (user == null || file.getSize() == 0)
 			return false;
-		
+
 		path += user.getUserId() + ".png";
-		
+
 		return Util.uploadFile(getInputStream(file), path);
 	}
-	
-	private InputStream getInputStream (MultipartFile file) {
+
+	private InputStream getInputStream(MultipartFile file) {
 		InputStream inputStream = null;
 		try {
-			 inputStream = file.getInputStream();
+			inputStream = file.getInputStream();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return inputStream;
 	}
-
+  
 	// 프로필 랜덤 배정
 	private void randomProfile(User user) {
 		String inPath = Util.path + "illustration-";
@@ -254,13 +257,13 @@ public class UserController {
 		
 		Util.uploadFile(Util.getFileInputStream(inPath), outPath);
 	}
-	
+  
 	// 개인정보 수정
 	// 이름 수정
 	@PostMapping("/update-name")
 	public ResponseEntity<String> editName(User user, HttpServletRequest httpServletRequest) {
 		String name = user.getUserNickname();
-		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user = (User) httpServletRequest.getSession().getAttribute("user");
 		user.setUserNickname(name);
 		userService.editUserName(user);
 		String message = "이름이 변경되었습니다.";
@@ -271,13 +274,13 @@ public class UserController {
 	@PostMapping("/edit-email")
 	public ResponseEntity<String> editEmail(User user, HttpServletRequest httpServletRequest) {
 		String email = user.getUserEmail();
-		user = (User)httpServletRequest.getSession().getAttribute("user");
+		user = (User) httpServletRequest.getSession().getAttribute("user");
 		user.setUserEmail(email);
 		userService.editUserEmail(user);
 		String message = "이메일이 변경되었습니다.";
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
-	
+
 	// 비밀번호 수정
 	@PostMapping("/edit-pwd")
 	public ResponseEntity<String> editPwd(User user, HttpServletRequest httpServletRequest) {

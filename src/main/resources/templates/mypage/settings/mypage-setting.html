@@ -5,10 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clever</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/main/header.css" />
-<link rel="stylesheet" href="css/mypage/mypage-setting.css">
-<link rel="stylesheet" href="css/main/footer.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main/header.css" />
+<link rel="stylesheet" href="/css/mypage/mypage-setting.css">
+<link rel="stylesheet" href="/css/main/footer.css" />
 <script src="js/script.js"></script>
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
@@ -17,7 +17,7 @@
     // default: 프로필
     $(document).ready(function () {
         $.ajax({
-          url: '/settings-profile',
+          url: '/mypage/setting-profile',
           type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);
@@ -27,7 +27,7 @@
 
     function settingCategoryBtn(category) {
         $.ajax({
-          url: '/settings-' + category,
+          url: '/mypage/setting-' + category,
           type: 'POST',
           success: function (data) {
             $('#replace-content').html(data);

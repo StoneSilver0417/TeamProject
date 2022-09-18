@@ -130,7 +130,7 @@ hr {
   
   width: 100%;
   max-width: 1160px;
-}
+} 
   
 #test__info > form > button {
   display: inline-flex;
@@ -340,7 +340,7 @@ hr {
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  margin: 0.01rem 10px 0 -0.5rem;
+  margin: 0.01rem 10px 10px -0.5rem;
 
   border-color: var(--color-black);
   border-radius: 100%;
@@ -370,13 +370,69 @@ hr {
   font-weight: 500;
 } 
 
+#noQuestContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1160px;
+
+  padding: 180px;
+
+  background: none;
+
+  color: var(--color-black);
+}
+
+#noQuestContent img {
+  padding-right: 58px;
+
+  transition: var(--transition-default);
+}
+
+#noQuestContent img:hover {
+  transform: scale(0.8);
+}
+
+#noQuestContent .describe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#noQuestContent > .describe h1 {
+  font-family: 'Clash Display';
+  font-size: 60px;
+  font-weight: 600;
+
+  padding-bottom: 48px;
+}
+
+#noQuestContent > .describe h2 {
+  font-size: var(--font-big);
+  font-weight: 600;
+  
+  padding-bottom: 12px;
+}
+
+#noQuestContent > .describe h3 {
+  font-size: var(--font-xlarge);
+  font-weight: 500;
+}
+
 /* Responsible Web */
 @media screen and (max-width: 1270px) {
   #questList {
-    padding: 48px 50px 20px 50px;
+    padding: 0 50px;
   }
 
   #testDetails {
     padding: 18px 50px 10px 50px;
+  }
+
+  #noQuestContent {
+    padding: 100px 50px;
   }
 }

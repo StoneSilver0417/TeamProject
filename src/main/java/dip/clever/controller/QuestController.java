@@ -86,7 +86,7 @@ public class QuestController {
 		Integer[] solvedQuest = questService.checkAnswer(Json.parse(param));
 		User user = (User)httpSession.getAttribute("user");
 		Log log;
-				
+
 		if(user != null) {
 			for(int sq : solvedQuest) {
 				log = new Log(user.getUserId(), Action.SOLVED, sq);
