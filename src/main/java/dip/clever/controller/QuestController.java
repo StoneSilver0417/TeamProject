@@ -22,12 +22,14 @@ import dip.clever.model.Quest;
 import dip.clever.model.Round;
 import dip.clever.model.User;
 import dip.clever.service.LogService;
+import dip.clever.service.MangeQuestService;
 import dip.clever.service.QuestService;
 import dip.clever.service.ReplyService;
 import dip.clever.util.Json;
 import dip.clever.util.Util;
 
 @Controller
+@RequestMapping("quest")
 public class QuestController {
 	@Autowired
 	private QuestService questService;
@@ -35,8 +37,10 @@ public class QuestController {
 	private LogService logService;
 	@Autowired
 	private ReplyService replyservice;
+	@Autowired
+	private MangeQuestService mangeQuestService;
 	
-	@PostMapping("/quest")
+	@PostMapping("")
 	public String quest(Model model, @RequestParam HashMap<String, String> param){
 		model.addAttribute("questList", Json.parse(param.get("param")));
 		System.out.println(param);
@@ -45,12 +49,12 @@ public class QuestController {
 	}
 	
 	//시험 목록 반환
-	@PostMapping("/quest/select")
+	@PostMapping("select")
 	public ResponseEntity<List<Quest>> questList(Round round) {
 		return Util.resoponse(questService.selectQuestList(round));		
 	}
 	
-	@GetMapping("/quest/{no}")
+	@GetMapping("{no}")
 	public String quest(Model model, @PathVariable int no) {
 		Quest quest = new Quest();
 		
@@ -66,28 +70,28 @@ public class QuestController {
 		
 		return "quest";
 	}	
-	@PostMapping("/quest/solvedList")
+	@PostMapping("solvedList")
 	public String selectSolvedList(Model model, User user) {
 		model.addAttribute("solvedList", questService.selectSolvedList(user));
 		System.out.println(questService.selectSolvedList(user));
 		return "/quest/solve-quest";
 	}
 	
-	@PostMapping("/quest/uploadList")
+	@PostMapping("uploadList")
 	public String selectUploadList(Model model, User user){
 		model.addAttribute("uploadList", questService.selectUploadList(user));
 		
 		return "/quest/upload-quest";		
 	}
 	
-	@PostMapping("/quest/next")
+	@PostMapping("next")
 	public ResponseEntity<Integer> nextQuest(Quest quest) {
 		Integer no = questService.selectNextQuest(quest);		
 		
 		return Util.resoponse(no != null ? no : 0);
 	}
 	
-	@PostMapping("/quest/check")
+	@PostMapping("check")
 	public ResponseEntity<Integer[]> checkAnswer(HttpSession httpSession, String param){
 		Integer[] solvedQuest = questService.checkAnswer(Json.parse(param));
 		User user = (User)httpSession.getAttribute("user");
@@ -103,25 +107,22 @@ public class QuestController {
 		
 		return Util.resoponse(solvedQuest);
 	}
-	@PostMapping("/solve-quest")
-	public String solveQuest() {
-		return "quest/solve-quest";
-	}
 
-	@RequestMapping("/solve-quest/num")
-	public String solveQuestDetails() {
- 		return "quest/quest-detail";
-	}
-
-	@PostMapping("/edit-reply")
-	public String editReply() {
-		System.out.println("asdadasd");
+	// 문제등록
+	@PostMapping("insertQuest")
+	public String insertQuest(Model model, Choice choice, Quest quest) {
+		Round round = new Round();
+		round.setRoundNo(quest.getRoundNo());
+		model.addAttribute("round", mangeQuestService.selectRound(round));
+		quest.setRoundNo(quest.getRoundNo());
+		mangeQuestService.insertQuest(quest);
+		choice.setQuestNo(mangeQuestService.selectQuestNo());
+		mangeQuestService.insertChoice(choice);
 		
-		return "edit_forms/edit-reply";
+		return "redirect:/round/" + quest.getRoundNo();
 	}
 	
 	private Choice selectChoice(Quest quest) {
 		return questService.selectChoice(quest);
-	}
-	
+	}	
 }
