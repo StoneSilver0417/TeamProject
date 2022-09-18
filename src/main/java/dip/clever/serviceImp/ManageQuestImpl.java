@@ -33,7 +33,7 @@ public class ManageQuestImpl implements MangeQuestService {
 	
 	// 선지번호 선택
 	@Override
-	public Integer selectQuestNo() {
+	public int selectQuestNo() {
 		return manageQuestMapper.selectQuestNo();
 	}
 
