@@ -27,12 +27,12 @@ public class QuestServiceImp implements QuestService{
 	}
 	
 	@Override
-	public List<Quest> selectSolvedList(User user) {
+	public List<Map<String, Object>> selectSolvedList(User user) {
 		return questMapper.selectSolvedList(user.getUserId());
 	}
 
 	@Override
-	public List<Quest> selectUploadList(User user) {
+	public List<Map<String, Object>> selectUploadList(User user) {
 		return questMapper.selectUploadList(user.getUserId());
 	}
 	

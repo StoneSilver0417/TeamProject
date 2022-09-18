@@ -71,8 +71,8 @@ public class UserController {
 		
 		user = userService.selectUser(user);
 		if (user == null) {
-			model.addAttribute("loginError", true);			
-			
+			model.addAttribute("loginError", true);	
+
 			return "loginForm";
 		}
 		httpSession.setAttribute("user", user);
@@ -80,12 +80,6 @@ public class UserController {
 		logService.insertLog(log);
 
 		return "redirect:/";
-	}
-	
-	// mypage 반환
-	@RequestMapping("/mypage")
-	public String mypage() {
-		return "mypage/mypage";
 	}
 
 	// mypage - 개인정보 수정

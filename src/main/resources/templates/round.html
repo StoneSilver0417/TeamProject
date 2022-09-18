@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
@@ -65,12 +64,16 @@
 		this.answer = ans;
 	}
 
+	function changeTextColor(object, color){
+		object.parents('.quest').find('.questContent').css('backgroundColor', color);
+	}
+	
 	function check(){
 		var answer = [];
 		var name;
 		var no;
 		var ans;
-		var ol = $('.c');
+		var ol = $('.questChoices');
 
 		for(var o of ol){
 			no = $(o).attr('value');			
@@ -84,14 +87,11 @@
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				var i = 0;
-
-				//alert(ol.parents('.quest').find);
-				ol.parents('.quest').find('.questContent').css('backgroundColor', 'red');
+				changeTextColor(ol, 'red');				
 				for(var d of data){					
-					var o = $('.c[value=' + d + ']');
+					var o = $('.questChoices[value=' + d + ']');
 
-					o.parents('.quest').find('.questContent').css('backgroundColor','white');
+					changeTextColor(o, 'white');					
 				}
 			}
 		})
