@@ -41,7 +41,7 @@ tr>td {
 		$(event).addClass('active');
 	}
 
-	function myQuest(event, target){
+	function myQuest(event, target) {
 		active(event)
 		$.ajax({
 			url : '/quest/' + target + 'List',
@@ -58,14 +58,14 @@ tr>td {
 	function myReply(event) {
 		active(event);
 		$.ajax({
-			url : 'http://127.0.0.1:5500/mypage-activity.html',
+			url : '/mypage-activity.html',
 			type : 'GET',
 			success : function(data) {
 				$('#replace-content').html(data);
 			},
 		});
 	}
-	
+
 	// default: 내 문제 - 내가 푼 문제
 	$(document).ready(function() {
 		const day = 1000 * 60 * 60 * 24;
@@ -85,13 +85,13 @@ tr>td {
 		marker = document.querySelector(".marker");
 		item = $('.mypage__list p');
 
-		myQuest(item[0],'solved');
+		myQuest(item[0], 'solved');
 	});
 
 	function myLevelBtn() {
 		$.ajax({
-			url : 'http://127.0.0.1:5500/mypage-level.html',
-			type : 'GET',
+			url : '/mypage/level', 
+			type : 'POST',
 			success : function(data) {
 				$('#replace-content').html(data);
 			},
