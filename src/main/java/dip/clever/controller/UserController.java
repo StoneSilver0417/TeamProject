@@ -125,7 +125,6 @@ public class UserController {
 		System.out.println(userService.findSearchResult(keyword));
 		model.addAttribute("userList", userService.findSearchResult(keyword));
 		return "AuthoritySearchResult";
-
 	}
 
 	// 유저 영구 삭제 method
@@ -219,7 +218,7 @@ public class UserController {
 	public ResponseEntity<Boolean> uploadTemp(HttpSession httpSession,
 			@RequestParam("profileImage") MultipartFile file) {
 		final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\temp\\";
-
+		System.out.println(file);
 		return Util.resoponse(uploadImage(httpSession, file, path));
 	}
 

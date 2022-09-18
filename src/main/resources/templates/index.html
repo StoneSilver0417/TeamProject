@@ -205,12 +205,9 @@
 		  repeater();
 		});
     </script>
- 	 <!--   <span th:if="${#authentication.name} == ${board?.user.username}"> -->
-
- 	 
-		 <button th:if="${session.user?.userRole.toString() == 'ADMIN'}">
-			<a href="/authority">Authority</a>
-		</button>
+	<button th:if="${session.user?.userRole?.toString() == 'ADMIN'}">
+         <a href="/authority">Authority</a>
+    </button>
 		
 	<!-- </span> -->
 		<button>

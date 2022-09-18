@@ -30,7 +30,6 @@ th, td {
 	integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
-	<h1 id="ranked__title">내 댓글</h1>
 	<!-- <h1 id="ranked__title">내 댓글</h1> -->
 	<table>
 		<tr>
@@ -40,6 +39,7 @@ th, td {
 			<th>댓글 내용</th>
 			<th>등록 시간</th>
 		</tr>
+		<tr></tr>
 		<tr th:each="reply:${replyList}">
 			<td th:text="${reply.TEST_NAME}"></td>
 			<td th:text="${reply.ROUND_NAME}"></td>
