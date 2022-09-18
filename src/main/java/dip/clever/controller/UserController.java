@@ -154,7 +154,6 @@ public class UserController {
 			user.setUserRole(Role.MANAGER);
 			userService.insertUser(user);
 			
-			
 		} else if (action.equals("remove")) {
 			userService.updateUser(id);
 			User user = userService.findUserById(id);

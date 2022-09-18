@@ -206,9 +206,17 @@
 		});
     </script>
  	 <!--   <span th:if="${#authentication.name} == ${board?.user.username}"> -->
+
+ 	 
+		 <button th:if="${session.user?.userRole.toString() == 'ADMIN'}">
+			<a href="/authority">Authority</a>
+		</button>
+		
+	<!-- </span> -->
 		<button>
-			<a href="/authority">Authority</a> 
-		</button>  
+			<a href="/reply">reply</a>
+		</button>
+
 	<!-- section: board list -->
 	<section id="boardList">
 		<div class="popularBoard boardList__list">
