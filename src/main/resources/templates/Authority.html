@@ -111,8 +111,8 @@
 					<img class="header__toolbar"> <img class="header__icon">
 				</div>
 				<!-- search user content -->
-				<div class="searchUserInput">
-					<input placeholder="검 색" id="keyword" maxlength="255" />
+				<div class="searchUserInput"> 
+					<input placeholder="검 색" id="keyword" maxlength="255" /> 
 					<button type="submit" id="userSearchBtn" class="btn">검색</button>
 				</div>
 			</form>
@@ -137,8 +137,8 @@
 						<td th:text="${list.userExp}"></td>
 						<td>
 							<button th:if="${#strings.equals(list.userRole, 'USER')}"
-								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
-								class="addManagerBtn btn">매니저 등록</button>
+ 								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
+  								class="addManagerBtn btn">매니저 등록</button>
 
 							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
 								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
@@ -146,7 +146,7 @@
 
 							<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
 								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
-								class="deleteUserBtn btn">회원정지</button>
+ 								class="deleteUserBtn btn">회원정지</button> 
 						</td>
 					</tr>
 				</tbody>

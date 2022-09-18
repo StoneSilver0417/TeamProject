@@ -5,10 +5,11 @@
 <mapper namespace="dip.clever.mapper.TestMapper">
 	<!-- 카테고리의 시험 목록 불러오기 -->
 	<select id="selectTestList" parameterType="int" resultMap="test">
-		SELECT	*
-		FROM	TB_TEST
-		WHERE	CATEGORY_NO = #{categoryNo}
-		AND		USE_F = 'Y'
+		SELECT		*
+		FROM		TB_TEST
+		WHERE		CATEGORY_NO = #{categoryNo}
+		AND			USE_F = 'Y'
+		ORDER BY	TEST_NAME	DESC
 	</select>
 	
 	<!-- 해당 번호의 시험 정보 불러오기 -->

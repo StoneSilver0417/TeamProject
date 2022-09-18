@@ -25,12 +25,12 @@
 	<ul class="category__list">
 		<li>
 			<p>총</p>
-			<p></p>
+			<p th:text="${roundList.size}"></p>
 			<p>회</p>
 		</li>
 		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
 			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
-			</a>
+		</a>
 		</li>
 	</ul>
 	<div id="questList"></div>

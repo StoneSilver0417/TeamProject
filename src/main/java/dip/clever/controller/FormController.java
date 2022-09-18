@@ -85,16 +85,14 @@ public class FormController {
 	public String mypage() {
 		return "mypage/mypage";
 	}
-//	
-//	//게시판 생성 폼으로 이동
-//	@GetMapping("create")
-//	public String createForm(HttpServletRequest httpServletRequest) {
-//		User user = (User)httpServletRequest.getSession().getAttribute("user");
-//				
-//		if(user == null || boardRepository.findByManager(user.getId()) != null)
-//			return home();
-//		return "createForm";
-//	}
+
+	@PostMapping("/edit-reply")
+	public String editReply() {
+		System.out.println("asdadasd");
+		
+		return "edit_forms/edit-reply";
+	}
+
 //	
 //	//변경 폼으로 이동
 //	@GetMapping("modify")

@@ -9,6 +9,7 @@
 		FROM		TB_ROUND
 		WHERE		TEST_NO = #{testNo}
 		AND			USE_F = 'Y'
+		ORDER BY	ROUND_NAME	DESC
 	</select>
 	
 	<select id="selectRound" parameterType="int" resultMap="round">

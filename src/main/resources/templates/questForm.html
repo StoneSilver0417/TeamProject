@@ -37,7 +37,10 @@
 				th:value="${round.roundName}" readonly /> <label for="questSeq">문제
 				번호 <span>*</span>
 			</label> <input type="number" min="1" name="questSeq" required /> <label
-				for="questContent">문제 내용 <span>*</span></label>
+				for="questSeq">문제 번호 <span>*</span></label> <input type="number"
+				min="1" name="questSeq" required /> <label for="questContent">문제
+				내용 <span>*</span>
+			</label>
 			<textarea id="questContent" name="questContent"
 				placeholder="문제를 입력해주세요." required></textarea>
 			<label for="c1">선지 1 <span>*</span></label> <input
@@ -49,14 +52,12 @@
 				placeholder="4번 내용을 입력해주세요." type="text" name="c4" /> <label
 				for="c5">선지 5</label> <input placeholder="5번 내용을 입력해주세요."
 				type="text" name="c5" /> <label for="answer">정답 <span>*</span></label>
-			<input placeholder="1번 내용을 입력해주세요." type="text" name="answer"
-				required />
+			<input placeholder="내용을 입력해주세요." type="text" name="answer" required />
 			<div class="buttonWrapper">
 				<button type="submit" id="submitBtn">등록</button>
 			</div>
 		</form>
 	</div>
-
 
 	<!-- footer -->
 	<div th:replace="layout/footer :: footer"></div>
