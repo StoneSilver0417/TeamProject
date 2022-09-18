@@ -15,21 +15,4 @@ import dip.clever.service.MangeQuestService;
 @RequestMapping("/quest")
 public class ManageQuestController {
 
-	@Autowired
-	private MangeQuestService mangeQuestService;
-
-	// 문제등록
-	@PostMapping("/insertQuest")
-	public String insertQuest(Model model, int roundNo, Choice choice, Quest quest) {
-		Round round = new Round();
-		round.setRoundNo(roundNo);
-		model.addAttribute("round", mangeQuestService.selectRound(round));
-		quest.setRoundNo(roundNo);
-		mangeQuestService.insertQuest(quest);
-		choice.setQuestNo(mangeQuestService.selectQuestNo());
-		mangeQuestService.insertChoice(choice);
-		
-		return "round";
-	}
-
 }

@@ -50,7 +50,7 @@
 
 <!-- 검색 영역 -->
 <form th:fragment="search" action="/search" id="header__actions-search" class="search_area" name="searhform" method="get">
-	<select id="where" name="where" title="검색 범위 선택"></select>
+	<select id="where" name="where" title="검색 범위 선택" hidden=""></select>
 	<input id="query" name="query" type="text" title="검색어 입력" maxlength="255" class="input_text"
 		tabindex="1" accesskey="s" style="ime-mode: active;" placeholder="검색어를 입력해주세요." />
 	<button id="search_btn" class="search-btn" type="submit" title="검색" >
