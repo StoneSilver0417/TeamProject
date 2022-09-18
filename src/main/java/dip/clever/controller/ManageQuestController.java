@@ -27,7 +27,7 @@ public class ManageQuestController {
 		quest.setRoundNo(roundNo);
 		
 		mangeQuestService.insertQuest(quest);
-		choice.setQuestNo(mangeQuestService.selectQuestNo());		;
+		choice.setQuestNo(mangeQuestService.selectQuestNo());
 		mangeQuestService.insertChoice(choice);
 		return "round";
 	}
