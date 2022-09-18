@@ -59,6 +59,12 @@ public class SearchController {
 		return new ResponseEntity<String> (h2.toString() + Tag.BR, HttpStatus.OK);
 	}
 	
+	@PostMapping("/user")
+	public String searchUser(String query){
+		System.out.println(query);
+		return "";
+	}
+	
 	//검색 조건 목록 반환
 	private String[] getSearchConditionOption() {
 		final int C = SearchCondition.values().length;

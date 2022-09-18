@@ -107,13 +107,13 @@ public class UserController {
   
   
 	// 유저 리스트출력
-	@GetMapping("/authority")
+	@GetMapping("/user/authority")
 	public String checkAll(Model model) {
 
 		List<User> user = userService.findAll();
 		model.addAttribute("checkAll", user);
 		// System.out.println(user.toString());
-		return "Authority";
+		return "authority";
 
 	}
 

@@ -160,7 +160,24 @@
 		}
 	}
 	
-	
+	function answer(event){
+		var ans = $('input[name=choice]:checked')[0].value;
+		
+		$.ajax({
+			url:'/quest/check',
+			type:'post',
+			data:{param:JSON.stringify({
+				questNo:$('#questNo').val(),
+				answer:ans
+			})},
+			success:function(data){
+				if(data.length != 0)
+					alert('정답!');
+				else
+					alert('오답');
+			}
+		});
+	}
 	
 </script>
 </head>
@@ -195,7 +212,7 @@
 
 		<!-- 객관식 경우 -->
 		<div class="questChoices" th:if="${quest.choice.c1 != null}">
-			<ol>
+			<ol onchange="answer(this);">
 				<li th:if="${quest.choice.c1 != null}"><label> <input
 						type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c1}" value="1" />
