@@ -10,6 +10,24 @@
 <link rel="stylesheet" href="/css/main/index.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
+<style type="text/css">
+* {
+	cursor: default;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+tr:nth-child(2) {
+	border-bottom: 0.1px solid #e5e5e5;
+}
+
+th, td {
+	padding: 10px;
+}
+</style>
 <script src="js/script.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -81,7 +99,7 @@
 				
 		for(var o of ol){
 			no = $(o).attr('value');			
-			name = 'choice' + no;			
+			name = 'choice' + no;			 
 			ans = $('input[name=' + name + ']:checked').val();
 			answer.push(new quest(no, ans));
 		}
@@ -96,13 +114,13 @@
 			<th>문제 번호</th>
 			<th>풀이 시간</th>
 		</tr>
+		<tr></tr>
 		<tr th:each="quest:${solvedList}">
 			<td th:text="${quest.TEST_NAME}"></td>
 			<td th:text="${quest.ROUND_NAME}"></td>
-			<td>
-				<a th:href="${'/quest/' + quest.QUEST_NO}" th:text=${quest.QUEST_SEQ}></a>
-			</td>
-			<td th:text="${quest.REG_TIME}"></td>		
+			<td><a th:href="${'/quest/' + quest.QUEST_NO}"
+				th:text=${quest.QUEST_SEQ}></a></td>
+			<td th:text="${quest.REG_TIME}"></td>
 		</tr>
 	</table>
 </body>
