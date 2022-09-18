@@ -146,23 +146,22 @@
 					   }
 					   else {
 						userPwd =$('#userPwd2').val();
-					
+						$.ajax({
+							   url: '/edit-pwd',
+		    		           type: 'POST',
+		    		           data: {
+		    		             userId: userId,
+		    		             userPwd: encode($('#userPwd2').val()),
+		    		           },
+		    		           dataType : 'text',
+		    		           success : function(message){
+		    		        	   alert(message);
+		    		        	   location.replace('/mypage/setting');
+		    		        	   },
+						   })
 					   }
 				}
-					$.ajax({
-						   url: '/edit-pwd',
-	    		           type: 'POST',
-	    		           data: {
-	    		             userId: userId,
-	    		             userPwd: encode(userPwd),
-	    		             
-	    		           },
-	    		           dataType : 'text',
-	    		           success : function(message){
-	    		        	   alert(message);
-	    		        	   location.replace('/mypage/setting');
-	    		        	   },
-					   })
+					
 				   }
 		   }
 	   });
