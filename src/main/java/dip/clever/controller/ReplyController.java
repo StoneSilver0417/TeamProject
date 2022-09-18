@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 import dip.clever.model.Reply;
-import dip.clever.model.User;
 import dip.clever.service.MangeQuestService;
 import dip.clever.service.ReplyService;
 import dip.clever.service.UserService;
@@ -123,7 +119,7 @@ public class ReplyController {
 	@PostMapping("/reply/{userId}")
 	public String myReply(Model model, @PathVariable String userId) {
 		model.addAttribute("replyList", replyservice.selectMyReply(userId));
-    
+		System.out.println(userId);
 		return "/mypage/activity/mypage-reply";
 	}
 }
