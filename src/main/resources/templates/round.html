@@ -29,23 +29,30 @@
 	$(document).ready(function(){
 		var no = $('#roundNo').val();
 
-		$.ajax({
-			url:'/quest/select',
+		  $.ajax({
+		        url:'/quest/select',
+		        type:'post',
+		        data:{roundNo:no},
+		        success:function(data){	
+		          $('#questCount').html(data.length); 
 
-			type:'post',
-			data:{roundNo:no},
-			success:function(data){				
-				$('#questCount').html(data.length);
+		          if(data.length > 0){
+ 		          document.getElementById("noQuestContent").style.display = "none"; 
 
-				$.ajax({
-					url:'/quest',
-					type:'post',
-					data:{param:JSON.stringify(data)},
-					success:function(data){	
-						$('#questList').html(data);
-					}
-				})
-			}
+
+		          $.ajax({
+		            url:'/quest',
+		            type:'post',
+		            data:{param:JSON.stringify(data)},
+		            success:function(data){	
+		              $('#questList').html(data);
+		            }
+		          })
+		        } else {
+			          document.getElementById("questContent").style.display = "none"; 
+		            document.getElementById("noQuestContent").style.display = "flex"; 
+		          }  
+		        }
 		})
 
 		$.ajax({
@@ -65,9 +72,10 @@
 	}
 
 	function changeTextColor(object, color){
-		object.parents('.quest').find('.questContent').css('backgroundColor', color);
+		object.parents('.quest').find('.questContent')
+			.css('backgroundColor', color);
 	}
-	
+  
 	function check(){
 		var answer = [];
 		var name;
@@ -82,17 +90,23 @@
 			answer.push(new quest(no, ans));
 		}
 
+		alert(JSON.stringify(answer));
+
 		$.ajax({
 			url:'/quest/check',
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				changeTextColor(ol, 'red');				
+				alert(data)
+				changeTextColor(ol, '#ff7051');				
 				for(var d of data){					
 					var o = $('.questChoices[value=' + d + ']');
 
-					changeTextColor(o, 'white');					
+					alert(o)
+
+					changeTextColor(o,'white');
 				}
+				window.scrollTo({ top: 0, behavior: "smooth" });  
 			}
 		})
 	}
@@ -130,15 +144,25 @@
 	</div>
 
 	<div id="navbar__divider"></div>
-	<hr>
 
-	<!-- 문제 목록 출력 -->
-	<div id="questList"></div>
+	<div id="questContent">
+		<!-- 문제 목록 출력 -->
+		<div id="questList"></div>
 
-	<hr>
+		<div id="navbar__divider"></div>
 
-	<div class="checking">
-		<button type="button" onclick="check()" id="checkingBtn">채점하기</button>
+		<div class="checking">
+			<button type="button" onclick="check()" id="checkingBtn">채점하기</button>
+		</div>
+	</div>
+
+	<div id="noQuestContent">
+		<img src="/imgs/etc/sorry.svg" />
+		<div class="describe">
+			<h1>Oops!</h1>
+			<h2>아직 올라온 문제가 없습니다</h2>
+			<h3>직접 문제를 등록하시려면, 로그인 후 문제 등록 버튼을 눌러주세요!</h3>
+		</div>
 	</div>
 
 	<!-- footer -->

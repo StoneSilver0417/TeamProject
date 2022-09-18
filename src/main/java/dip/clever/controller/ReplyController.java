@@ -123,6 +123,7 @@ public class ReplyController {
 	@PostMapping("/reply/{userId}")
 	public String myReply(Model model, @PathVariable String userId) {
 		model.addAttribute("replyList", replyservice.selectMyReply(userId));
+    
 		return "/mypage/activity/mypage-reply";
 	}
 }
