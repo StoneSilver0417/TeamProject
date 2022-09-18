@@ -30,6 +30,7 @@ function noBack() {
 
 		<form action="/quest/insertQuest" method="post" id="insertQuest">
 			<input type="hidden" name="roundNo" th:value="${round.roundNo}" /> 
+			<input type="hidden" name="regUser" th:value="${session.user.userId}" /> 
 			<label for="roundName">시험 회차</label> 
 			<input name="roundName" th:value="${round.roundName}" readonly />
 			<!-- <input name="roundName"

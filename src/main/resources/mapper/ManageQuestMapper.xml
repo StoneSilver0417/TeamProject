@@ -24,8 +24,8 @@
 	</select>
 	<!-- 문제정보 등록 -->
 	<insert id="insertQuest" parameterType="dip.clever.model.Quest">
-		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, ANSWER)
-		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{answer})
+		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, ANSWER, REG_USER)
+		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{answer}, #{regUser})
 	</insert>
 	
 	<!-- 선지등록 -->

@@ -45,8 +45,7 @@
 			<div id="info__title">
 				<h1 id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></h1>
 				<div id="info__manager">
-					<p>담당 매니저:</p>
-					<p>manager33</p>
+					<p th:text="${test.managerId}">담당 매니저:</p>
 				</div>					
 				<li>
 					<span>총</span>

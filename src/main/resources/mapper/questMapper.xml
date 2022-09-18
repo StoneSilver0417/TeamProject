@@ -19,12 +19,15 @@
 		SELECT		T1.QUEST_NO,
 					T1.QUEST_SEQ,
 					T1.QUEST_CONTENT,
+					T1.REG_USER,
 					C1, C2, C3, C4, C5
 		FROM		TB_QUEST	AS T1
 		INNER JOIN	TB_CHOICE	AS T2
 			ON			T1.QUEST_NO = T2.QUEST_NO
+		INNER JOIN	TB_USER	AS T3
+		ON			T1.REG_USER = T3.USER_ID
 		WHERE		T1.QUEST_NO = #{questNo}
-		AND			USE_F = 'Y'
+		AND T1.USE_F = 'Y'
 	</select>
 
 	<select id="selectSolvedList" parameterType="string" resultType="java.util.HashMap">
@@ -99,6 +102,7 @@
 	<!-- 문제 매핑 -->
 	<resultMap type="dip.clever.model.Quest" id="quest" >
 		<result property="questNo" 	column="QUEST_NO"/>
+		<result property="regUser" 	column="REG_USER"/>
 		<result property="roundNo" column="ROUND_NO"/>		
 		<result property="questSeq" column="QUEST_SEQ"/>
 		<result property="questContent" column="QUEST_CONTENT"/>

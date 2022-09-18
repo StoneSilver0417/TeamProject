@@ -226,6 +226,8 @@
 
 	<div id="goBack">
 		<button onclick="nextBtn()" id="goBackBtn">다음 문제</button>
+		<button th:if="${session.user.userId == quest.regUser}" onclick="qEditBtn()" id="qEditBtn">수정</button>
+		<button th:if="${session.user.userId == quest.regUser}" onclick="qRemoveBtn" id="qRemoveBtn">삭제</button>
 	</div>
 	<hr />
 

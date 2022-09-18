@@ -17,6 +17,8 @@
 				<span class="questNum" th:text="${quest.questSeq}">문제 번호</span><span
 					class="questNum">.</span> <span class="questContent"
 					th:text="${quest.questContent}">문제 내용</span>
+					<span class="regUser"
+					th:text="${quest.regUser}">등록자</span>
 			</p>
 		</div>
 		<div class="questChoices" th:value="${quest.questNo}">
