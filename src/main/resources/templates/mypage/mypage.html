@@ -45,18 +45,15 @@ tr>td {
 		$.ajax({
 			url:url,
 			type:'post',
-			data:{
-				userId:user.userId
-			},
-			success:function(data){ 
+			data:{userId:user.userId},
+			success : function(data) {
 				$('#replace-content').html(data);
-			}
+			},
 		})
 	}
-	
-	function myQuest(event, target){
-		active(event)		
-		ajax('/quest/' + target + "List");
+	function myQuest(event, target) {
+		active(event);
+		ajax('/quest/' + target + 'List');
 	}
 
 	function myReply(event) {

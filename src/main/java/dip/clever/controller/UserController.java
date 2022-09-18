@@ -57,10 +57,7 @@ public class UserController {
 	public ResponseEntity<Boolean> checkPassword(User user) {
 		return Util.resoponse(userService.selectUser(user) != null);
 	}
-
-	
-	
-  
+ 
 	// 회원가입 메소드
 	@PostMapping("/user/join")
 	public String join(HttpSession httpSession, Model model, User user) {
