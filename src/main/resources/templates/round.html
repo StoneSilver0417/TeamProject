@@ -97,14 +97,11 @@
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				alert(data)
 				changeTextColor(ol, '#ff7051');				
 				for(var d of data){					
 					var o = $('.questChoices[value=' + d + ']');
 
-					alert(o)
-
-					changeTextColor(o,'white');
+					changeTextColor(o,'white');	
 				}
 				window.scrollTo({ top: 0, behavior: "smooth" });  
 			}
@@ -138,8 +135,7 @@
 			<input type="hidden" id="roundNo" th:value="${round.roundNo}"
 				name="roundNo"> <input type="hidden" id="roundName"
 				th:value="${round.roundName}" name="roundName">
-			<button th:if="${session.user?.userId == round.regUser}"
-				type="submit">문제 등록</button>
+			<button th:if="${session.user != null}" type="submit">문제 등록</button>
 		</form>
 	</div>
 

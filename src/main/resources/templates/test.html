@@ -19,6 +19,7 @@
 				testNo : $('#testNo').attr('value')
 			},
 			success : function(data) {
+				$('#roundCount').html(data.length);
 				$.ajax({
 					url : '/round',
 					type : 'post',
@@ -37,9 +38,6 @@
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
-	<hr>
-	<div th:replace="layout/searchArea :: search"></div>
-
 
 	<!-- 대분류 카테고리 이름 -->
 	<div id="category">
@@ -49,7 +47,12 @@
 				<div id="info__manager">
 					<p>담당 매니저:</p>
 					<p>manager33</p>
-				</div>
+				</div>					
+				<li>
+					<span>총</span>
+					<span id="roundCount"></span>
+					<span>회</span>
+				</li>
 			</div>
 			<section th:if="${session.user != null}"
 				th:with="info = ${session.user}">

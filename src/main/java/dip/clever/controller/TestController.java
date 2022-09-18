@@ -75,4 +75,11 @@ public class TestController {
 		
 		return "test";
 	}
+	
+	@PostMapping("/rank")
+	public String rank(Model model) {
+		model.addAttribute("rankList", testService.selectTestRank());
+		
+		return "popularTest";
+	}
 }

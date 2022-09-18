@@ -34,8 +34,20 @@
  
 	<select id="selectUser" parameterType="dip.clever.model.User"
 		resultMap="userMap">
-		SELECT	* 
-		FROM	TB_USER
+		SELECT	T1.USER_ID,
+			T1.USER_NICKNAME,
+			T1.USER_EMAIL,
+			T1.USER_ROLE,(
+			SELECT	COUNT(*)
+			FROM (
+				SELECT		*
+				FROM		TB_LOG
+				WHERE		USER_ID = #{userId}
+				AND			ACTION = 'SOLVED'
+				GROUP BY	USER_ID, TARGET_ID
+				)	AS T
+			)		AS USER_EXP
+		FROM	TB_USER		AS T1
 		WHERE 	USE_F = 'Y'
 		AND 	BINARY(USER_ID) = #{userId}
 		AND 	BINARY(USER_PWD) = #{userPwd}
@@ -56,7 +68,7 @@
 				GROUP BY	USER_ID, TARGET_ID
 				)	AS T
 			)		AS USER_EXP
-		FROM	TB_USER		AS T1;		
+		FROM	TB_USER		AS T1
 		WHERE 	USER_ID = #{userId}
 	</select>
 

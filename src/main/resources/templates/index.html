@@ -22,39 +22,64 @@
 </head>
 <body>
 	<!-- header -->
-	<div th:replace="layout/header :: header"></div>
-	<hr> 
+	<div th:replace="layout/header :: header"></div> 
+	<hr>  
 	
-	<div th:replace="layout/header2 :: main"></div>
+<!-- 	<form action="/solve-quest" method="post">
+		<button type="submit">(임시)문제 푸는 페이지 view</button>
+	</form>
+	
+	<form action="/solve-quest/num" method="post">
+		<button type="submit">(임시)문제 상세 페이지 view</button>
+	</form> -->
+	
+	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
-		function profileOnclick() {
-			document.getElementById('profileDropdown').classList.toggle('show');
-			window.onclick = function(event) {
-				if (!event.target.matches('#profileDropdown')) {
-					if (openDropdown.classList.contains('show')) {
-						document.getElementById('profileDropdown').classList
-								.remove('show');
-					}
-				};
-				
-				var dropdowns = document
-						.getElementsByClassName('profile-dropdown');
-				var i;
-				for (i = 0; i < dropdowns.length; i++) {
-					var openDropdown = dropdowns[i];
-					if (openDropdown.classList.contains('show')) {
-					}
+    const nextBtn = document.querySelector('.fa-chevron-right');
+    const prevBtn = document.querySelector('.fa-chevron-left');
+    const slides = document.querySelectorAll('.slide');
+    const slideIcons = document.querySelectorAll('.slide-icon');
+    
+	function profileOnclick() {
+		document.getElementById('profileDropdown').classList.toggle('show');
+		window.onclick = function(event) {
+			if (!event.target.matches('#profileDropdown')) {
+				if (openDropdown.classList.contains('show')) {
+					document.getElementById('profileDropdown').classList
+							.remove('show');
+				}
+			};
+			
+			var dropdowns = document
+					.getElementsByClassName('profile-dropdown');
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+				var openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains('show')) {
 				}
 			}
 		}
+	}
+	
+	$(document).ready(function(){
+		$.ajax({
+			url:'/test/rank',
+			type:'post',
+			success:function(data){
+				$('.popularBoard').html(data);
+			}
+		});
+		
+		$.ajax({
+			url:'/round/new',
+			type:'post',
+			success:function(data){
+				$('.newQuest').html(data);
+			}
+		})
+	})
 	</script>
-
-
-	<!-- 카테고리 목록 출력 -->
-	<div th:replace="layout/categoryList :: list"></div>
-
-
 
 	<!-- section: slider -->
 	<div id="slider">
@@ -106,10 +131,6 @@
 		</div>
 	</div>
 	<script>
-      const nextBtn = document.querySelector('.fa-chevron-right');
-      const prevBtn = document.querySelector('.fa-chevron-left');
-      const slides = document.querySelectorAll('.slide');
-      const slideIcons = document.querySelectorAll('.slide-icon');
       const numberOfSlides = slides.length;
       var slideNumber = 0;
 
@@ -193,38 +214,10 @@
 	<!-- section: board list -->
 	<section id="boardList">
 		<div class="popularBoard boardList__list">
-			<img src="imgs/boardList-icons/popularBoard.png" class="icon" />
-			<h1>인기게시판</h1> 
-			<ul>
-				<li><a href="">공무공무원<i class="fa-solid fa-chevron-right"></i></a>
-				</li>
-				<li><a href="">Su국가기술자격시<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">It IT·전산 IT·전산 e<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">Su국가기술자asd격시<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">가나아러 지<i class="fa-solid fa-chevron-right"></i></a>
-				</li>
-			</ul>
 		</div>
 		<div class="newQuest boardList__list">
-			<img src="imgs/boardList-icons/newQuest.svg" class="icon" />
-			<h1>새로운 문제</h1>
-			<ul>
-				<li><a href="">공무공무원<i class="fa-solid fa-chevron-right"></i></a>
-				</li>
-				<li><a href="">Su국가기술자격시<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">It IT·전산 IT·전산 e<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">Su국가기술자asd격시<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">가나아러 지<i class="fa-solid fa-chevron-right"></i></a>
-				</li>
-			</ul>
 		</div>
-		<div class="qnaBoard boardList__list">
+		<!-- <div class="qnaBoard boardList__list">
 			<img src="imgs/boardList-icons/qnaBoard.svg" class="icon" />
 			<h1>QnA</h1>
 			<ul>
@@ -239,7 +232,7 @@
 				<li><a href="">가나아러 지<i class="fa-solid fa-chevron-right"></i></a>
 				</li>
 			</ul>
-		</div>
+		</div> -->
 	</section>
 
 	<!-- footer -->

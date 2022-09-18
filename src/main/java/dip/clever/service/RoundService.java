@@ -15,4 +15,6 @@ public interface RoundService {
 	
 	// 회차등록
 	public void insertRound(Round round);
+	
+	public List<Round> selectNewRound();
 }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/main/header.css" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="/css/main/header.css" />
+<link rel="stylesheet" href="/css/style.css" />
 <style>
 	li{
 		margin: 5%;
@@ -131,50 +131,11 @@
 </script>
 </head>
 <body>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<div th:replace="layout/searchArea::search"/>
+	<div th:replace="layout/header :: header"></div>
+	
 	<form action="/form" method="post">
 		<div class="container">			
-			<ul id="result">
-				<table class="table table-hover">
-					<thread>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">작성자</th>			
-							<th scope="col">제목</th>
-							<th scope="col">조회수</th>
-							<th scope="col">작성일</th>
-							<th>
-								<span style="float: right;">
-									목록 개수
-									<select  onchange="//change(this);">
-										<option value="2" th:selected="${size == 2}">
-											2
-										</option>
-										<option value="3" th:selected="${size == 3}">
-											3
-										</option>
-										<option value="5" th:selected="${size == 5}">
-											5
-										</option>
-										<option value="10" th:selected="${size == 10}">
-											10
-										</option>
-										<option value="15" th:selected="${size == 15}">
-											15
-										</option>
-										<option value="20" th:selected="${size == 20}">
-											20
-										</option>
-										<option value="30" th:selected="${size == 30}">
-											30
-										</option>
-									</select>
-								</span>				
-							</th>
-						</tr>
-					</thread>
-				</table>				
+			<ul id="result">				
 			</ul>
 			
 			<input type="submit" class="pull-right btn btn-primary btn-block" style="width: 100px; margin: 10px 0;" value="글쓰기"/>
