@@ -22,9 +22,9 @@
 			공개되어 있는 문제만 모아서 보여드립니다.</div>
 
 		<form action="/quest/insertQuest" method="post" id="insertQuest">
-			<input type="hidden" name="roundNo" th:value="${round.roundNo}" /> <label
-				for="roundName">시험 회차</label> <input name="roundName"
-				value="2022년 2회차" readonly />
+			<input type="hidden" name="roundNo" th:value="${round.roundNo}" /> 
+			<label for="roundName">시험 회차</label> 
+			<input name="roundName" th:value="${round.roundName}" readonly />
 			<!-- <input name="roundName"
           th:value="${round.roundName}" readonly> -->
 
