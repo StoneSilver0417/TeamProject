@@ -24,14 +24,14 @@
 	</select>
 	<!-- 문제정보 등록 -->
 	<insert id="insertQuest" parameterType="dip.clever.model.Quest">
-		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, CHOICE_NO, ANSWER)
-		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{choiceNo}, #{answer})
+		INSERT INTO TB_QUEST (ROUND_NO, QUEST_SEQ, QUEST_CONTENT, ANSWER)
+		VALUES(#{roundNo}, #{questSeq}, #{questContent}, #{answer})
 	</insert>
 	
 	<!-- 선지등록 -->
 	<insert id="insertChoice" parameterType="dip.clever.model.Choice">
-		INSERT INTO TB_CHOICE (C1, C2, C3, C4, C5)
-		VALUES(#{c1}, #{c2}, #{c3}, #{c4}, #{c5})
+		INSERT INTO TB_CHOICE (QUEST_NO, C1, C2, C3, C4, C5)
+		VALUES(#{questNo}, #{c1}, #{c2}, #{c3}, #{c4}, #{c5})
 	</insert>
 	
 	<!-- 선지번호 불러옴 -->
@@ -45,7 +45,7 @@
 	
 	<!-- 회차이름 선택 -->
 	<select id="selectRound" parameterType="dip.clever.model.Round" resultMap="roundMap">
-	 SELECT * FROM TB_TEST_ROUND
+	 SELECT * FROM TB_ROUND
 	 WHERE USE_F = 'Y'
 	 AND ROUND_NO = #{roundNo}
 	</select>

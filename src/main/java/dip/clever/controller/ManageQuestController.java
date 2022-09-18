@@ -25,11 +25,11 @@ public class ManageQuestController {
 		round.setRoundNo(roundNo);
 		model.addAttribute("round", mangeQuestService.selectRound(round));
 		quest.setRoundNo(roundNo);
-		
 		mangeQuestService.insertQuest(quest);
 		choice.setQuestNo(mangeQuestService.selectQuestNo());
 		mangeQuestService.insertChoice(choice);
-		return "questForm";
+		
+		return "round";
 	}
 
 }

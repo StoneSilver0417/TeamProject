@@ -75,15 +75,16 @@
 	<select id="findAll" resultMap="userMap">
 		SELECT *
 		FROM TB_USER
+		WHERE USE_F = 'Y'
 	</select>
 	
 	<!-- 유저 서치 리스트출력 -->
 	<select id="findSearchResult" resultMap="userMap">
-		SELECT	*
-		FROM	TB_USER
-		WHERE	USER_ID LIKE = '%${keyword}%'
+		SELECT *
+		FROM TB_USER
+		WHERE USER_ID LIKE '%${keyword}%'
 	</select>
-	
+
 	<!-- 유저 삭제 -->
 	<update id="deleteUser" parameterType="String">
 		UPDATE	TB_USER
