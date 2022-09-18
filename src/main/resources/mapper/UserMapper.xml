@@ -71,10 +71,9 @@
 	<select id="findSearchResult" resultMap="userMap">
 		SELECT *
 		FROM TB_USER
-		WHERE USER_ID =
-		#{keyword}
+		WHERE USER_ID LIKE '%${keyword}%'
 	</select>
-	
+
 	<!-- 유저 삭제 -->
 	<update id="deleteUser" parameterType="String">
 		UPDATE	TB_USER
