@@ -133,10 +133,10 @@
 		   type : 'post',
 		   data : {
 			   userId : userId,
-			   userPwd : userPwd
+			   userPwd : encode(userPwd)
 		   },
 		   success :function(data){
-			   if(data){
+			   if(!data){
 				   alert('현재 비밀번호가 일치하지 않습니다.')
 			}
 			   else {
@@ -146,23 +146,23 @@
 					   }
 					   else {
 						userPwd =$('#userPwd2').val();
-						$.ajax({
-							   url: '/edit-pwd',
-		    		           type: 'POST',
-		    		           data: {
-		    		             userId: userId,
-		    		             userPwd: encode(userPwd),
-		    		             
-		    		           },
-		    		           dataType : 'text',
-		    		           success : function(message){
-		    		        	   alert(message);
-		    		        	   location.replace('/mypage/setting');
-		    		        	   },
-						   })
+					
 					   }
 				}
-				   
+					$.ajax({
+						   url: '/edit-pwd',
+	    		           type: 'POST',
+	    		           data: {
+	    		             userId: userId,
+	    		             userPwd: encode(userPwd),
+	    		             
+	    		           },
+	    		           dataType : 'text',
+	    		           success : function(message){
+	    		        	   alert(message);
+	    		        	   location.replace('/mypage/setting');
+	    		        	   },
+					   })
 				   }
 		   }
 	   });
