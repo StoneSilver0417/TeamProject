@@ -224,6 +224,11 @@ public class UserController {
 		return Util.resoponse(uploadImage(httpSession, file, path));
 	}
 
+	@PostMapping("/user/level")
+	public String selectUserLevel() {
+		return "/mypage/activity/mypage-level";
+	}
+	
 	private boolean uploadImage(HttpSession httpSession, MultipartFile file, String path) {
 		User user = (User) httpSession.getAttribute("user");
 

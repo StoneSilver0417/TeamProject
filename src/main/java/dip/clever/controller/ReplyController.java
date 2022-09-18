@@ -26,11 +26,11 @@ import dip.clever.service.UserService;
 @Controller
 public class ReplyController {
 	@Autowired
-	ReplyService replyservice;
+	private ReplyService replyservice;
 	@Autowired
-	UserService userservice;
+	private UserService userservice;
 	@Autowired
-	MangeQuestService managequestservice;
+	private MangeQuestService managequestservice;
 
 	// 댓글 리스트출력
 	@GetMapping("reply")
@@ -120,10 +120,10 @@ public class ReplyController {
 		return new ResponseEntity<Reply>(reply1, HttpStatus.OK);
 	}
 		 
-//	@PostMapping("/reply/{userId}")
-//	public String myReply(Model model, @PathVariable String userId) {
-//		model.addAttribute("rep")
-//		
-//		return "/mypage/activity/mypage-reply";
-//	}
+	@PostMapping("/reply/{userId}")
+	public String myReply(Model model, @PathVariable String userId) {
+		model.addAttribute("replyList", replyservice.selectMyReply(userId));
+    
+		return "/mypage/activity/mypage-reply";
+	}
 }
