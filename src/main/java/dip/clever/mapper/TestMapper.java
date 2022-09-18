@@ -20,4 +20,6 @@ public interface TestMapper{
 	public Category selectCategory(int categoryNo);
 	
 	public List getResultList(Map<String, String> searchCondition);
+	
+	public List<Test> selectTestRank();
 }

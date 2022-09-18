@@ -28,40 +28,43 @@ public class ReplyController {
 	@Autowired
 	private MangeQuestService managequestservice;
 
-	// 댓글 리스트출력
-	@GetMapping("reply")
-	public String Replyinfo(Model model) {
-		
-		int questNo = 2;
-		List<HashMap<String, Object>> quest=managequestservice.joinQuest(questNo);
-		model.addAttribute("quest",quest);
-		//System.out.println(quest);
-		
-		//model.addAttribute("user",userservice.findAll());
-		//User regUser = (User)httpServletRequest.getSession().getAttribute("user");
-		//System.out.println(regUser);
-		//reply.setRegUser(regUser.getUserId());
-		//List<Reply> user = replyservice.findAll();
-		
-		int questnum=1;
-		List<HashMap<String, Object>> user=replyservice.joinUser(questnum);
-		model.addAttribute("user",user);
-		//System.out.println(user);
-		
-		return "reply";
-	} 
+//	// 댓글 리스트출력
+//	@GetMapping("reply")
+//	public String Replyinfo(Model model) {
+//		
+//		int questNo = 2;
+//		List<HashMap<String, Object>> quest=managequestservice.joinQuest(questNo);
+//		model.addAttribute("quest",quest);
+//		//System.out.println(quest);
+//		
+//		//model.addAttribute("user",userservice.findAll());
+//		//User regUser = (User)httpServletRequest.getSession().getAttribute("user");
+//		//System.out.println(regUser);
+//		//reply.setRegUser(regUser.getUserId());
+//		//List<Reply> user = replyservice.findAll();
+//		
+//		int questnum=1;
+//		List<HashMap<String, Object>> user=replyservice.joinUser(questnum);
+//		model.addAttribute("user",user);
+//		//System.out.println(user);
+//		
+//		return "reply";
+//	} 
 
 	@PostMapping("/insertReply")
 	public ResponseEntity<String> insertReply(Reply reply) {
 		String message = "댓글이 작성되었습니다.";
-//		User regUser = (User)httpServletRequest.getSession().getAttribute("user");
+		System.out.println("=============>댓글인서트 : " + reply);
+		
+//		User regUser = (User)HttpServletRequest.getSession().getAttribute("user");
 //		System.out.println(regUser);
+//		
 //		reply.setRegUser(regUser.getUserId());
 //		System.out.println(reply.toString());
-		reply.setRegUser("1");
-		reply.setQuestNo(1);
 		
-		//System.out.println("article.toString() =>" + reply.toString());
+		//reply.setRegUser("1");
+		
+		System.out.println("article.toString() =>" + reply.toString());
 		replyservice.insertReply(reply);
 		return new ResponseEntity<String>(message, HttpStatus.CREATED);
 	}

@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import dip.clever.model.Category;
 import dip.clever.model.Round;
-import dip.clever.model.SearchCondition;
-import dip.clever.model.Test;
 
 @Mapper
 public interface RoundMapper{	
@@ -20,4 +18,6 @@ public interface RoundMapper{
 	
 	// 회차등록
 	public void insertRound(Round round);
+	
+	public List<Round> selectNewRound();
 }

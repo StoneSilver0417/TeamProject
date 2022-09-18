@@ -18,4 +18,6 @@ public interface TestService {
 	public Test selectTest(Test test);
 	
 	public Test selectTest(Round round);
+	
+	public List<Test> selectTestRank();
 }

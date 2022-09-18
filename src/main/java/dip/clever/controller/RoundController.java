@@ -79,4 +79,10 @@ public class RoundController {
 		return "roundForm";
 	}
 
+	@PostMapping("/new")
+	public String newRound(Model model) {
+		model.addAttribute("rankList",roundService.selectNewRound());
+		
+		return "newRound";
+	}
 }
