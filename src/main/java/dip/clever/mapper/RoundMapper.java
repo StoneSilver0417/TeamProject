@@ -16,6 +16,8 @@ public interface RoundMapper{
 	
 	public Round selectRound(int roundNo);
 	
+	public int selectlastInsert();
+	
 	// 회차등록
 	public void insertRound(Round round);
 }

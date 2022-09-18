@@ -10,30 +10,29 @@
 <link rel="stylesheet" href="/css/mypage/mypage.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
 <script src="js/script.js"></script>
-<script src="https://kit.fontawesome.com/267f657aa0.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/267f657aa0.js"	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script th:inline="javascript">
-	const day = 1000 * 60 * 60 * 24;
-	
-	var user = [[${session.user}]];
-	
-	if(user == null){
+	function noSession(){
 		alert('세션 없음');
 		location.href="/";
 	}
 
     // default: 내 문제 - 내가 푼 문제
-    $(document).ready(function () {
-    	var date = new Date(user.regTime);
+    $(document).ready(function () {    	
+    	const day = 1000 * 60 * 60 * 24;
+    	var user = $('#userId').val();
     	var now = new Date();
-    	var diff = parseInt((now.getTime() - date.getTime()) / day)
+    	var date;
+    	var diff;
     	
-    	if(diff > 0 ){
-    	$('#joinDay').html(diff + "일 전 가입");
-    	} else {
-        	$('#joinDay').html("오늘 가입");
-    	}
+    	if(user == null)		noSession();
+    	
+    	date = new Date(user.regTime);    	
+    	diff = parseInt((now.getTime() - date.getTime()) / day);
+    	
+    	if(diff > 0 )		$('#joinDay').html(diff + "일 전 가입");
+		else	        	$('#joinDay').html("오늘 가입");    	
     	
         $.ajax({
             url: '/mypage/quests',
@@ -41,8 +40,7 @@
           success: function (data) {
             $('#replace-content').html(data);
           },
-        });
-        
+        });        
     });
      
       function mySolvedQuestBtn() {
@@ -90,7 +88,7 @@
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-
+	<input type="hidden" id="userId" th:value="${session.user}">
 	<!-- mypage -->
 	<section id="mypage">
 		<!-- user profile -->

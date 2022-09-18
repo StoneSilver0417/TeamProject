@@ -3,6 +3,8 @@ package dip.clever.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import dip.clever.model.Category;
+import dip.clever.model.Action;
+import dip.clever.model.Log;
 import dip.clever.model.Round;
 import dip.clever.model.Test;
+import dip.clever.model.User;
+import dip.clever.service.LogService;
 import dip.clever.service.RoundService;
 import dip.clever.service.TestService;
 import dip.clever.util.Json;
-import dip.clever.util.Util;
 
 @Controller
 @RequestMapping("round")
@@ -28,7 +32,9 @@ public class RoundController {
 	@Autowired
 	private RoundService roundService;
 	@Autowired
-	TestService testService;
+	private TestService testService;
+	@Autowired
+	private LogService logService;
 
 	@PostMapping("")
 	public String round(Model model, @RequestParam HashMap<String, String> param) {
@@ -56,14 +62,19 @@ public class RoundController {
 	}
 
 	// 회차등록
-	@PostMapping("/insertRound")
-	public String inserRound(Model model, int testNo, Round round) {
+	@PostMapping("/insert")
+	public String inserRound(HttpSession httpSession, Model model, Round round) {
+		User user = User.getUser(httpSession);
+		Log log;
+		
 		Test test = new Test();
-		test.setTestNo(testNo);
+		test.setTestNo(round.getTestNo());
 		model.addAttribute("test", testService.selectTest(test));
-		round.setTestNo(testNo);
-		System.out.println(round);
+		
+		//System.out.println(round);
 		roundService.insertRound(round);
+		log = new Log(user.getUserId(), Action.CREATE, roundService.selectLastInsert());
+		logService.insertLog(log);
 
 		return "roundForm";
 	}
