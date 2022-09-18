@@ -17,6 +17,25 @@
 		WHERE		ROUND_NO = #{roundNo}
 		AND			USE_F = 'Y'
 	</select>
+		
+	<select id="selectLastInsert" resultType="int">
+		SELECT		LAST_INSERT_ID()
+		FROM		TB_ROUND
+		LIMIT		1
+	</select>
+	
+	<select id="selectNewRound" resultMap="round">
+		SELECT		ROUND_NO, ROUND_NAME
+		FROM		TB_ROUND
+		ORDER BY	ROUND_NO	DESC
+		LIMIT 5
+	</select>
+	
+	<!-- 회차등록 -->
+	<insert id="insertRound">
+		INSERT INTO TB_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
+		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
+	</insert>
 	
 	<!-- 회차 매핑 -->
 	<resultMap type="dip.clever.model.Round" id="round" >
@@ -26,39 +45,7 @@
 		<result property="roundName" column="ROUND_NAME"/>
 	</resultMap>	
 	
-	<select id="selectLastInsert" resultType="int">
-		SELECT		LAST_INSERT_ID()
-		FROM		TB_ROUND
-		LIMIT		1
-	</select>
-	
-	<!-- 회차등록 -->
-	<insert id="insertRound">
-		INSERT INTO TB_ROUND (TEST_NO, REG_USER, ROUND_NAME, TEST_DATE, USE_F)
-		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
-	</insert>
-	
-	<!-- 밑에 부분은 사용하지 않음 -->	
-	<!-- <select id="findByNo" parameterType="int" resultMap="article">
-		SELECT		T2.ID	AS BOARD_ID,
-					T2.NAME	AS BOARD_NAME,
-					T3.ID	AS USER_ID,
-					T3.NAME	AS USER_NAME,
-					T1.NO	,					
-					T1.TITLE	,
-					T1.CONTENT,
-					T1.CRE_DATE,
-					T1.MOD_DATE,
-					(	SELECT	COUNT(*) FROM	TB_LOG
-						WHERE	COMMAND = 'READ' AND TARGET_ID = #{no})	AS READ_CNT
-		FROM		TB_ARTICLE	AS T1
-		INNER JOIN	TB_BOARD	AS T2
-			ON			T1.BOARD_ID = T2.ID
-		LEFT JOIN	TB_USER		AS T3
-			ON			T1.USER_ID = T3.ID
-		WHERE		NO = #{no}
-		AND			T1.USE_F = 'Y'
-	</select> -->
+	<!-- 밑에 부분은 사용하지 않음 -->
 	
 <!-- 	<select id="findByArticleLike" parameterType="java.util.HashMap" resultMap="articleInfo">
 		SELECT		T1.NO,
