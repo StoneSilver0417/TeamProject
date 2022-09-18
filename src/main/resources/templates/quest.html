@@ -184,9 +184,10 @@
 	<div id="quest">
 		<div class="questNumAndQuestContent">
 			<p class="questInfo">
-				<span class="questNum" th:text="${quest.questSeq}">30</span> <span
+				<span class="questNum" th:text="${quest.questSeq}"></span> <span
 					class="questNum">.</span> <span class="questContent"
 					th:text="${quest.questContent}"> </span>
+					
 			</p>
 		</div>
 
@@ -222,7 +223,9 @@
 	</div>
 
 	<div id="goBack">
-		<button onclick="nextBtn()" id="goBackBtn">다음 문제</button>
+		<button th:if="${session.user.userId == " onclick="nextBtn()" id="goBackBtn">다음 문제</button>
+		<button th:if="${session.user.userId == " onclick="qEditBtn()" id="qEditBtn">수정</button>
+		<button th:if="${session.user.userId == " onclick="qRemoveBtn()" id="qRemoveBtn">삭제</button>
 	</div>
 	<hr />
 
