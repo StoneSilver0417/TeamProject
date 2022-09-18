@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main/header.css" />
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -23,7 +25,8 @@
 </script>
 </head>
 <body>	
-	<div th:replace="layout/searchArea :: search"></div>
+	<div th:replace="layout/header :: header"></div>
+	<hr>
 	<p id="categoryNo" th:value="${category.categoryNo}" th:text="${category.categoryName}"></p>
 	<div id="testList">
 	</div>	
