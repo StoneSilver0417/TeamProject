@@ -28,4 +28,5 @@ public interface ReplyMapper {
 	// 댓글 수정
 	public void modifyReply(Reply reply);
 	
+	public List<HashMap<String, Object>> selectMyReply(String userId);
 }
