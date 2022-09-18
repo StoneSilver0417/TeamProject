@@ -65,6 +65,7 @@
 	<select id="findAll" resultMap="userMap">
 		SELECT *
 		FROM TB_USER
+		WHERE USE_F = 'Y'
 	</select>
 	
 	<!-- 유저 서치 리스트출력 -->

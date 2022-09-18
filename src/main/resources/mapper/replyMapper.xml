@@ -7,7 +7,7 @@
 
 	<resultMap type="dip.clever.model.Reply" id="replyMap">
 		<result property="replyNo" column="REPLY_NO" />
-		<result property="QuestNo" column="QUEST_NO" />
+		<result property="questNo" column="QUEST_NO" />
 		<result property="regUser" column="REG_USER" />
 		<result property="content" column="CONTENT" />
 		<result property="regTime" column="REG_TIME" />
@@ -26,18 +26,18 @@
 		INSERT INTO TB_REPLY
 		(QUEST_NO,REG_USER,CONTENT,USE_F)
 
-		VALUES(#{QuestNo},#{regUser},#{content},'Y')
+		VALUES(#{questNo},#{regUser},#{content},'Y')
 	</insert>
 
 	<!-- USER 테이블과 REPLY테이블 조인하여 정보 출력 -->
 	<select id="joinUser" parameterType="int"
 		resultType="java.util.HashMap">
-		SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME, T1.REPLY_NO
+		SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME, T1.REPLY_NO, T1.REG_USER, T1.QUEST_NO
 		FROM tb_reply AS T1
 		INNER JOIN tb_user AS T2
 		ON T2.USER_ID = T1.REG_USER
 		WHERE T1.use_f = 'Y'
-		AND Quest_no = #{QuestNo}
+		AND Quest_no = #{no}
 	</select>
 
 	<!-- 유저 삭제 -->

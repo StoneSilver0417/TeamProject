@@ -24,6 +24,7 @@ import dip.clever.model.Round;
 import dip.clever.model.User;
 import dip.clever.service.LogService;
 import dip.clever.service.QuestService;
+import dip.clever.service.ReplyService;
 import dip.clever.util.Json;
 import dip.clever.util.Util;
 
@@ -33,6 +34,8 @@ public class QuestController {
 	private QuestService questService;
 	@Autowired
 	private LogService logService;
+	@Autowired
+	private ReplyService replyservice;
 	
 	@PostMapping("/quest")
 	public String quest(Model model, @RequestParam HashMap<String, String> param){
@@ -53,6 +56,11 @@ public class QuestController {
 		Quest quest = new Quest();
 		
 		quest.setQuestNo(no);
+		System.out.println(no);
+		
+		List<HashMap<String, Object>> user=replyservice.joinUser(no);
+		model.addAttribute("user",user);
+		System.out.println(user);
 		
 		model.addAttribute("quest", questService.selectQuest(quest));
 		model.addAttribute("info", questService.selectQuestInfo(quest));
@@ -112,4 +120,5 @@ public class QuestController {
 	private Choice selectChoice(Quest quest) {
 		return questService.selectChoice(quest);
 	}
+	
 }

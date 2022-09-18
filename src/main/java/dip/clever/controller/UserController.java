@@ -96,13 +96,14 @@ public class UserController {
 			User user = userService.findUserById(id);
 			user.setUserRole(Role.MANAGER);
 			userService.insertUser(user);
-			message = "매니저로 임명";
+			
+			
 		} else if (action.equals("remove")) {
 			userService.updateUser(id);
 			User user = userService.findUserById(id);
 			user.setUserRole(Role.USER);
 			userService.insertUser(user);
-			message = "유저로강등";
+			
 		}
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
