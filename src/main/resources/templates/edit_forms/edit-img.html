@@ -4,8 +4,8 @@
 		<h3>프로필 사진</h3>
 	</div>
 	<div class="img__upload">
-		<img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}"
-			onload="stopInterval();" id="profile_img" />
+		<img th:src="${'/imgs/profile/user/' + session.user.userId + '.png'}" id="profile_img" 
+			onload="stopInterval();" width="512" height="512"/>
 		<div class="img__upload-actions">
 			<!-- name, id 파일 명으로 동적으로 가져오기 -->
 			<div class="upload__btn">
@@ -27,7 +27,7 @@
 
 		function uploadTemp() {
 			$.ajax({
-				url : 'user/uploadTemp',
+				url : '/user/uploadTemp',
 				type : 'post',
 				data : new FormData($('#profileForm')[0]),
 				processData : false,
@@ -52,7 +52,7 @@
 
 		function upload() {
 			$.ajax({
-				url : 'user/uploadProfile',
+				url : '/user/uploadProfile',
 				type : 'post',
 				data : new FormData($('#profileForm')[0]),
 				processData : false,
