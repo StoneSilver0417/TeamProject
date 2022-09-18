@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
@@ -87,13 +88,15 @@
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				changeTextColor(ol, 'red');				
+				changeTextColor(ol, '#ff7051');				
 				for(var d of data){					
 					var o = $('.questChoices[value=' + d + ']');
 
 					changeTextColor(o, 'white');					
 				}
-			}
+				  window.scrollTo({ top: 0, behavior: "smooth" });  
+
+ 			}
 		})
 	}
 </script>
