@@ -30,8 +30,8 @@
 	
 	<!-- 선지등록 -->
 	<insert id="insertChoice" parameterType="dip.clever.model.Choice">
-		INSERT INTO TB_CHOICE (C1, C2, C3, C4, C5)
-		VALUES(#{c1}, #{c2}, #{c3}, #{c4}, #{c5})
+		INSERT INTO TB_CHOICE (QUEST_NO, C1, C2, C3, C4, C5)
+		VALUES(#{questNo}, #{c1}, #{c2}, #{c3}, #{c4}, #{c5})
 	</insert>
 	
 	<!-- 선지번호 불러옴 -->
