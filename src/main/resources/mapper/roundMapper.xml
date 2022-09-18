@@ -26,11 +26,11 @@
 		<result property="roundName" column="ROUND_NAME"/>
 	</resultMap>	
 	
-	<!-- 밑에 부분은 사용하지 않음 -->
-	<insert id="insertArticle" parameterType="map">
-		INSERT INTO TB_ARTICLE
-		VALUES	(NULL, #{boardId}, #{userId}, #{title}, SYSDATE(), SYSDATE(), #{content}, 'Y')
-	</insert>	
+	<select id="selectLastInsert" resultType="int">
+		SELECT		LAST_INSERT_ID()
+		FROM		TB_ROUND
+		LIMIT		1
+	</select>
 	
 	<!-- 회차등록 -->
 	<insert id="insertRound">
@@ -38,6 +38,7 @@
 		VALUES (#{testNo}, #{regUser}, #{roundName}, #{testDate}, 'Y')
 	</insert>
 	
+	<!-- 밑에 부분은 사용하지 않음 -->	
 	<!-- <select id="findByNo" parameterType="int" resultMap="article">
 		SELECT		T2.ID	AS BOARD_ID,
 					T2.NAME	AS BOARD_NAME,
@@ -79,12 +80,6 @@
 		SELECT		COUNT(*)
 		FROM		TB_ARTICLE
 		WHERE		TITLE LIKE '%${query}%'
-	</select>
-	
-	<select id="selectId" resultType="int">
-		SELECT		LAST_INSERT_ID()
-		FROM		TB_ARTICLE
-		LIMIT		1
 	</select>
 	
 	<select id="checkUser" parameterType="int" resultType="String">

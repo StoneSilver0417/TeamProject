@@ -11,9 +11,9 @@ import dip.clever.model.User;
 public interface QuestService {
 	public List<Quest> selectQuestList(Round round);	
 
-	public List<Quest> selectSolvedList (User user);
+	public List<Map<String, Object>> selectSolvedList (User user);
 	
-	public List<Quest> selectUploadList(User user);
+	public List<Map<String, Object>> selectUploadList(User user);
 	
 	public Quest selectQuest(Quest quest);
 	

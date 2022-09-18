@@ -43,13 +43,13 @@ public class MypageController {
 
 	// mypage settings
 	// mypage - 개인정보 수정
-	@GetMapping("/setting")
+	@RequestMapping("/setting")
 	public String mypageSetting() {
 		return "mypage/settings/mypage-setting";
 	}
 
 	// mypage - 프로필/계정 정보 수정
-	@PostMapping("/setting-{category}")
+	@RequestMapping("/setting-{category}")
 	public String settingsProfile(@PathVariable String category) {
 		if (category.equals("profile")) {
 			return "mypage/settings/settings-profile";
