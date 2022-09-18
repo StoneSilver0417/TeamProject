@@ -278,6 +278,7 @@ public class UserController {
 		user.setUserEmail(email);
 		userService.editUserEmail(user);
 		String message = "이메일이 변경되었습니다.";
+		System.out.println(message);
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 
