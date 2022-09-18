@@ -24,16 +24,16 @@
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
 	<hr>
-
-	<form action="/solve-quest" method="post">
+	
+<!-- 	<form action="/solve-quest" method="post">
 		<button type="submit">(임시)문제 푸는 페이지 view</button>
 	</form>
 	
 	<form action="/solve-quest/num" method="post">
 		<button type="submit">(임시)문제 상세 페이지 view</button>
-	</form>
+	</form> -->
 	
-	<div th:replace="layout/header2 :: main"></div>
+	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
 		function profileOnclick() {
@@ -57,12 +57,6 @@
 			}
 		}
 	</script>
-
-
-	<!-- 카테고리 목록 출력 -->
-	<div th:replace="layout/categoryList :: list"></div>
-
-
 
 	<!-- section: slider -->
 	<div id="slider">

@@ -37,7 +37,7 @@
 	})		
 	</script>
 </head>
-<body>
+<body>	
 	<li th:each="category:${categoryList}" th:value="${category.categoryNo}" class="category cg" tab-index="0" style="float: left;">
 		<a th:text="${category.categoryName}" th:href="${'/category/' + category.categoryNo}">카테고리 이름</a>
 		<ul class="sub-category">			

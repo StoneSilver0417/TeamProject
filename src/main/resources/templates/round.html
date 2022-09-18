@@ -98,12 +98,9 @@
 			type:'post',
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
-				alert(data)
 				changeTextColor(ol, '#ff7051');				
 				for(var d of data){					
 					var o = $('.questChoices[value=' + d + ']');
-
-					alert(o)
 
 					changeTextColor(o,'white');					
 				}

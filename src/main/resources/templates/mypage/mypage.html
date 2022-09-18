@@ -41,31 +41,31 @@ tr>td {
 		$(event).addClass('active');
 	}
 
-	function myQuest(event, target) {
-		active(event)
+	function ajax(url){
 		$.ajax({
-			url : '/quest/' + target + 'List',
-			type : 'post',
-			data : {
-				userId : user.userId
-			},
+			url:url,
+			type:'post',
+			data:{userId:user.userId},
 			success : function(data) {
 				$('#replace-content').html(data);
 			},
-		});
+		})
+	}
+	function myQuest(event, target) {
+		active(event);
+		ajax('/quest/' + target + 'List');
 	}
 
 	function myReply(event) {
 		active(event);
-		$.ajax({
-			url : '/mypage-activity.html',
-			type : 'GET',
-			success : function(data) {
-				$('#replace-content').html(data);
-			},
-		});
+		ajax('/reply/' + user.userId);		
 	}
 
+	function myLevel(event) {
+		active(event);
+		ajax('/user/level');		
+	}
+	
 	// default: 내 문제 - 내가 푼 문제
 	$(document).ready(function() {
 		const day = 1000 * 60 * 60 * 24;
@@ -87,16 +87,6 @@ tr>td {
 
 		myQuest(item[0], 'solved');
 	});
-
-	function myLevelBtn() {
-		$.ajax({
-			url : '/mypage/level', 
-			type : 'POST',
-			success : function(data) {
-				$('#replace-content').html(data);
-			},
-		});
-	}
 </script>
 </head>
 <body>
@@ -150,7 +140,7 @@ tr>td {
 			<p onclick="myQuest(this, 'solved')">내가 푼 문제</p>
 			<p onclick="myQuest(this, 'upload')">내가 올린 문제</p>
 			<p onclick="myReply(this)">내 댓글</p>
-			<p onclick="myLevelBtn(this)">등급</p>
+			<p onclick="myLevel(this)">등급</p>
 			<div class="marker" target="_blank"></div>
 		</nav>
 		<div id="navbar__divider"></div>
