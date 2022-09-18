@@ -15,7 +15,7 @@
 	margin: 1%;
 }
 </style>
-<script src="js/script.js"></script>
+<script src="/js/script.js"></script>
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
@@ -204,16 +204,11 @@
 		slider.addEventListener("mouseout", () => {
 		  repeater();
 		});
-    </script>
+    </script> 
 	<button th:if="${session.user?.userRole?.toString() == 'ADMIN'}">
          <a href="/authority">Authority</a>
     </button>
-		
-	<!-- </span> -->
-		<button>
-			<a href="/reply">reply</a>
-		</button>
-
+		 
 	<!-- section: board list -->
 	<section id="boardList">
 		<div class="popularBoard boardList__list">
