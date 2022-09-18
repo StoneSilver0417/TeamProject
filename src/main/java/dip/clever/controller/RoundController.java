@@ -71,7 +71,6 @@ public class RoundController {
 		test.setTestNo(round.getTestNo());
 		model.addAttribute("test", testService.selectTest(test));
 		
-		//System.out.println(round);
 		roundService.insertRound(round);
 		log = new Log(user.getUserId(), Action.CREATE, roundService.selectLastInsert());
 		logService.insertLog(log);

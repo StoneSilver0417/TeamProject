@@ -45,9 +45,9 @@
 	// manager, user 권한 부여
 	function addAndRemoveManagerBtn(action, id, name) {
 		if (action == "add") {
-			var check = confirm(name + '에게 권한을 부여하겠습니까?');
+			var check = confirm(name + '에게 매니저 권한을 부여하겠습니까?');
 		} else if (action == "remove") {
-			var check = confirm(name + "'를 매니저로 올리겠습니까?");
+			var check = confirm("'" + name + "' 을 일반 회원으로 변경하시겠습니까?");
 		}
 
 		if (check == true) {
@@ -56,7 +56,7 @@
 				type : "PUT",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
-					alert(message + '"' + name + '" 성공 !');
+					alert(message + '"' + name + '".');
 					location.href = '/authority';
 				},
 				error : function() {
@@ -81,7 +81,7 @@
 				type : "POST",
 				dataType : 'text', // String 값을 return하기 때문
 				success : function(message) {
-					alert(message);
+					//alert(message);
 					//location.replace('/manageUser');
 					location.href = '/authority';
 				},
@@ -111,8 +111,8 @@
 					<img class="header__toolbar"> <img class="header__icon">
 				</div>
 				<!-- search user content -->
-				<div class="searchUserInput">
-					<input placeholder="검 색" id="keyword" maxlength="255" />
+				<div class="searchUserInput"> 
+					<input placeholder="검 색" id="keyword" maxlength="255" /> 
 					<button type="submit" id="userSearchBtn" class="btn">검색</button>
 				</div>
 			</form>
@@ -125,7 +125,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th scope="col">사용자명</th>
+						<th scope="col">아이디</th>
 						<th scope="col">닉네임</th>
 						<th scope="col">권한</th>
 						<th scope="col">레벨</th>
@@ -139,7 +139,16 @@
 						<td th:text="${list.userExp}"></td>
 						<td>
 							<button th:if="${#strings.equals(list.userRole, 'USER')}"
-								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])"
+								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])" 
+								class="addManagerBtn btn">매니저 등록</button>
+
+							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
+								class="removeManagerBtn btn">매니저 삭제</button>
+
+							<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
+								class="deleteUserBtn btn">회원정지</button> 
 								class="addManagerBtn btn">매니저 추가</button>
 
 							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
@@ -148,7 +157,7 @@
 
 							<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
 								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
-								class="deleteUserBtn btn">유저 삭제</button>
+								class="deleteUserBtn btn">유저 삭제</button> 
 						</td>
 					</tr>
 				</tbody>

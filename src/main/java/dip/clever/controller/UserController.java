@@ -69,7 +69,7 @@ public class UserController {
 		randomProfile(user);
 		
 		return loginCheck(httpSession, model, user);
-	}	
+	}
 	
 	//로그인 진행
 	@PostMapping("/user/login")
