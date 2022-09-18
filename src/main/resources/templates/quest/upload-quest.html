@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clever</title>
 <link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/main/header.css" />
+<link rel="stylesheet" href="/css/main/header.css" /> 
 <link rel="stylesheet" href="/css/main/index.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
@@ -46,63 +46,54 @@ th, td {
 	function questDetailsBtn(button) {
 		var no = button.value;
 
-		window.open('about:blank').location.href='/quest/' + no;
+		window.open('about:blank').location.href = '/quest/' + no;
 	}
 </script>
 <script type="text/javascript">
 	var test;
 	var questList;
-	
-	$(document).ready(function(){
+
+	$(document).ready(function() {
 		var no = $('#roundNo').val();
-		
+
 		$.ajax({
-			url:'/quest/select',
-			type:'post',
-			data:{roundNo:no},
-			success:function(data){				
+			url : '/quest/select',
+			type : 'post',
+			data : {
+				roundNo : no
+			},
+			success : function(data) {
 				$('#questCount').html(data.length);
 
 				$.ajax({
-					url:'/quest',
-					type:'post',
-					data:{param:JSON.stringify(data)},
-					success:function(data){	
+					url : '/quest',
+					type : 'post',
+					data : {
+						param : JSON.stringify(data)
+					},
+					success : function(data) {
 						$('#questList').html(data);
 					}
 				})
 			}
 		})
-		
+
 		$.ajax({
-			url:'/test/selectByRound',
-			type:'post',			
-			data:{roundNo:no},
-			success:function(data){
+			url : '/test/selectByRound',
+			type : 'post',
+			data : {
+				roundNo : no
+			},
+			success : function(data) {
 				test = data;
 				$('#testName').html(data.testName);
 			}
 		})
 	})
-  
-	function quest(no, ans){
+
+	function quest(no, ans) {
 		this.questNo = no;
 		this.answer = ans;
-	}
-	
-	function check(){
-		var answer = [];
-		var name;
-		var no;
-		var ans;
-		var ol = $('.questChoices');
-				
-		for(var o of ol){
-			no = $(o).attr('value');			
-			name = 'choice' + no;			 
-			ans = $('input[name=' + name + ']:checked').val();
-			answer.push(new quest(no, ans));
-		}
 	}
 </script>
 </head>
@@ -111,16 +102,14 @@ th, td {
 		<tr>
 			<th>시험 이름</th>
 			<th>회차 이름</th>
-			<th>문제 번호</th>
-			<th>풀이 시간</th>
+			<th>등록 시간</th>
 		</tr>
 		<tr></tr>
-		<tr th:each="quest:${solvedList}">
-			<td th:text="${quest.TEST_NAME}"></td>
-			<td th:text="${quest.ROUND_NAME}"></td>
-			<td><a th:href="${'/quest/' + quest.QUEST_NO}"
-				th:text=${quest.QUEST_SEQ}></a></td>
-			<td th:text="${quest.REG_TIME}"></td>
+		<tr th:each="round:${uploadList}">
+			<td th:text="${round.TEST_NAME}"></td>
+			<td><a th:href="${'/round/' + round.ROUND_NO}"
+				th:text="${round.ROUND_NAME}"></a></td>
+			<td th:text="${round.REG_TIME}"></td>
 		</tr>
 	</table>
 </body>

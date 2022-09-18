@@ -20,11 +20,6 @@
 </head>
 <body>
 	<ul class="category__list">
-		<li>
-			<p>총</p>
-			<p th:text="${#lists.size(roundList)}">11(타임리프 리스트)</p>
-			<p>회</p>
-		</li>
 		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
 			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
 		</a></li>

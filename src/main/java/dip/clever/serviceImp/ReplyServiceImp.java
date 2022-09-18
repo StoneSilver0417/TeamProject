@@ -49,4 +49,9 @@ public class ReplyServiceImp implements ReplyService {
 	public Reply findReplyById(String id) {
 		return replyMapper.findReplyById(id);		
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectMyReply(String userId) {
+		return replyMapper.selectMyReply(userId);
+	}	
 }

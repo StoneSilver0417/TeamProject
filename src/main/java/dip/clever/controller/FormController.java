@@ -25,46 +25,10 @@ import dip.clever.util.Util;
 @Controller
 @RequestMapping("")
 public class FormController {
-	@Autowired
-	private UserService userService;		
-
 	// 메인 페이지로 이동
 	@RequestMapping("")
 	public String home() {
 		return "index";
-	}
-	
-	// 회원가입 메소드
-	@PostMapping("join")
-	public String join(HttpSession httpSession, Model model, User user) {
-		String inPath = Util.path + "illustration-";
-		String outPath = Util.path + "user\\";
-		FileInputStream fileInputStream;
-		File file;
-		int rand = Util.rand(25);		
-
-		userService.insertUser(user);
-		
-		inPath += rand + ".png";
-		outPath += user.getUserId() + ".png";
-		
-		Util.uploadFile(Util.getFileInputStream(inPath), outPath);
-		
-		return loginCheck(httpSession, model, user);
-	}
-	
-	//로그인 진행
-	@PostMapping("/login")
-	public String loginCheck(HttpSession httpSession, Model model, User user) {
-		user = userService.selectUser(user);
-		if (user == null) {
-			model.addAttribute("loginError", true);
-
-			return "loginForm";
-		}
-		httpSession.setAttribute("user", user);
-
-		return "redirect:";
 	}
 	
 	// 검색 폼으로 이동
@@ -115,17 +79,12 @@ public class FormController {
 
 		return "redirect:";
 	}
-//	
-//	//로그아웃
-//	@RequestMapping("logout")
-//	public String logout(HttpServletRequest httpServletRequest) {
-//		HttpSession httpSession = httpServletRequest.getSession(false);
-//		
-//		if(httpSession != null)
-//			httpSession.invalidate();
-//		
-//		return "redirect:";
-//	}
+	
+	// mypage 반환
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
+	}
 //	
 //	//게시판 생성 폼으로 이동
 //	@GetMapping("create")

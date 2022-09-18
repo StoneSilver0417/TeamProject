@@ -20,8 +20,6 @@
 		FROM TB_USER
 		WHERE USE_F = 'Y'
 	</select>
-	
-
 
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="dip.clever.model.User">
@@ -36,19 +34,42 @@
  
 	<select id="selectUser" parameterType="dip.clever.model.User"
 		resultMap="userMap">
-		SELECT * FROM TB_USER
-		WHERE USE_F = 'Y'
-		AND BINARY(USER_ID) =
-		#{userId}
-		AND BINARY(USER_PWD) = #{userPwd}
+		SELECT	T1.USER_ID,
+			T1.USER_NICKNAME,
+			T1.USER_EMAIL,
+			T1.USER_ROLE,(
+			SELECT	COUNT(*)
+			FROM (
+				SELECT		*
+				FROM		TB_LOG
+				WHERE		USER_ID = #{userId}
+				AND			ACTION = 'SOLVED'
+				GROUP BY	USER_ID, TARGET_ID
+				)	AS T
+			)		AS USER_EXP
+		FROM	TB_USER		AS T1
+		WHERE 	USE_F = 'Y'
+		AND 	BINARY(USER_ID) = #{userId}
+		AND 	BINARY(USER_PWD) = #{userPwd}
 	</select>
 
 	<!-- 아이디 확인 -->
-	<select id="findUserId" parameterType="string"
-		resultType="string">
-		SELECT USER_ID
-		FROM TB_USER
-		WHERE USER_ID = #{userId}
+	<select id="findUserId" parameterType="string" resultType="string">
+		SELECT	T1.USER_ID,
+			T1.USER_NICKNAME,
+			T1.USER_EMAIL,
+			T1.USER_ROLE,(
+			SELECT	COUNT(*)
+			FROM (
+				SELECT		*
+				FROM		TB_LOG
+				WHERE		USER_ID = #{userId}
+				AND			ACTION = 'SOLVED'
+				GROUP BY	USER_ID, TARGET_ID
+				)	AS T
+			)		AS USER_EXP
+		FROM	TB_USER		AS T1
+		WHERE 	USER_ID = #{userId}
 	</select>
 
 

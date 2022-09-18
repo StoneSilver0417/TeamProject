@@ -1,6 +1,5 @@
 package dip.clever.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,13 +67,17 @@ public class QuestController {
 		return "quest";
 	}	
 	@PostMapping("/quest/solvedList")
-	public ResponseEntity<List<Quest>> selectSolvedList(User user) {
-		return Util.resoponse(questService.selectSolvedList(user));
+	public String selectSolvedList(Model model, User user) {
+		model.addAttribute("solvedList", questService.selectSolvedList(user));
+		System.out.println(questService.selectSolvedList(user));
+		return "/quest/solve-quest";
 	}
 	
 	@PostMapping("/quest/uploadList")
-	public ResponseEntity<List<Quest>> selectUploadList(User user){
-		return Util.resoponse(questService.selectUploadList(user));
+	public String selectUploadList(Model model, User user){
+		model.addAttribute("uploadList", questService.selectUploadList(user));
+		
+		return "/quest/upload-quest";		
 	}
 	
 	@PostMapping("/quest/next")
@@ -89,7 +92,7 @@ public class QuestController {
 		Integer[] solvedQuest = questService.checkAnswer(Json.parse(param));
 		User user = (User)httpSession.getAttribute("user");
 		Log log;
-				
+
 		if(user != null) {
 			for(int sq : solvedQuest) {
 				log = new Log(user.getUserId(), Action.SOLVED, sq);

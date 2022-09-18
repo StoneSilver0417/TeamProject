@@ -12,9 +12,9 @@ import dip.clever.model.Quest;
 public interface QuestMapper {	
 	public List<Quest> selectQuestList(int roundNo);
 	
-	public List<Quest> selectSolvedList(String userId);
+	public List<Map<String, Object>> selectSolvedList(String userId);
 	
-	public List<Quest> selectUploadList(String userId);
+	public List<Map<String, Object>> selectUploadList(String userId);
 	
 	public Quest selectQuest(int questNo);
 	

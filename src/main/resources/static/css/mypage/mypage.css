@@ -19,7 +19,7 @@
   max-width: 1160px;
 
   padding: 28px 0;
-}
+}	
 
 #mypage > .mypage__profile img {
   width: 80px;
@@ -152,7 +152,7 @@
   border-radius: 4px;
   transition: 0.3s;
 }
-
+ 
 #replace-content {
   display: flex;
   flex-direction: column;
@@ -162,7 +162,7 @@
   width: 100%;
   max-width: 1160px;
 
-  padding: 60px 0 100px 0;
+  padding: 30px 0 100px 0;
 }
 
 /* Responsible Web */

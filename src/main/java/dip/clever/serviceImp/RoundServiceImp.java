@@ -12,10 +12,8 @@ import dip.clever.mapper.RoundMapper;
 import dip.clever.mapper.TestMapper;
 import dip.clever.model.Category;
 import dip.clever.model.Round;
-import dip.clever.model.SearchCondition;
 import dip.clever.model.Test;
 import dip.clever.service.RoundService;
-import dip.clever.service.TestService;
 
 @Service
 public class RoundServiceImp implements RoundService{
@@ -33,9 +31,18 @@ public class RoundServiceImp implements RoundService{
 		return roundMapper.selectRound(round.getRoundNo());
 	}
 	
+	public int selectLastInsert() {
+		return roundMapper.selectlastInsert();
+	}
+	
 	// 회차등록
 	@Override
 	public void insertRound(Round round) {
 		roundMapper.insertRound(round);
+	}
+
+	@Override
+	public List<Round> selectNewRound() {
+		return roundMapper.selectNewRound();
 	}
 }

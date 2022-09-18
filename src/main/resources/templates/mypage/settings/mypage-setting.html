@@ -14,18 +14,23 @@
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
-    // default: 프로필
-    $(document).ready(function () {
-        $.ajax({
-          url: '/mypage/setting-profile',
-          type: 'POST',
-          success: function (data) {
-            $('#replace-content').html(data);
-          },
-        }); 
-    });
-
-    function settingCategoryBtn(category) {
+	var marker;
+	var item;
+	//마커 표시
+	function indicator(e) {
+		marker.style.left = e.offsetLeft + "px";
+		marker.style.width = e.offsetWidth + "px";
+	}
+	
+	//버튼 활성화
+	function active(event) {
+		item.removeClass('active');
+		indicator(event);
+		$(event).addClass('active');
+	}
+	
+	function settingCategoryBtn(event, category) {
+    	active(event);
         $.ajax({
           url: '/mypage/setting-' + category,
           type: 'POST',
@@ -34,6 +39,22 @@
           },
         });
       }
+	
+    // default: 프로필
+    $(document).ready(function () {
+    	marker = document.querySelector(".marker");
+		item = $('.settings__list p');
+		
+        $.ajax({
+          url: '/mypage/setting-profile',
+          type: 'POST',
+          success: function (data) {
+            $('#replace-content').html(data);
+          },
+        });
+        settingCategoryBtn(item[0], 'profile')
+    });
+
     </script>
 </head>
 <body>
@@ -47,8 +68,8 @@
 		<!-- settings list -->
 		<nav class="settings__list">
 			<!-- tab navigation -->
-			<p onclick="settingCategoryBtn('profile')" class="active">프로필</p>
-			<p onclick="settingCategoryBtn('account')">계정</p>
+			<p onclick="settingCategoryBtn(this, 'profile')" class="active">프로필</p>
+			<p onclick="settingCategoryBtn(this, 'account')">계정</p>
 			<div class="marker" target="_blank"></div>
 		</nav>
 		<div id="navbar__divider"></div>
@@ -56,26 +77,6 @@
 
 	</section>
 	<script>
-	const marker = document.querySelector(".marker");
-	const item = document.querySelectorAll(".settings__list p");
-	
-	function indicator(e) {
-	marker.style.left = e.offsetLeft + "px";
-	marker.style.width = e.offsetWidth + "px";
-	
-	//   e.classList.remove('active');   
-	}
-	
-	item.forEach((event) => { 
-	    // event.currentTarget.classList.remove('active');   
-	
-	    event.addEventListener("click", (e) => {
-	    indicator(e.target);
-	    e.target.classList.add('active');
-	
-	    console.log(e.target);
-		});
-	});
     </script>
 
 	<!-- footer -->

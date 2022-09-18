@@ -63,5 +63,20 @@
 		WHERE	REPLY_NO = #{replyNo}
 	</select>
 	
-	
+	<select id="selectMyReply" parameterType="string" resultType="java.util.HashMap">
+		SELECT		T4.TEST_NAME,
+					T3.ROUND_NAME,				
+					T2.QUEST_SEQ, 
+					T1.QUEST_NO, 
+					T1.CONTENT, 
+					T1.REG_TIME
+		FROM		tb_reply	AS T1
+		INNER JOIN	tb_quest	AS T2
+			ON			T2.QUEST_NO = T1.QUEST_NO
+		INNER JOIN	tb_round	AS T3
+			ON			T3.ROUND_NO = T2.ROUND_NO
+		INNER JOIN	tb_test	AS T4
+			ON			T4.TEST_NO = T3.TEST_NO
+		WHERE		T1.REG_USER = #{userId}
+	</select>
 </mapper>

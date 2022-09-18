@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <!--header--> 
-<div th:fragment="list">
+<nav th:fragment="list" id="header__nav">
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var categoryList = $('#categoryList');
+	$(document).ready(function() {
+		var categoryList = $('#categoryList');
 
-			$.ajax({
-				url : '/category/select',
-				type : 'post',
-				success : function(data) {
-					$.ajax({
-						url : '/category',
-						type : 'post',
-						data : {
-							param : JSON.stringify(data)
-						},
-						success : function(data) {
-							categoryList.html(data);
-						},
-						error : function(data) {
-							alert('실패')
-						}
-					});
-				},
-				error : function() {
-					alert('카테고리 목록 불러오기 실패');
-				}
-			})
-		});
-	</script>
-	<!-- navbar -->
-	<nav id="header__nav">
-		<ul id="categoryList">
-
-		</ul>
-	</nav>
+		$.ajax({
+			url : '/category/select',
+			type : 'post',
+			success : function(data) {
+				$.ajax({
+					url : '/category',
+					type : 'post',
+					data : {
+						param : JSON.stringify(data)
+					},
+					success : function(data) {
+						categoryList.html(data);
+					},
+					error : function(data) {
+						alert('실패')
+					}
+				});
+			},
+			error : function() {
+				alert('카테고리 목록 불러오기 실패');
+			}
+		})
+	});
+</script>
+	<ul id="categoryList">
+	</ul>
+</nav>
 </div>
 </html>

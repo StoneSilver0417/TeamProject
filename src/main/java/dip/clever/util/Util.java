@@ -25,8 +25,8 @@ import dip.clever.model.User;
 
 public class Util {
 	public static final String path = "C:\\Users\\8\\Documents\\GitHub\\TeamProject\\src\\main\\resources\\static\\imgs\\profile\\"; 
-	
-	@PostMapping("/encode")
+		
+	// 비밀번호 암호화
 	public String encode(String password) {
 		MessageDigest messageDigest = null;
 		try {
@@ -37,6 +37,7 @@ public class Util {
 		return hashcode(messageDigest.digest());		
 	}
 	
+	// 데이터 반환
 	public static <T> ResponseEntity<T> resoponse(T object){
 		return new ResponseEntity<T> (object, HttpStatus.OK);
 	}
