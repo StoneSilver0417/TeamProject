@@ -99,7 +99,7 @@
 			data:{param:JSON.stringify(answer)},
 			success:function(data){
 				alert(data)
-				changeTextColor(ol, 'red');				
+				changeTextColor(ol, '#ff7051');				
 				for(var d of data){					
 					var o = $('.questChoices[value=' + d + ']');
 
@@ -107,6 +107,7 @@
 
 					changeTextColor(o,'white');					
 				}
+				window.scrollTo({ top: 0, behavior: "smooth" });  
 			}
 		})
 	}
