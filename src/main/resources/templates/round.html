@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/quest/solve-quest.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/script.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script defer>
 	$(document).on('click', "input[type='radio']", function() {
 		thisRadio = $(this);
@@ -90,7 +92,7 @@
 			answer.push(new quest(no, ans));
 		}
 
-		alert(JSON.stringify(answer));
+		//alert(JSON.stringify(answer));
 
 		$.ajax({
 			url:'/quest/check',
@@ -139,7 +141,7 @@
 		</form>
 	</div>
 
-	<div id="navbar__divider"></div>
+ 	<hr>
 
 	<div id="questContent">
 		<!-- 문제 목록 출력 -->

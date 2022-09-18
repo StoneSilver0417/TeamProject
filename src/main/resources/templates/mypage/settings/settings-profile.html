@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head> 
-    <title>settings profile</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>settings profile</title><script src="/js/script.js"></script>
+    
     <style>
       #settings__userInfo > ul > li > .edit__info > .profile__description {
         display: flex;
@@ -15,7 +19,7 @@
         align-items: flex-start;
 
         width: auto;
-        min-width: 264px;
+        min-width: 300px;
         height: 100%;
 
         padding: 5px 0 2px 5px;
@@ -27,6 +31,8 @@
 
       #settings__userInfo > ul > li > .edit__info > .profile__description > h3,
       #settings__userInfo > ul > li > h3 {
+      	width: 90px;
+      
         font-size: 16px;
         font-weight: 600;
 
@@ -154,7 +160,7 @@
             dataType: 'text',
             success: function (message) {
               alert(message);
-              location.replace('/mypage/setting');
+              location.replace('/mypage-setting');
             },
           });
         }

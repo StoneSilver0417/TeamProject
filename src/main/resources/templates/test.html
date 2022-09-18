@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/category/categoryList.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
+<script src="/js/script.js"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -38,6 +39,7 @@
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
+	<hr>
 
 	<!-- 대분류 카테고리 이름 -->
 	<div id="category">
@@ -51,8 +53,7 @@
 				<li>
 					<span>총</span>
 					<span id="roundCount"></span>
-					<span>회</span>
-				</li>
+					<span>회</span> 
 			</div>
 			<section th:if="${session.user != null}"
 				th:with="info = ${session.user}">

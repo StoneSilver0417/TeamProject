@@ -7,22 +7,31 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.ajax({
-			url:'/quest2/list',
-			type:'post',
-			data:{roundNo:$('#roundNo').val()},
-			success:function(data){
+			url : '/quest2/list',
+			type : 'post',
+			data : {
+				roundNo : $('#roundNo').val()
+			},
+			success : function(data) {
+				alert(data)
 				console.log(JSON.stringify(data))
 				$('#questList').html(data);
 			}
 		})
-	})	
+	})
 </script>
 </head>
 <body>
 	<ul class="category__list">
+		<li>
+			<p>총</p>
+			<p></p>
+			<p>회</p>
+		</li>
 		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
 			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
-		</a></li>
+			</a>
+		</li>
 	</ul>
 	<div id="questList"></div>
 </body>
