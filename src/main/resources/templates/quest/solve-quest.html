@@ -99,7 +99,7 @@ th, td {
 				
 		for(var o of ol){
 			no = $(o).attr('value');			
-			name = 'choice' + no;			
+			name = 'choice' + no;			 
 			ans = $('input[name=' + name + ']:checked').val();
 			answer.push(new quest(no, ans));
 		}
