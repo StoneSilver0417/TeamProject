@@ -137,7 +137,7 @@
 						<th scope="col">아이디</th>
 						<th scope="col">닉네임</th>
 						<th scope="col">권한</th>
-						<th scope="col">레벨</th>
+						<th scope="col">경험치</th>
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
@@ -147,18 +147,18 @@
 						<td th:text="${list.userRole}"></td>
 						<td th:text="${list.userExp}"></td>
 						<td>
-							<button th:if="${#strings.equals(list.userRole, 'USER')}"
-								th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])" 
-								class="addManagerBtn btn">매니저 등록</button>
+							<button th:if="${list.userRole.toString() == 'USER'}" 
+							th:onclick="addAndRemoveManagerBtn('add', [[${list.userId}]], [[${list.userNickname}]])" 
+							class="addManagerBtn btn">매니저 등록</button>
 
-							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
+							<button th:if="${list.userRole.toString() == 'MANAGER'}"
 								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"
 								class="removeManagerBtn btn">매니저 삭제</button>
 
-							<button th:if="not ${#strings.equals(list.userRole, 'ADMIN')}"
+							<button th:if="!${list.UserRole.toString() == 'ADMIN'}"
 								th:onclick="deleteUserBtn([[${list.userId}]], [[${list.userNickname}]])"
-								class="deleteUserBtn btn">회원정지</button> 
-								class="addManagerBtn btn">매니저 추가</button>
+								class="deleteUserBtn btn">회원정지</button>
+								<button	class="addManagerBtn btn">매니저 추가</button>
 
 							<button th:if="${#strings.equals(list.userRole, 'MANAGER')}"
 								th:onclick="addAndRemoveManagerBtn('remove', [[${list.userId}]], [[${list.userNickname}]])"

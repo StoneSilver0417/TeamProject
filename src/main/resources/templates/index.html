@@ -213,6 +213,10 @@
 		<button>
 			<a href="/reply">reply</a>
 		</button>
+		
+		<button th:text="${session.user?.userRole?.toString() == 'ADMIN'}">
+			<a href="/category/manage">category</a>
+		</button>
 
 	<!-- section: board list -->
 	<section id="boardList">
