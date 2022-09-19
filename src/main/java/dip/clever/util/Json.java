@@ -60,6 +60,7 @@ public class Json {
 	private static String getKey(String2 data) {
 		final int index = data.find(":");
 		String2 key;
+
 		if (index == -1)	return null;
 		
 		key = data.divide(index).removeSide();
@@ -79,8 +80,8 @@ public class Json {
 		if(dat.equals("null"))	return null;		
 		
 		return getInt(dat);
-	}	
-	static int a = 0;
+	}
+
 	private static String getString(String2 string) {
 		final int index = string.removefirst().find("\"");
 				

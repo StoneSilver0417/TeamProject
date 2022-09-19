@@ -51,7 +51,7 @@ public class CategoryController {
 	}
 	
 	//카테고리 관리 폼
-	@PostMapping("/manage")
+	@GetMapping("/manage")
 	public String manage(Model model) {
 		model.addAttribute("categoryList", categoryService.selectCategoryList());
 		

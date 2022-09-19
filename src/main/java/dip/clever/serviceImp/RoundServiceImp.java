@@ -32,7 +32,7 @@ public class RoundServiceImp implements RoundService{
 	}
 	
 	public int selectLastInsert() {
-		return roundMapper.selectlastInsert();
+		return roundMapper.selectLastInsert();
 	}
 	
 	// 회차등록
