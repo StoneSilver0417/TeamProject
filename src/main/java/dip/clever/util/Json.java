@@ -18,10 +18,13 @@ public class Json {
 		String2 dat = new String2(data);
 		String2 json;
 		
-		if(isList(dat))	dat.removeSide();		
 		
+		if(isList(dat))	dat.removeSide();		
+
 		while(isJson(dat)) {
 			json = getJson(dat);
+//			System.out.println("json: " + json);
+//			System.out.println("data: " + dat);
 			
 			if(json == null)	break;
 			
@@ -84,7 +87,6 @@ public class Json {
 
 	private static String getString(String2 string) {
 		final int index = string.removefirst().find("\"");
-				
 		return string.divide(index + 1).removeLast().get();
 	}
 	
@@ -101,6 +103,7 @@ public class Json {
 	}
 	
 	private static boolean isString(String2 data) {
+		//System.out.println(data);
 		return data.isFirst('"');
 	}
 	
