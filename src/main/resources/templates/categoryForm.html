@@ -51,7 +51,19 @@
 			type:'post',
 			data:{categoryNo:no},
 			success:function(data){
-				$('#testList').html(data);
+				alert(data)
+				$.ajax({
+					url:'/test',
+					type:'post',
+					data:{param:JSON.stringify(data)},
+					sucess:function(data){
+						alert(data)
+						$('#testList').html(data);
+					},
+					error:function(){
+						alert('error')
+					}
+				})				
 			}
 		})
 	}

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dip.clever.model.SearchCondition;
 import dip.clever.service.TestService;
 import dip.clever.web.H2;
-import dip.clever.web.div;
+import dip.clever.web.Div;
 import dip.clever.web.Option;
 import dip.clever.web.Tag;
 
@@ -51,12 +51,18 @@ public class SearchController {
 	
 	@PostMapping("/condition")
 	public ResponseEntity<String> searchCondition(SearchCondition where, int count){
-		div li = new div();
+		Div li = new Div();
 		H2 h2 = new H2();
 		
 		h2.append(where.name + " 검색 결과(" + count + ")");
 		
 		return new ResponseEntity<String> (h2.toString() + Tag.BR, HttpStatus.OK);
+	}
+	
+	@PostMapping("/user")
+	public String searchUser(String query){
+		System.out.println(query);
+		return "";
 	}
 	
 	//검색 조건 목록 반환

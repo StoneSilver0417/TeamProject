@@ -41,15 +41,17 @@ function encode(code) {
 }
 
 function session(){
+	var session = false;
+	
 	$.ajax({
 		url:'/user/session',
 		type:'post',
+		async: false,			// 동기 처리
 		success:function(data){
-			return data;
-		}		
+			session = data			
+		}
 	})
-	
-	return false;
+	return session;
 }
 
 (function(d) {

@@ -258,6 +258,15 @@ padding-bottom: 8px;
 			})
 		}
 	};
+	
+	function search(){
+		alert($('#keyword').val());
+		$.ajax({
+			url:'/search/user',
+			type:'post',
+			data:$('#keyword').val()
+		})
+	}
 </script>
 
 </head>

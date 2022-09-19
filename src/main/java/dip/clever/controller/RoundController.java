@@ -75,7 +75,7 @@ public class RoundController {
 		log = new Log(user.getUserId(), Action.CREATE, roundService.selectLastInsert());
 		logService.insertLog(log);
 
-		return "roundForm";
+		return "redirect:/test/" + round.getTestNo();
 	}
 
 	@PostMapping("/new")
