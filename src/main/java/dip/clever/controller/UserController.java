@@ -34,7 +34,7 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private LogService logService;
-  
+
 	// 아이디 중복 체크
 	@PostMapping("/user/checkId")
 	public ResponseEntity<Boolean> checkId(User user) {
@@ -52,13 +52,13 @@ public class UserController {
 	public ResponseEntity<Boolean> checkEmail(User user) {
 		return Util.resoponse(!userService.findUserEmail(user));
 	}
-	
+
 	// 패스워드 체크
 	@PostMapping("/user/checkPassword")
 	public ResponseEntity<Boolean> checkPassword(User user) {
 		return Util.resoponse(userService.selectUser(user) != null);
 	}
- 
+
 	// 회원가입 메소드
 	@PostMapping("/user/join")
 	public String join(HttpSession httpSession, Model model, User user) {
@@ -67,18 +67,18 @@ public class UserController {
 		userService.insertUser(user);
 		logService.insertLog(log);
 		randomProfile(user);
-		
+
 		return loginCheck(httpSession, model, user);
 	}
-	
-	//로그인 진행
+
+	// 로그인 진행
 	@PostMapping("/user/login")
 	public String loginCheck(HttpSession httpSession, Model model, User user) {
 		Log log;
-		
+
 		user = userService.selectUser(user);
 		if (user == null) {
-			model.addAttribute("loginError", true);	
+			model.addAttribute("loginError", true);
 
 			return "loginForm";
 		}
@@ -90,11 +90,10 @@ public class UserController {
 	}
 
 	@PostMapping("/user/session")
-	public ResponseEntity<Boolean> session(HttpSession httpSession){
-		return Util.resoponse(httpSession.getAttribute("user")!= null);
+	public ResponseEntity<Boolean> session(HttpSession httpSession) {
+		return Util.resoponse(httpSession.getAttribute("user") != null);
 	}
-	
-	
+
 	// mypage - 개인정보 수정
 	@RequestMapping("/mypage-setting")
 	public String mypageSetting() {
@@ -110,16 +109,14 @@ public class UserController {
 			return "mypage/settings/settings-account";
 		}
 	}
-  
-  
+
 	// 유저 리스트출력
-	@GetMapping("/user/authority")
+	@GetMapping("/authority")
 	public String checkAll(Model model) {
 		List<User> user = userService.findAll();
 		model.addAttribute("checkAll", user);
 		// System.out.println(user.toString());
 		return "authority";
-
 	}
 
 	// 관리자- 유저 검색 method
@@ -157,13 +154,13 @@ public class UserController {
 			User user = userService.findUserById(id);
 			user.setUserRole(Role.MANAGER);
 			userService.insertUser(user);
-			
+
 		} else if (action.equals("remove")) {
 			userService.updateUser(id);
 			User user = userService.findUserById(id);
 			user.setUserRole(Role.USER);
 			userService.insertUser(user);
-			
+
 		}
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
@@ -217,8 +214,8 @@ public class UserController {
 			httpSession.invalidate();
 		return "redirect:";
 	}
-  
-	// 미리보기 사진 임시 저장  
+
+	// 미리보기 사진 임시 저장
 	@PostMapping("/user/uploadTemp")
 	public ResponseEntity<Boolean> uploadTemp(HttpSession httpSession,
 			@RequestParam("profileImage") MultipartFile file) {
@@ -239,7 +236,7 @@ public class UserController {
 	public String selectUserLevel() {
 		return "/mypage/activity/mypage-level";
 	}
-	
+
 	private boolean uploadImage(HttpSession httpSession, MultipartFile file, String path) {
 		User user = (User) httpSession.getAttribute("user");
 
@@ -261,19 +258,19 @@ public class UserController {
 
 		return inputStream;
 	}
-  
+
 	// 프로필 랜덤 배정
 	private void randomProfile(User user) {
 		String inPath = Util.path + "illustration-";
 		String outPath = Util.path + "user\\";
 		int rand = Util.rand(25);
-		
+
 		inPath += rand + ".png";
 		outPath += user.getUserId() + ".png";
-		
+
 		Util.uploadFile(Util.getFileInputStream(inPath), outPath);
 	}
-  
+
 	// 개인정보 수정
 	// 이름 수정
 	@PostMapping("/update-name")
