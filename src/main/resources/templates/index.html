@@ -15,24 +15,21 @@
 	margin: 1%;
 }
 </style>
-<script src="js/script.js"></script>
+<script src="/js/script.js"></script>
 <script src="https://kit.fontawesome.com/267f657aa0.js"
 	crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
 	<!-- header -->
-	<div th:replace="layout/header :: header"></div> 
-	<hr>  
-	
-<!-- 	<form action="/solve-quest" method="post">
-		<button type="submit">(임시)문제 푸는 페이지 view</button>
-	</form>
-	
-	<form action="/solve-quest/num" method="post">
-		<button type="submit">(임시)문제 상세 페이지 view</button>
-	</form> -->
-	
+	<div th:replace="layout/header :: header"></div>
+	<hr>
+
+
+	<a th:if="${session.user?.userRole?.toString() == 'ADMIN'}"
+		href="/authority">Authority</a>
+
+
 	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
@@ -206,25 +203,14 @@
 		});
     </script>
 	<button th:if="${session.user?.userRole?.toString() == 'ADMIN'}">
-         <a href="/user/authority">Authority</a>
-    </button>
-		
-	<!-- </span> -->
-		<button>
-			<a href="/reply">reply</a>
-		</button>
-		
-		<button th:text="${session.user?.userRole?.toString() == 'ADMIN'}">
-			<a href="/category/manage">category</a>
-		</button>
+		<a href="/authority">Authority</a>
+	</button>
 
 	<!-- section: board list -->
 	<section id="boardList">
-		<div class="popularBoard boardList__list">
-		</div>
-		<div class="newQuest boardList__list">
-		</div>
-		<!-- <div class="qnaBoard boardList__list">
+		<div class="popularBoard boardList__list"></div>
+		<div class="newQuest boardList__list"></div>
+		  <div class="qnaBoard boardList__list">
 			<img src="imgs/boardList-icons/qnaBoard.svg" class="icon" />
 			<h1>QnA</h1>
 			<ul>
@@ -239,7 +225,7 @@
 				<li><a href="">가나아러 지<i class="fa-solid fa-chevron-right"></i></a>
 				</li>
 			</ul>
-		</div> -->
+		</div> 
 	</section>
 
 	<!-- footer -->

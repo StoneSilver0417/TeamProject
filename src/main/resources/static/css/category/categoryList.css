@@ -6,6 +6,11 @@ body {
   width: 100%;
 }
 
+hr {
+	  width: 100%;
+	
+}
+
 #newTestBtn {
   display: inline-flex;
   justify-content: center;

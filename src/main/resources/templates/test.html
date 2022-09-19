@@ -10,40 +10,42 @@
 <link rel="stylesheet" href="/css/category/categoryList.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/script.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			url : '/round/list',
-			type : 'post',
-			data : {
-				testNo : $('#testNo').attr('value')
-			},
-			success : function(data) {				
-				$('#roundCount').html(data.length);
-				$.ajax({
-					url : '/round',
-					type : 'post',
-					data : {
-						param : JSON.stringify(data)
-					},
-					success : function(data) {
-						$('#roundList').html(data);
-					}
-				})
-			}
-		})
-	})
+   $(document).ready(function() {
+      $.ajax({
+         url : '/round/list',
+         type : 'post',
+         data : {
+            testNo : $('#testNo').attr('value')
+         },
+         success : function(data) {
+            $('#roundCount').html(data.length);
+            $.ajax({
+               url : '/round',
+               type : 'post',
+               data : {
+                  param : JSON.stringify(data)
+               },
+               success : function(data) {
+                  $('#roundList').html(data);
+               }
+            })
+         }
+      })
+   })
 </script>
 </head>
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
+	<hr>
 
 	<!-- 대분류 카테고리 이름 -->
 	<div id="category">
 		<div id="category__info">
 			<div id="info__title">
-				<input type="hidden" id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></h1>
+				<h1 id="testNo" th:value="${test.testNo}" th:text="${test.testName}"></h1>
 				<div id="info__manager">
 					<p>담당 매니저:</p>
 					<p>manager33</p>
@@ -54,9 +56,11 @@
 				<div
 					th:if="${info.userRole.toString() == 'ADMIN'|| info.userId == 'test.managerId'}">
 					<form action="/insertRound" method="post" id="info__button">
-						<input type="hidden" id="testNo" th:value="${test.testNo}" name="testNo"> 
-							<input type="hidden" id="testName" th:value="${test.testName}" name="testName"> 
-							<input type="hidden" id="managerId" th:value="${test.managerId}" name="managerId">
+						<input type="hidden" id="testNo" th:value="${test.testNo}"
+							name="testNo"> <input type="hidden" id="testName"
+							th:value="${test.testName}" name="testName"> <input
+							type="hidden" id="managerId" th:value="${test.managerId}"
+							name="managerId">
 						<button type="submit" id="newTestBtn">회차 추가</button>
 					</form>
 				</div>

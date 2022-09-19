@@ -387,18 +387,18 @@ nav a:hover {
   z-index: 5;
 }
 
-.category:nth-child(2) > .sub-category {
+.category:nth-child(10) > .sub-category {
   position: absolute;
   width: 1000px;
 
   background: var(--color-orange);
 }
 
-.category:nth-child(3) > .sub-category {
+.category:nth-child(9) > .sub-category {
   background: var(--color-green);
 }
 
-.category:nth-child(4) > .sub-category {
+.category:nth-child(8) > .sub-category {
   background: var(--color-blue);
 }
 
