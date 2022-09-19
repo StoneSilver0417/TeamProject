@@ -1,26 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			url : '/quest2/list',
-			type : 'post',
-			data : {
-				roundNo : $('#roundNo').val()
-			},
-			success : function(data) {
-				alert(data)
-				console.log(JSON.stringify(data))
-				$('#questList').html(data);
-			}
-		})
-	})
-</script>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
 <body>
 	<ul class="category__list">
 		<li>
@@ -28,11 +7,23 @@
 			<p th:text="${roundList.size}"></p>
 			<p>회</p>
 		</li>
-		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
+		<li th:each="round:${roundList}" class="round" tab-index="0">• <a
 			th:href="${'/round/' + round.roundNo}" th:text="${round.roundName}">
 		</a>
 		</li>
+		
+	 <li><div id="noQuestList" th:if="${roundList.size == 0}"> 
+		<img src="/imgs/etc/sorry.svg" />
+		<div class="describe">
+			<h1>Oops!</h1>
+			<h2>아직 올라온 회차가 없습니다</h2>
+			<h3>직접 문제를 등록하시려면, 로그인 후 회차 추가 버튼을 눌러주세요!</h3>
+		</div>
+	</div></li>
 	</ul>
-	<div id="questList"></div>
+	
+	<div id="questList" th:if="${roundList.size != 0}"></div>
+
+	
 </body>
 </html>

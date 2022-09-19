@@ -100,8 +100,9 @@ hr {
   align-items: center;
 }
 
-#category #roundList {
-  width: 100%;
+#category > #roundList {
+  width: 100%; 
+  height: auto;
 }
 
 #category > #roundList ul {
@@ -112,14 +113,17 @@ hr {
 
   flex-wrap: wrap;
 
-  width: 100%;
-  height: 100%;
+  width: 100%; 
   max-height: 700px;
 
   padding: 28px 0 100px 0;
 }
 
 #category > #roundList > ul li {
+  display: flex; 
+	
+  width: 100%; 
+	
   padding: 4px 0;
 }
 
@@ -156,8 +160,62 @@ hr {
   text-underline-offset: 2px;
 }
 
+#category > #roundList > ul > li #noQuestList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1160px;
+
+  padding: 100px;
+
+  background: none;
+
+  color: var(--color-black);
+}
+
+#noQuestList img {
+  padding-right: 70px;
+
+  transition: var(--transition-default);
+}
+
+#noQuestList img:hover {
+  transform: scale(0.8);
+}
+
+#noQuestList .describe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#noQuestList > .describe > h1 {
+  font-family: 'Clash Display';
+  font-size: 60px;
+  font-weight: 600;
+
+  padding-bottom: 48px;
+}
+
+#noQuestList > .describe > h2 {
+  font-size: var(--font-big);
+  font-weight: 600;
+}
+
+#noQuestList > .describe > h3 {
+  font-size: var(--font-xlarge);
+  font-weight: 500;
+}
+
 @media screen and (max-width: 1270px) {
   #category {
     padding: 0 50px;
+  }
+  
+  #noQuestList {
+    padding: 100px 50px;
   }
 }

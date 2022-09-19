@@ -7,13 +7,14 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/category/categoryList.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<style type="text/css">body {
+<style type="text/css">
+body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-form input {
+#roundForm > form input {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -178,15 +179,7 @@ form input {
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/util.js"></script>
-<script type="text/javascript">
-		function register(){
-			if(!session()){
-				alert('세션이 만료되었습니다');
-				location.href ="/";
-				
-				return false;
-			}
-		}
+<script type="text/javascript"> 
 	</script>
 </head>
 <body>
@@ -195,12 +188,12 @@ form input {
 	<hr>
 
 	<div id="roundForm">
-		<h1>회차등록 페이지</h1>
+		<h1>신규 회차 등록  </h1>
 		<div id="navbar__divider"></div>
 
 		<form action="/round/insert" method="post">
 			<label for="testNo"></label> <input type="hidden" name="testNo"
-				th:value="${test.testNo}" /> <label for="regUser">회차 등록자</label> <input
+				th:value="${test.testNo}" /> <label for="regUser">등록인</label> <input
 				name="regUser" th:value="${session.user.userNickname}" readonly />
 
 			<label for="testName">시험 이름 </label> <input name="testName"
