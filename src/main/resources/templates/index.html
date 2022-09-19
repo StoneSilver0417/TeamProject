@@ -9,10 +9,39 @@
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/main/index.css" />
 <link rel="stylesheet" href="/css/main/footer.css" />
-<style type="text/css">
-.category {
-	float: left;
-	margin: 1%;
+<style type="text/css"> 
+#authorityBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  float: right;
+
+  height: 40px;
+  min-width: 110px;
+
+  white-space: nowrap;
+
+  padding: 10px 16px 10px 16px;
+  margin-top: 20px;
+
+  border: 1px solid var(--color-black);
+  border-radius: 1px;
+
+  font-weight: 500;
+  font-size: var(--font-xlarge);
+  line-height: 27px;
+  letter-spacing: -0.02em;
+
+  color: var(--color-black);
+}
+
+#authorityBtn:hover {
+  background-color: var(--color-light-grey);
+}
+
+#authorityBtn:active {
+  background-color: #e1e1e1;
 }
 </style>
 <script src="/js/script.js"></script>
@@ -23,21 +52,15 @@
 <body>
 	<!-- header -->
 	<div th:replace="layout/header :: header"></div>
-	<hr>
-
+	<hr> 
 
 	<a th:if="${session.user?.userRole?.toString() == 'ADMIN'}"
-		href="/authority">Authority</a>
+		href="/authority" id="authorityBtn">관리자 페이지</a>
 
 
 	<!-- <div th:replace="layout/header2 :: main"></div> -->
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-	<script>
-    const nextBtn = document.querySelector('.fa-chevron-right');
-    const prevBtn = document.querySelector('.fa-chevron-left');
-    const slides = document.querySelectorAll('.slide');
-    const slideIcons = document.querySelectorAll('.slide-icon');
-    
+	<script> 
 	function profileOnclick() {
 		document.getElementById('profileDropdown').classList.toggle('show');
 		window.onclick = function(event) {
@@ -79,8 +102,8 @@
 	</script>
 
 	<!-- section: slider -->
-	
-	
+
+
 	<div id="slider">
 		<div class="slide active">
 			<img src="imgs/slidebar/illustration-5.svg" />
@@ -129,7 +152,10 @@
 			<div class="slide-icon"></div>
 		</div>
 	</div>
-	<script>
+	<script> const nextBtn = document.querySelector('.fa-chevron-right');
+    const prevBtn = document.querySelector('.fa-chevron-left');
+    const slides = document.querySelectorAll('.slide');
+    const slideIcons = document.querySelectorAll('.slide-icon');
       const numberOfSlides = slides.length;
       var slideNumber = 0;
 
@@ -144,7 +170,7 @@
 
         slideNumber++;
 
-        if (slideNumber > (numberOfSlides - 1)) {
+        if (slideNumber > numberOfSlides - 1) {
           slideNumber = 0;
         }
 
@@ -152,82 +178,77 @@
         slideIcons[slideNumber].classList.add('active');
       });
 
-      // previous button 
-      prevBtn.addEventListener("click", () => {
-      slides.forEach((slide) => {
-        slide.classList.remove("active");
+      // previous button
+      prevBtn.addEventListener('click', () => {
+        slides.forEach((slide) => {
+          slide.classList.remove('active');
+        });
+        slideIcons.forEach((slideIcon) => {
+          slideIcon.classList.remove('active');
+        });
+
+        slideNumber--;
+
+        if (slideNumber < 0) {
+          slideNumber = numberOfSlides - 1;
+        }
+
+        slides[slideNumber].classList.add('active');
+        slideIcons[slideNumber].classList.add('active');
       });
-      slideIcons.forEach((slideIcon) => {
-        slideIcon.classList.remove("active");
-      });
-
-      slideNumber--;
-
-      if(slideNumber < 0){
-        slideNumber = numberOfSlides - 1;
-      }
-
-      slides[slideNumber].classList.add("active");
-      slideIcons[slideNumber].classList.add("active");
-    });
 
       var playSlider;
 
-		var repeater = () => {
-		  playSlider = setInterval(function(){
-		    slides.forEach((slide) => {
-		      slide.classList.remove("active");
-		    });
-		    slideIcons.forEach((slideIcon) => {
-		      slideIcon.classList.remove("active");
-		    });
-		
-		    slideNumber++;
-		
-		    if(slideNumber > (numberOfSlides - 1)){
-		      slideNumber = 0;
-		    }
-		
-		    slides[slideNumber].classList.add("active");
-		    slideIcons[slideNumber].classList.add("active");
-		  }, 7000);
-		}
-		repeater();
+      var repeater = () => {
+        playSlider = setInterval(function () {
+          slides.forEach((slide) => {
+            slide.classList.remove('active');
+          });
+          slideIcons.forEach((slideIcon) => {
+            slideIcon.classList.remove('active');
+          });
 
-		//stop the image slider autoplay on mouseover
-		slider.addEventListener("mouseover", () => {
-		  clearInterval(playSlider);
-		});
-		
-		//start the image slider autoplay again on mouseout
-		slider.addEventListener("mouseout", () => {
-		  repeater();
-		});
-    </script>
-	<button th:if="${session.user?.userRole?.toString() == 'ADMIN'}">
-		<a href="/authority">Authority</a>
-	</button>
+          slideNumber++;
 
+          if (slideNumber > numberOfSlides - 1) {
+            slideNumber = 0;
+          }
+
+          slides[slideNumber].classList.add('active');
+          slideIcons[slideNumber].classList.add('active');
+        }, 7000);
+      };
+      repeater();
+
+      //stop the image slider autoplay on mouseover
+      slider.addEventListener('mouseover', () => {
+        clearInterval(playSlider);
+      });
+
+      //start the image slider autoplay again on mouseout
+      slider.addEventListener('mouseout', () => {
+        repeater();
+      });
+    </script> 
+    
 	<!-- section: board list -->
 	<section id="boardList">
 		<div class="popularBoard boardList__list"></div>
 		<div class="newQuest boardList__list"></div>
-		  <div class="qnaBoard boardList__list">
+		<div class="qnaBoard boardList__list">
 			<img src="imgs/boardList-icons/qnaBoard.svg" class="icon" />
 			<h1>QnA</h1>
 			<ul>
 				<li><a href="">한국사능력검정<i class="fa-solid fa-chevron-right"></i></a>
 				</li>
-				<li><a href="">건축기사<i
-						class="fa-solid fa-chevron-right"></i></a></li>
-				<li><a href="">워드프로세서<i
-						class="fa-solid fa-chevron-right"></i></a></li>
+				<li><a href="">건축기사<i class="fa-solid fa-chevron-right"></i></a></li>
+				<li><a href="">워드프로세서<i class="fa-solid fa-chevron-right"></i></a></li>
 				<li><a href="">컴퓨터활용능력1급<i
 						class="fa-solid fa-chevron-right"></i></a></li>
 				<li><a href="">공인중개사<i class="fa-solid fa-chevron-right"></i></a>
 				</li>
 			</ul>
-		</div> 
+		</div>
 	</section>
 
 	<!-- footer -->
