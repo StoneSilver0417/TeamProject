@@ -11,4 +11,5 @@ public class Quest {
 	private String questContent;
 	private String answer;
 	private Choice choice;
+	private String regUser;
 }
