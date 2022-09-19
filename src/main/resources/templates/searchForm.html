@@ -5,15 +5,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/main/header.css" />
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main/footer.css" />
+<script src="/js/script.js"></script>
+
 <style>
-	li{
-		margin: 5%;
-		float: left;
-	}
-	
-	div{
-		clear: left;
-	}
+li {
+	margin: 5%;
+	float: left;
+}
+
+div {
+	clear: left;
+}
 </style>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
@@ -132,22 +135,24 @@
 </head>
 <body>
 	<div th:replace="layout/header :: header"></div>
-	
+	<hr>
+
 	<form action="/form" method="post">
-		<div class="container">			
-			<ul id="result">				
+		<div class="container">
+			<ul id="result">
 			</ul>
-			
-			<input type="submit" class="pull-right btn btn-primary btn-block" style="width: 100px; margin: 10px 0;" value="글쓰기"/>
-			<br/>
-			<br/>
-			<div id="mainHide">
-			</div>
+
+			<input type="submit" class="pull-right btn btn-primary btn-block"
+				style="width: 100px; margin: 10px 0;" value="글쓰기" /> <br /> <br />
+			<div id="mainHide"></div>
 			<br />
 			<!-- 페이지 네비게이션 -->
-			<nav id="navi" aria-label="Page navigation" style="text-align: center;">			
-			</nav>
+			<nav id="navi" aria-label="Page navigation"
+				style="text-align: center;"></nav>
 		</div>
 	</form>
+
+	<!-- footer -->
+	<div th:replace="layout/footer :: footer"></div>
 </body>
 </html>
