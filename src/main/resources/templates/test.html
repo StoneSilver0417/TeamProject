@@ -11,29 +11,34 @@
 <link rel="stylesheet" href="/css/main/footer.css" />
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/script.js"></script>
+<style type="text/css">
+hr {
+	width: 100%;
+}
+</style>
 <script type="text/javascript">
-   $(document).ready(function() {
-      $.ajax({
-         url : '/round/list',
-         type : 'post',
-         data : {
-            testNo : $('#testNo').attr('value')
-         },
-         success : function(data) {
-            $('#roundCount').html(data.length);
-            $.ajax({
-               url : '/round',
-               type : 'post',
-               data : {
-                  param : JSON.stringify(data)
-               },
-               success : function(data) {
-                  $('#roundList').html(data);
-               }
-            })
-         }
-      })
-   })
+	$(document).ready(function() {
+		$.ajax({
+			url : '/round/list',
+			type : 'post',
+			data : {
+				testNo : $('#testNo').attr('value')
+			},
+			success : function(data) {
+				$('#roundCount').html(data.length);
+				$.ajax({
+					url : '/round',
+					type : 'post',
+					data : {
+						param : JSON.stringify(data)
+					},
+					success : function(data) {
+						$('#roundList').html(data);
+					}
+				})
+			}
+		})
+	})
 </script>
 </head>
 <body>
@@ -53,8 +58,7 @@
 			</div>
 			<section th:if="${session.user != null}"
 				th:with="info = ${session.user}">
-				<div
-					th:if="${info.userRole.toString() == 'ADMIN'|| info.userId == 'test.managerId'}">
+				<div>
 					<form action="/insertRound" method="post" id="info__button">
 						<input type="hidden" id="testNo" th:value="${test.testNo}"
 							name="testNo"> <input type="hidden" id="testName"

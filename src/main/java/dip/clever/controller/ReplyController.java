@@ -106,23 +106,23 @@ public class ReplyController {
 	  
 	@Transactional
 	@PutMapping("/edit-reply2/{id}") 
-	public ResponseEntity<Reply> updateComment(@PathVariable String id, Reply reply1) {
-		System.out.println("======> setting 전: " + reply1.toString());
+	public ResponseEntity<Reply> updateComment(@PathVariable int id, Reply reply) {
+		reply.setReplyNo(id);
+//		System.out.println("======> setting 전: " + reply1.toString());
 		// 아이디를 통해서 수정 전 댓글을 가져옴
-		Reply reply = replyservice.findReplyById(id);
 		System.out.println(reply);
 		
-		reply.setContent(reply1.getContent());
+//		reply.setContent(reply1.getContent());
 		
 		System.out.println("======> setting 후: " + reply.toString());
 		replyservice.modifyReply(reply);
-		return new ResponseEntity<Reply>(reply1, HttpStatus.OK);
+		return new ResponseEntity<Reply>(reply, HttpStatus.OK);
 	}
 		 
 	@PostMapping("/reply/{userId}")
 	public String myReply(Model model, @PathVariable String userId) {
 		model.addAttribute("replyList", replyservice.selectMyReply(userId));
-		System.out.println(userId);
+
 		return "/mypage/activity/mypage-reply";
 	}
 }

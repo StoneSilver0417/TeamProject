@@ -122,7 +122,6 @@
 		});
 	}
 	function Goedit(button) {
-		var input = confirm('댓글을 수정하시겠습니까?');
 		var id = button.value;
 		var no = $('#questNo2').val();
 
@@ -130,7 +129,7 @@
 			url : "/edit-reply/" + id,
 			type : "post",
 			data : {
-				id : id
+				id : id,
 			},
 			contentType : "application/json",
 			success : function(data) {
@@ -159,19 +158,21 @@
 			});
 		}
 	}
-	
-	function answer(event){
+
+	function answer(event) {
 		var ans = $('input[name=choice]:checked')[0].value;
-		
+
 		$.ajax({
-			url:'/quest/check',
-			type:'post',
-			data:{param:JSON.stringify({
-				questNo:$('#questNo').val(),
-				answer:ans
-			})},
-			success:function(data){
-				if(data.length != 0)
+			url : '/quest/check',
+			type : 'post',
+			data : {
+				param : JSON.stringify({
+					questNo : $('#questNo').val(),
+					answer : ans
+				})
+			},
+			success : function(data) {
+				if (data.length != 0)
 					alert('정답!');
 				else
 					alert('오답');
@@ -197,7 +198,7 @@
 		<input type="hidden" id="questNo" th:value="${quest.questNo}">
 	</div>
 
-<hr>
+	<hr>
 
 	<!-- quest: 현재 문제 내용 출력 -->
 	<div id="quest">
@@ -206,31 +207,31 @@
 				<span class="questNum" th:text="${quest.questSeq}"></span> <span
 					class="questNum">.</span> <span class="questContent"
 					th:text="${quest.questContent}"> </span>
-					
+
 			</p>
 		</div>
 
 		<!-- 객관식 경우 -->
 		<div class="questChoices" th:if="${quest.choice.c1 != null}">
-			<ol onchange="answer(this);">
-				<li th:if="${quest.choice.c1 != null}"><label> <input
+			<ol onchange="answer(this);" th:with="choice = ${quest.choice}">
+				<li th:if="${choice.c1 != null}"><label> <input
 						type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c1}" value="1" />
 				</label></li>
-				<li th:if="${quest.choice.c2 != null}"><label> <input
+				<li th:if="${choice.c2 != null}"><label> <input
 						type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c2}" value="2" />
 				</label></li>
-				<li th:if="${quest.choice.c3 != null}"><label> <input
-						type="radio" name="choice" class="choice"
+				<li th:if="${choice.c3 != null && choice.c3 !=''}"><label>
+						<input type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c3}" value="3" />
 				</label></li>
-				<li th:if="${quest.choice.c4 != null}"><label> <input
-						type="radio" name="choice" class="choice"
+				<li th:if="${choice.c4 != null && choice.c4 !=''}"><label>
+						<input type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c4}" value="4" />
 				</label></li>
-				<li th:if="${quest.choice.c5 != null}"><label> <input
-						type="radio" name="choice" class="choice"
+				<li th:if="${choice.c5 != null && choice.c5 !=''}"><label>
+						<input type="radio" name="choice" class="choice"
 						th:text="${quest.choice.c5}" value="5" />
 				</label></li>
 			</ol>
@@ -242,15 +243,14 @@
 	</div>
 
 	<div id="goBack">
-		<button th:if="${session.user.userId == " onclick="nextBtn()" id="goBackBtn">다음 문제</button>
-		<button th:if="${session.user.userId == " onclick="qEditBtn()" id="qEditBtn">수정</button>
-		<button th:if="${session.user.userId == " onclick="qRemoveBtn()" id="qRemoveBtn">삭제</button>
+		<button onclick="nextBtn()" id="goBackBtn">다음 문제</button>
 	</div>
 	<hr />
 
-	<div id="comment" th:if="${session.user != null}">
+	<div id="comment">
 		<!-- write comment -->
-		<div id="writeComment" th:value="${quest.questNo}">
+		<div id="writeComment" th:value="${quest.questNo}"
+			th:if="${session.user != null}">
 			<!-- user info -->
 			<div class="user__profile">
 				<!-- 프로필 사진 -->
@@ -307,13 +307,16 @@
 									</div>
 								</div>
 								<!-- 작성 시간 -->
-								<p th:text="${#dates.format(reply.REG_TIME,'yyyy-MM-dd HH:mm')}"></p>							</div>
+								<p th:text="${#dates.format(reply.REG_TIME,'yyyy-MM-dd HH:mm')}"></p>
+							</div>
 							<div class="commentContent">
 								<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
 							</div>
 						</div>
 					</div>
-					<div onclick="replyOnclick(this)" th:if="${session.user?.userId == reply.REG_USER}" class="comment__actions">
+					<div onclick="replyOnclick(this)"
+						th:if="${session.user?.userId == reply.REG_USER || session.user?.userRole?.toString() == 'ADMIN'}"
+						class="comment__actions">
 						<i class="fa-solid fa-ellipsis-vertical"></i>
 						<div id="replyDropdown" class="reply-dropdown">
 							<ul>
@@ -326,7 +329,7 @@
 								</li>
 							</ul>
 						</div>
-					</div> 
+					</div>
 				</div>
 			</li>
 		</ul>

@@ -18,10 +18,13 @@ public class Json {
 		String2 dat = new String2(data);
 		String2 json;
 		
-		if(isList(dat))	dat.removeSide();		
 		
+		if(isList(dat))	dat.removeSide();		
+
 		while(isJson(dat)) {
 			json = getJson(dat);
+//			System.out.println("json: " + json);
+//			System.out.println("data: " + dat);
 			
 			if(json == null)	break;
 			
@@ -84,7 +87,6 @@ public class Json {
 
 	private static String getString(String2 string) {
 		final int index = string.removefirst().find("\"");
-				
 		return string.divide(index + 1).removeLast().get();
 	}
 	
@@ -101,11 +103,12 @@ public class Json {
 	}
 	
 	private static boolean isString(String2 data) {
+		//System.out.println(data);
 		return data.isFirst('"');
 	}
 	
 	public static void main(String[] args) {
-		final String str = "[{\"questSeq\":1,\"questContent\":\"소프트웨어 개발에 이용되는 모델(Model)에 대한 설명 중 거리가 먼 것은?\",\"answer\":null,\"choice\":{\"questNo\":0,\"c1\":\"스크럼 마스터(Scrum Master)는 스크럼 프로세스를 따르고, 팀이 스크럼을 효과적으로 활용할 수 있도록 보장하는 역할 등을 맡는다.\",\"c2\":\"제품 백로그(Product Backlog)는 스크럼 팀이 해결해야 하는 목록으로 소프트웨어 요구사항, 아키텍처 정의 등이 포함될 수 있다.\",\"c3\":\"오류로 인해 발생 될 수 있는 부정적인 내용을 적극적으로 사용자들에게 알려야 한다.\",\"c4\":\"소리나 색의 사용을 줄이고 텍스트로만 전달하도록 한다.\",\"c5\":null}}]";
+		final String str = "[{\"questNo\":90,\"roundNo\":0,\"questSeq\":1,\"questContent\":\"문제입니다.\",\"answer\":null,\"regUser\":null,\"choice\":{\"questNo\":0,\"c1\":\"1\",\"c2\":\"2\",\"c3\":\"3\",\"c4\":\"4\",\"c5\":\"5\"}}]";
 		
 		System.out.println(parse(str));
 	}
