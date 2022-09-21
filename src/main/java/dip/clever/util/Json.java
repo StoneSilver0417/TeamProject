@@ -23,8 +23,8 @@ public class Json {
 
 		while(isJson(dat)) {
 			json = getJson(dat);
-			System.out.println("json: " + json);
-			System.out.println("data: " + dat);
+//			System.out.println("json: " + json);
+//			System.out.println("data: " + dat);
 			
 			if(json == null)	break;
 			

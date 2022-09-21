@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+<meta http-equiv="Content-Security-Policy"
+	content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clever</title>
@@ -18,7 +20,7 @@
 	const button = $('#sendCommentBtn');
 
 	button.disabled = true;
- 
+
 	function stateHandle() {
 		if (placeholder.val() === '') {
 			button.disabled = true;
@@ -70,7 +72,7 @@
 		if (input == true) {
 			$.ajax({
 				url : '/delete-reply',
-				type : 'POST', 
+				type : 'POST',
 				data : {},
 				success : function(data) {
 					alert(data);
@@ -95,7 +97,7 @@
 			<p>문제</p>
 		</div>
 	</div>
-<div id="navbar__divider"></div>
+	<div id="navbar__divider"></div>
 
 	<div id="quest">
 		<div class="questNumAndQuestContent">
@@ -150,7 +152,7 @@
 						th:if="${info.userExp} >= 0" src="imgs/badge/new.svg" /> -->
 				</div>
 			</div>
-			<!-- write comment form --> 
+			<!-- write comment form -->
 			<textarea class="writeForm" placeholder="댓글을 작성해주세요."></textarea>
 
 			<!-- send button -->
@@ -162,50 +164,50 @@
 
 		<!-- comment list -->
 		<ul id="commentList">
-		<li th:each="reply:${user}">
-			<!-- user info --> <!-- 프로필 사진 -->
-			<div class="comment__content">
-				<div class="leftWrapper">
-					<div class="profile__img">
-						<img src="imgs/profile-img.png" />
-					</div>
-					<!-- 유저 이름/등급 / 댓글 내용 -->
-					<div class="userInfoAndCommentWrapper">
-						<div class="profileWrapper">
-							<div class="nameAndLevelWrapper">
-								<!-- 이름 -->
-								<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
-								<!-- 레벨 -->
-								<div id="profile__badge">
-									<img th:if="${reply.USER_EXP} >= 300"
-										src="imgs/badge/master.svg" /><img
-										th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
-										th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
-										th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+			<li th:each="reply:${user}">
+				<!-- user info --> <!-- 프로필 사진 -->
+				<div class="comment__content">
+					<div class="leftWrapper">
+						<div class="profile__img">
+							<img src="imgs/profile-img.png" />
+						</div>
+						<!-- 유저 이름/등급 / 댓글 내용 -->
+						<div class="userInfoAndCommentWrapper">
+							<div class="profileWrapper">
+								<div class="nameAndLevelWrapper">
+									<!-- 이름 -->
+									<p th:text="${reply.USER_NICKNAME}" id="profile__name"></p>
+									<!-- 레벨 -->
+									<div id="profile__badge">
+										<img th:if="${reply.USER_EXP} >= 300"
+											src="imgs/badge/master.svg" /><img
+											th:if="${reply.USER_EXP} >= 100" src="imgs/badge/level2.svg" /><img
+											th:if="${reply.USER_EXP} >= 50" src="imgs/badge/level1.svg" /><img
+											th:if="${reply.USER_EXP} >= 0" src="imgs/badge/new.svg" />
+									</div>
 								</div>
+								<!-- 작성 시간 -->
+								<p th:text="${reply.REG_TIME}">한 시간 전</p>
 							</div>
-							<!-- 작성 시간 -->
-							<p th:text="${reply.REG_TIME}">한 시간 전</p>
+							<div class="commentContent">
+								<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+							</div>
 						</div>
-						<div class="commentContent">
-							<p th:text="${reply.CONTENT}" class="replace-commentEdit"></p>
+					</div>
+					<div onclick="replyOnclick(this)" class="comment__actions">
+						<i class="fa-solid fa-ellipsis-vertical"></i>
+						<div id="replyDropdown" class="reply-dropdown">
+							<ul>
+								<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
+								<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
-				<div onclick="replyOnclick(this)" class="comment__actions">
-					<i class="fa-solid fa-ellipsis-vertical"></i>
-					<div id="replyDropdown" class="reply-dropdown">
-						<ul>
-							<li onclick="editReply(this)"><a href="/edit-reply">수정</a></li>
-							<li onclick="deleteReply(this)"><a href="/delete-reply">삭제</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="navbar__divider"></div>
-		</li>
-	</ul>
+				<div id="navbar__divider"></div>
+			</li>
+		</ul>
 	</div>
 </body>
 </html>

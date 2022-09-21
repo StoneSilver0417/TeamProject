@@ -414,6 +414,10 @@ nav a:hover {
   background: var(--color-yellow);
 }
 
+.category .sub-category {
+  background: var(--color-yellow);
+}
+
 .category:focus .sub-category,
 .category:focus-within .sub-category,
 .category:hover .sub-category {

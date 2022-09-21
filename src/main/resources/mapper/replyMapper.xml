@@ -32,10 +32,29 @@
 	<!-- USER 테이블과 REPLY테이블 조인하여 정보 출력 -->
 	<select id="joinUser" parameterType="int"
 		resultType="java.util.HashMap">
-		SELECT T2.USER_NICKNAME, T2.USER_EXP, T1.CONTENT, T1.REG_TIME, T1.REPLY_NO, T1.REG_USER, T1.QUEST_NO
+		SELECT	T2.USER_NICKNAME, 
+			T1.CONTENT, 
+			T1.REG_TIME, 
+			T1.REPLY_NO, 
+			T1.REG_USER, 
+			T1.QUEST_NO,
+			IFNULL(T3.USER_EXP, 0)	AS USER_EXP
 		FROM tb_reply AS T1
+		LEFT JOIN	(
+			SELECT	USER_ID, COUNT(*)			AS USER_EXP
+			FROM (
+				SELECT		T3.*
+				FROM			TB_LOG				AS T3
+				INNER JOIN		TB_USER				AS T4
+					ON				T3.USER_ID = T4.USER_ID
+				WHERE			ACTION = 'SOLVED'
+				GROUP BY		USER_ID, TARGET_ID
+				)		AS T
+			GROUP BY 		USER_ID
+			)			AS T3
+			ON					T1.REG_USER = T3.USER_ID		
 		INNER JOIN tb_user AS T2
-		ON T2.USER_ID = T1.REG_USER
+			ON T2.USER_ID = T1.REG_USER
 		WHERE T1.use_f = 'Y'
 		AND Quest_no = #{no}
 	</select>
@@ -70,13 +89,14 @@
 					T1.QUEST_NO, 
 					T1.CONTENT, 
 					T1.REG_TIME
-		FROM		tb_reply	AS T1
-		INNER JOIN	tb_quest	AS T2
+		FROM		TB_REPLY	AS T1
+		INNER JOIN	TB_QUEST	AS T2
 			ON			T2.QUEST_NO = T1.QUEST_NO
-		INNER JOIN	tb_round	AS T3
+		INNER JOIN	TB_ROUND	AS T3
 			ON			T3.ROUND_NO = T2.ROUND_NO
-		INNER JOIN	tb_test	AS T4
+		INNER JOIN	TB_TEST	AS T4
 			ON			T4.TEST_NO = T3.TEST_NO
 		WHERE		T1.REG_USER = #{userId}
+		AND			T1.USE_F = 'Y'
 	</select>
 </mapper>

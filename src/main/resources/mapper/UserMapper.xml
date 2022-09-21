@@ -34,11 +34,7 @@
  
 	<select id="selectUser" parameterType="dip.clever.model.User"
 		resultMap="userMap">
-		SELECT	T1.USER_ID,
-			T1.USER_NICKNAME,
-			T1.USER_EMAIL,
-			T1.USER_ROLE,
-			T1.REG_TIME,(
+		SELECT	T1.*,(
 			SELECT	COUNT(*)
 			FROM (
 				SELECT		*
@@ -80,9 +76,24 @@
 	
 	<!-- 유저 서치 리스트출력 -->
 	<select id="findSearchResult" resultMap="userMap">
-		SELECT *
-		FROM TB_USER
-		WHERE USER_ID LIKE '%${keyword}%'
+		SELECT 		T1.* , 
+					IFNULL(T2.USER_EXP, 0)		AS USER_EXP
+		FROM		TB_USER		AS T1
+		LEFT JOIN	(
+			SELECT	USER_ID, COUNT(*)			AS USER_EXP
+			FROM (
+				SELECT		T3.*
+				FROM			TB_LOG				AS T3
+				INNER JOIN		TB_USER				AS T4
+					ON				T3.USER_ID = T4.USER_ID
+				WHERE			ACTION = 'SOLVED'
+				GROUP BY		USER_ID, TARGET_ID
+				)		AS T
+			GROUP BY 		USER_ID
+			)			AS T2
+			ON					T1.USER_ID = T2.USER_ID
+		WHERE		T1.USER_ID LIKE '%${keyword}%'
+		AND			USE_F = 'Y'
 	</select>
 
 	<!-- 유저 삭제 -->

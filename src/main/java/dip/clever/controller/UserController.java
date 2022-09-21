@@ -113,10 +113,10 @@ public class UserController {
 	// 유저 리스트출력
 	@GetMapping("/authority")
 	public String checkAll(Model model) {
-		List<User> user = userService.findAll();
+		List<User> user = userService.findSearchResult("");
 		model.addAttribute("checkAll", user);
-		// System.out.println(user.toString());
-		return "authority";
+		System.out.println(user.toString());
+		return "Authority";
 	}
 
 	// 관리자- 유저 검색 method

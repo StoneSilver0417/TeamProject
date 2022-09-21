@@ -58,8 +58,7 @@ hr {
 			</div>
 			<section th:if="${session.user != null}"
 				th:with="info = ${session.user}">
-				<div
-					th:if="${info.userRole.toString() == 'ADMIN'|| info.userId == 'test.managerId'}">
+				<div>
 					<form action="/insertRound" method="post" id="info__button">
 						<input type="hidden" id="testNo" th:value="${test.testNo}"
 							name="testNo"> <input type="hidden" id="testName"
